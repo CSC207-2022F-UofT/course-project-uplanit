@@ -9,6 +9,4 @@ public class Event {
     // default for location is null
     public String location;
 
-
-
 }
