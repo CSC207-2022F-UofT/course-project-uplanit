@@ -34,7 +34,7 @@ public class ModifyEvent {
         Time default_time = new Time(0);
 
         // if this event object contains commute time:
-        if(new_commuteTime != default_time) {
+        if(!new_commuteTime.equals(default_time)) {
             event.commuteTime = new_commuteTime;
         }
     }
