@@ -9,7 +9,6 @@ public class Event {
     // default for location is null so check that in code to check if the event has a location or not
     public String location;
 
-
     // Constructs an event with only a name, startTime, and endTime.
     public Event(String name, Date startTime, Date endTime){
         this.name = name;
@@ -45,7 +44,5 @@ public class Event {
         this.commuteTime = commuteTime;
         this.location = location;
     }
-
-
 
 }
