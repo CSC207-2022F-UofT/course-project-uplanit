@@ -1,12 +1,25 @@
 import java.sql.Time;
 import java.util.Date;
-public class ModifyEvent {
+public class ModifyEvent extends Event{
     // this part changes a lot depending on how the Event Class is implemented
     Event event;
 
-    public ModifyEvent(Event e){
-        event = e;
+    // constructors
+    public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime){
+        super(name, startTime, endTime, commuteTime);
     }
+    public ModifyEvent(String name, Date startTime, Date endTime){
+        super(name, startTime, endTime);
+    }
+
+    public ModifyEvent(String name, Date startTime, Date endTime, String location){
+        super(name, startTime, endTime, location);
+    }
+
+    public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime, String location){
+        super(name, startTime, endTime, commuteTime, location);
+    }
+
 
     public void ChangeEventStart(Date new_start){
         event.startTime = new_start;
