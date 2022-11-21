@@ -18,6 +18,7 @@ public class Calendar {
         weekMaps.add(week);
     }
 
+
     public String AlertConflict() {
         for(int i = 0; i < weekMaps.size(); i++){
             // again, this part depends on how the Week Class is implemented
