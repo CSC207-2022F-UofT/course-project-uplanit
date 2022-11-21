@@ -11,10 +11,3 @@ public class Deadline {
     public Deadline(String name, Date date){
         this.name = name;
         this.date = date;
-
-
-
-
-
-    }
-}
