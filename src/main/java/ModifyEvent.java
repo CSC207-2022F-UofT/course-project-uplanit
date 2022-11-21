@@ -21,6 +21,7 @@ public class ModifyEvent extends Event{
     }
 
 
+
     public void ChangeEventStart(Date new_start){
         event.startTime = new_start;
     }
