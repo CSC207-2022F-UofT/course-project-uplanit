@@ -20,8 +20,6 @@ public class ModifyEvent extends Event{
         super(name, startTime, endTime, commuteTime, location);
     }
 
-
-
     public void ChangeEventStart(Date new_start){
         event.startTime = new_start;
     }
