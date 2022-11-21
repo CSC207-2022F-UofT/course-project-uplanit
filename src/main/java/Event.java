@@ -10,7 +10,13 @@ public class Event {
     public String location;
 
 
-    // Constructs an event with only a name, startTime, and endTime.
+    /**
+     * Constructs an event with only a name, startTime, and endTime.
+     *
+     * @param name the name of the event
+     * @param startTime the time the event starts at
+     * @param endTime the time the event ends at
+     */
     public Event(String name, Date startTime, Date endTime){
         this.name = name;
         this.startTime = startTime;
@@ -19,7 +25,14 @@ public class Event {
     }
 
 
-    // Constructs an event with a name, startTime, endTime, and commuteTime.
+    /**
+     * Constructs an event with only a name, startTime, and endTime.
+     *
+     * @param name the name of the event
+     * @param startTime the time the event starts at
+     * @param endTime the time the event ends at
+     * @param commuteTime the commute time to get to the event
+     */
     public Event(String name, Date startTime, Date endTime, Time commuteTime){
         this.name = name;
         this.startTime = startTime;
@@ -28,7 +41,14 @@ public class Event {
     }
 
 
-    // Constructs an event with a name, startTime, endTime, and location.
+    /**
+     * Constructs an event with a name, startTime, endTime, and location.
+     *
+     * @param name the name of the event
+     * @param startTime the time the event starts at
+     * @param endTime the time the event ends at
+     * @param location the location of the event
+     */
     public Event(String name, Date startTime, Date endTime, String location){
         this.name = name;
         this.startTime = startTime;
@@ -37,7 +57,15 @@ public class Event {
     }
 
 
-    // Constructs an event with a name, startTime, endTime, commuteTime, and location.
+    /**
+     * Constructs an event with a name, startTime, endTime, commuteTime, and location.
+     *
+     * @param name the name of the event
+     * @param startTime the time the event starts at
+     * @param endTime the time the event ends at
+     * @param commuteTime the commute time to get to the event
+     * @param location the location of the event
+     */
     public Event(String name, Date startTime, Date endTime, Time commuteTime, String location){
         this.name = name;
         this.startTime = startTime;
