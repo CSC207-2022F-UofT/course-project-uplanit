@@ -1,7 +1,9 @@
+import entities.Event;
+
 import java.sql.Time;
 import java.util.Date;
 public class ModifyEvent extends Event{
-    // this part changes a lot depending on how the Event Class is implemented
+    // this part changes a lot depending on how the entities.Event Class is implemented
     Event event;
 
     // constructors

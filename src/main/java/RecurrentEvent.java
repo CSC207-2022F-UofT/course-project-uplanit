@@ -1,7 +1,9 @@
+import entities.Event;
+
 import java.sql.Time;
 import java.util.Date;
 
-public class RecurrentEvent extends Event{
+public class RecurrentEvent extends Event {
 
     public boolean happensBiweekly;
 

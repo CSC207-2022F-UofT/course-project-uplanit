@@ -1,3 +1,5 @@
+import entities.Event;
+
 import java.sql.Time;
 import java.util.Date;
 
