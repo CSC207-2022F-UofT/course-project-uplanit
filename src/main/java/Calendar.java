@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.List;
+import entities.Event;
 
 public class Calendar {
     // This depends on how the Week Class is implemented. Change the ArrayList's content Type if necessary.
