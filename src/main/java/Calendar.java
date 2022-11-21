@@ -13,6 +13,7 @@ public class Calendar {
          weekMaps= new ArrayList<Map<Event,Date>>();
     }
 
+
     public void StoreWeekMaps(Map<Event, Date> week) {
         weekMaps.add(week);
     }
