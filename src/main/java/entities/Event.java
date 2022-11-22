@@ -76,5 +76,4 @@ public class Event {
         this.location = location;
     }
 
-
 }
