@@ -22,34 +22,19 @@ public class ModifyEvent extends Event{
         super(name, startTime, endTime, commuteTime, location);
     }
 
-    public void ChangeEventStart(Date new_start){
-        event.startTime = new_start;
-    }
+    //Changing Information
+    public void ChangeEventStart(Date new_start) { event.startTime = new_start; }
 
     public void ChangeEventEnd(Date new_end){
         event.endTime = new_end;
     }
 
-    public void ChangeLocation(String new_location){
-
-        // is location default null or empty string?
-
-        // if this event object contains location:
-        if(event.location == null) {
-            event.location = new_location;
-        }
-    }
+    public void ChangeLocation(String new_location) { event.location = new_location; }
 
     public void ChangeName(String new_name){
             event.name = new_name;
     }
 
-    public void ChangeCommuteTime(Time new_commuteTime){
-        Time default_time = new Time(0);
+    public void ChangeCommuteTime(Time new_commuteTime) { event.commuteTime = new_commuteTime; }
 
-        // if this event object contains commute time:
-        if(!new_commuteTime.equals(default_time)) {
-            event.commuteTime = new_commuteTime;
-        }
-    }
 }
