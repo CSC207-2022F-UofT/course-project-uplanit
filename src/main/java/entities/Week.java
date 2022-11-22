@@ -1,4 +1,7 @@
+package entities;
+
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +17,7 @@ public class Week {
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
         this.events = idealRecurrentEvents;
-        this.deadlines = new List<Deadline>();
+        this.deadlines = new ArrayList<Deadline>();
     }
 
     public HashMap<String, Duration> getGoalMap(){
@@ -63,7 +66,7 @@ public class Week {
 
     public boolean checkConflict(Event newEvent){
         for (Event e: this.events){
-            if (newEvent.eventStart.before(e.eventEnd) && newEvent.eventEnd.after(e.eventStart)){
+            if (newEvent.startTime.before(e.endTime) && newEvent.endTime.after(e.startTime)){
                 return true;
             }
         }
