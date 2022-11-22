@@ -1,5 +1,3 @@
-package entities;
-
 import entities.Event;
 
 import java.sql.Time;
@@ -64,4 +62,3 @@ public class RecurrentEvent extends Event {
     }
 
 }
-
