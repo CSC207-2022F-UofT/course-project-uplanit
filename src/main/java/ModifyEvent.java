@@ -1,4 +1,4 @@
-import entities.Event;
+import entities.*;
 
 import java.sql.Time;
 import java.util.Date;
@@ -7,7 +7,8 @@ public class ModifyEvent extends Event{
     Event event;
 
     // constructors
-    public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime){
+
+    /* public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime){
         super(name, startTime, endTime, commuteTime);
     }
     public ModifyEvent(String name, Date startTime, Date endTime){
@@ -17,6 +18,8 @@ public class ModifyEvent extends Event{
     public ModifyEvent(String name, Date startTime, Date endTime, String location){
         super(name, startTime, endTime, location);
     }
+
+     */
 
     public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime, String location){
         super(name, startTime, endTime, commuteTime, location);

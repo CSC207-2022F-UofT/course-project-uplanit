@@ -10,6 +10,8 @@ import java.util.Date;
 
 public class DynamicEvent extends Event{
 
+    private String dynamicGoal;
+
     /** Constructs a DynamicEvent with a name, startTime, endTime, commuteTime, and location.
      *
      * @param name the name of the event to be created
@@ -20,6 +22,14 @@ public class DynamicEvent extends Event{
      */
     public DynamicEvent(String name, Date startTime, Date endTime, Time commuteTime, String location){
         super(name, startTime, endTime, commuteTime, location);
+    }
+
+    public String getDynamicGoal(){
+        return this.dynamicGoal;
+    }
+
+    public void setDynamicGoal(String dynamicGoal){
+        this.dynamicGoal = dynamicGoal;
     }
 
 }
