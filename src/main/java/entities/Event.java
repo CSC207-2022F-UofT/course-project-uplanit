@@ -1,3 +1,8 @@
+/*
+This is the Event Entity;
+
+ */
+
 package entities;
 
 import java.sql.Time;

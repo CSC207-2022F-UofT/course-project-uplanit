@@ -1,8 +1,12 @@
-import entities.Event;
+/*
+This is the SingleEvent Entity;
+
+ */
+
+package entities;
 
 import java.sql.Time;
 import java.util.Date;
-import entities.Event;
 
 public class SingleEvent extends Event {
 

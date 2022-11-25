@@ -1,12 +1,10 @@
 /*
-This is the Deadline Entity; It stores information for all the deadlines
-aaaaaaaaaaaaaaaaaaa
-it works!
+This is the Deadline Entity;
 
  */
 
 package entities;
-import java.sql.Time;
+
 import java.util.Date;
 
 public class Deadline {
