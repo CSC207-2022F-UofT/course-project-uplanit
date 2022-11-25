@@ -13,11 +13,13 @@ public class Week {
     private HashMap<String, Duration> goalMap; //map tying goal names to time objects (goal counters)
     private List<Deadline> deadlines; //deadline names to deadline objects
 
+    private boolean isOdd;
+
     public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents){
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
         this.events = idealRecurrentEvents;
-        this.deadlines = new ArrayList<Deadline>();
+        this.deadlines = new ArrayList<>();
     }
 
     public HashMap<String, Duration> getGoalMap(){
@@ -85,5 +87,12 @@ public class Week {
         }
     }
 
+    public boolean getIsOdd(){
+        return this.isOdd;
+    }
+
+    public void setIsOdd(boolean isOdd){
+        this.isOdd = isOdd;
+    }
 
 }

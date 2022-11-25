@@ -1,9 +1,8 @@
 package entities;
 
-import java.sql.Time;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 
@@ -11,8 +10,10 @@ public class Calendar {
     public HashMap<Date, Week> weekMaps; // Hashmap containing Week objects and the first day of their week
                                         // a Date object.
 
-    public Week idealWeek1;
-    public Week idealWeek2;
+    private List<Event> idealRecurrentEventsOdd;
+    private List<Event> idealRecurrentEventsEven;
+
+    private HashMap<String, Duration> idealGoalMap;
 
     // we are still missing the ideal week stuff. addNextSixMonths method may be removed later.
 
@@ -32,23 +33,45 @@ public class Calendar {
         Week firstWeek = new Week(cal.getTime(), new HashMap<>(), new ArrayList<>());
 
         this.weekMaps.put(cal.getTime(), firstWeek);
-        addNextSixMonths(today);
 
-        this.idealWeek1 = new Week(null, null, null);
-        this.idealWeek2 = new Week(null, null, null);
+        this.idealRecurrentEventsOdd = new ArrayList<>();
+        this.idealRecurrentEventsEven = new ArrayList<>();
+
+        this.idealGoalMap = new HashMap<>();
+    }
+    public Date getNextSunday(Date Sunday){
+
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTime(Sunday);
+        cal.add(java.util.Calendar.DATE, 7);
+        return cal.getTime();
+
+    }
+    public void addNextWeek(Date firstDayOfCurrentWeek, boolean isOddWeek){
+
+        if (isOddWeek) {
+            this.weekMaps.put(getNextSunday(firstDayOfCurrentWeek),
+                    new Week(getNextSunday(firstDayOfCurrentWeek), idealGoalMap, idealRecurrentEventsEven));
+        }
+
+
+        else{
+            this.weekMaps.put(getNextSunday(firstDayOfCurrentWeek),
+                    new Week(getNextSunday(firstDayOfCurrentWeek), idealGoalMap, idealRecurrentEventsOdd));
+        }
+
     }
 
-    public void addNextSixMonths(Date today) {
-        // for practicality, six months are being considered 27 weeks.
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.setTime(today);
+    public void addIdealRecurrentEvent(Event recurrentEvent, boolean isOddWeek){
+        if (isOddWeek) {
+            this.idealRecurrentEventsOdd.add(recurrentEvent);
+        }
 
-        for (int i = 0; i <= 27; i++) {
-            cal.add(java.util.Calendar.DATE, 7);
-            Week week = new Week(cal.getTime(), new HashMap<>(), new ArrayList<>());
-            this.weekMaps.put(cal.getTime(), week);
+        else{
+            this.idealRecurrentEventsEven.add(recurrentEvent);
         }
     }
+
     public Week getWeek(Date startDate){
         return this.weekMaps.get(startDate);
         }
@@ -57,20 +80,19 @@ public class Calendar {
         return new ArrayList<>(this.weekMaps.values());
     }
 
-    public Week getIdealWeek1(){
-        return this.idealWeek1;
+    public List<Event> getIdealRecurrentEventsEven(){
+        return this.idealRecurrentEventsEven;
     }
 
-    public void setIdealWeek1(Week newIdealWeek1){
-        this.idealWeek1 = newIdealWeek1;
+    public void setIdealRecurrentEventsEven(List<Event> eventList){
+        this.idealRecurrentEventsEven = eventList;
     }
 
-    public Week getIdealWeek2(){
-        return this.idealWeek2;
+    public List<Event> getIdealRecurrentEventsOdd() {
+        return this.idealRecurrentEventsOdd;
     }
-
-    public void setIdealWeek2(Week newIdealWeek2){
-        this.idealWeek2 = newIdealWeek2;
+    public void setIdealRecurrentEventsOdd(List<Event> eventList){
+        this.idealRecurrentEventsOdd = eventList;
     }
 
 
