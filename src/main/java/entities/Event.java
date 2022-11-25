@@ -9,11 +9,11 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Event {
-    public String name;
-    public Time commuteTime;
-    public Date startTime;
-    public Date endTime;
-    public String location;
+    private String name;
+    private Time commuteTime;
+    private Date startTime;
+    private Date endTime;
+    private String location;
 
 
     /**
@@ -30,6 +30,46 @@ public class Event {
         this.startTime = startTime;
         this.endTime = endTime;
         this.commuteTime = commuteTime;
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Time getCommuteTime() {
+        return commuteTime;
+    }
+
+    public void setCommuteTime(Time commuteTime) {
+        this.commuteTime = commuteTime;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
         this.location = location;
     }
 }
