@@ -95,4 +95,8 @@ public class Week {
         this.isOdd = isOdd;
     }
 
+    public Date getWeekStart(){
+        return this.weekStart;
+    }
+
 }

@@ -39,6 +39,16 @@ public class Calendar {
 
         this.idealGoalMap = new HashMap<>();
     }
+    public Date getSunday(Date day){
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTime(day);
+
+        while (cal.get(java.util.Calendar.DAY_OF_WEEK) > cal.getFirstDayOfWeek()) {
+            cal.add(java.util.Calendar.DATE, -1);
+        }
+        return cal.getTime();
+    }
+
     public Date getNextSunday(Date Sunday){
 
         java.util.Calendar cal = java.util.Calendar.getInstance();
@@ -47,17 +57,17 @@ public class Calendar {
         return cal.getTime();
 
     }
-    public void addNextWeek(Date firstDayOfCurrentWeek, boolean isOddWeek){
+    public void addNextWeek(Week week){
 
-        if (isOddWeek) {
-            this.weekMaps.put(getNextSunday(firstDayOfCurrentWeek),
-                    new Week(getNextSunday(firstDayOfCurrentWeek), idealGoalMap, idealRecurrentEventsEven));
+        if (week.getIsOdd()) {
+            this.weekMaps.put(getNextSunday(week.getWeekStart()),
+                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsEven));
         }
 
 
         else{
-            this.weekMaps.put(getNextSunday(firstDayOfCurrentWeek),
-                    new Week(getNextSunday(firstDayOfCurrentWeek), idealGoalMap, idealRecurrentEventsOdd));
+            this.weekMaps.put(getNextSunday(week.getWeekStart()),
+                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsOdd));
         }
 
     }
@@ -71,6 +81,25 @@ public class Calendar {
             this.idealRecurrentEventsEven.add(recurrentEvent);
         }
     }
+    public void removeIdealRecurrentEvent(Event recurrentEvent) throws Exception {
+        if (this.idealRecurrentEventsOdd.contains(recurrentEvent)){
+            this.idealRecurrentEventsOdd.remove(recurrentEvent);
+        }
+        else this.idealRecurrentEventsEven.remove(recurrentEvent);
+    }
+
+    public void addIdealGoal(String goal, long goalTimeInMinutes){
+        this.idealGoalMap.put(goal, Duration.ofMinutes(goalTimeInMinutes));
+    }
+
+    public void addIdealGoalTime(String goal, long minuteDiff){
+        Duration x = this.idealGoalMap.get(goal).plusMinutes(minuteDiff);
+        this.idealGoalMap.put(goal, x);
+    }
+
+    public void removeIdealGoal(String goal){
+        this.idealGoalMap.remove(goal);
+    }
 
     public Week getWeek(Date startDate){
         return this.weekMaps.get(startDate);
@@ -80,20 +109,6 @@ public class Calendar {
         return new ArrayList<>(this.weekMaps.values());
     }
 
-    public List<Event> getIdealRecurrentEventsEven(){
-        return this.idealRecurrentEventsEven;
-    }
-
-    public void setIdealRecurrentEventsEven(List<Event> eventList){
-        this.idealRecurrentEventsEven = eventList;
-    }
-
-    public List<Event> getIdealRecurrentEventsOdd() {
-        return this.idealRecurrentEventsOdd;
-    }
-    public void setIdealRecurrentEventsOdd(List<Event> eventList){
-        this.idealRecurrentEventsOdd = eventList;
-    }
 
 
 }
