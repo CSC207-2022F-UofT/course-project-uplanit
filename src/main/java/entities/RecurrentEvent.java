@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class RecurrentEvent extends Event {
 
-    public boolean happensBiweekly;
+    private boolean happensBiweekly;
 
     /** Constructs a RecurringEvent with a name, startTime, endTime, commuteTime, and location.
      *
@@ -25,7 +25,11 @@ public class RecurrentEvent extends Event {
         this.happensBiweekly = false;
     }
 
-    public void setHappensBiweekly(Boolean happensBiweekly){
+    public Boolean getHappensBiweekly(){
+        return this.happensBiweekly;
+    }
+
+    public void setHappensBiweekly(Boolean happensBiweekly) {
         this.happensBiweekly = happensBiweekly;
     }
 
