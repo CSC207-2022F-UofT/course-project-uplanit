@@ -13,12 +13,14 @@ public class Week {
     private HashMap<String, Duration> goalMap; //map tying goal names to time objects (goal counters)
     private List<Deadline> deadlines; //deadline names to deadline objects
 
+
     public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents){
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
         this.events = idealRecurrentEvents;
         this.deadlines = new ArrayList<Deadline>();
     }
+
 
     public HashMap<String, Duration> getGoalMap(){
         return this.goalMap;
@@ -36,9 +38,11 @@ public class Week {
         return this.weekStart;
     }
 
+
     public void addGoal(String name, long minutesPerWeek){
         this.goalMap.put(name, Duration.ofMinutes(minutesPerWeek));
     }
+
 
     public void addEvent(Event newEvent){
         /*
@@ -47,6 +51,7 @@ public class Week {
          */
         this.events.add(newEvent);
     }
+
 
     public void addDeadline(Deadline d){
         this.deadlines.add(d);
@@ -64,6 +69,7 @@ public class Week {
         this.deadlines.remove(d);
     }
 
+
     public boolean checkConflict(Event newEvent){
         for (Event e: this.events){
             if (newEvent.startTime.before(e.endTime) && newEvent.endTime.after(e.startTime)){
@@ -73,8 +79,9 @@ public class Week {
         return false;
     }
 
-    public void modifyGoalTime (String goal, long minuteDiff){
-        //Duration in minutes gets added to the goal. To subtract, simply use a negative integer. Cannot go below 0.
+
+    public void modifyGoalTime(String goal, long minuteDiff){
+        // Duration in minutes gets added to the goal. To subtract, use a negative integer. Cannot go below 0.
         Duration x = this.goalMap.get(goal).plusMinutes(minuteDiff);
         if (x.isNegative()) {
             this.goalMap.put(goal, Duration.ofMinutes(0));

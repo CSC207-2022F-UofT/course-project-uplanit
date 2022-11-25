@@ -3,6 +3,7 @@ package entities;
 import java.sql.Time;
 import java.util.Date;
 
+
 public class Event {
     public String name;
     public Time commuteTime = new Time(0);
@@ -75,7 +76,4 @@ public class Event {
         this.commuteTime = commuteTime;
         this.location = location;
     }
-
-
-
 }
