@@ -86,7 +86,8 @@ public class Calendar {
             this.idealRecurrentEventsOdd.remove(recurrentEvent);
         }
         else this.idealRecurrentEventsEven.remove(recurrentEvent);
-    }
+        throw new Exception("This event type is invalid.");
+        }
 
     public void addIdealGoal(String goal, long goalTimeInMinutes){
         this.idealGoalMap.put(goal, Duration.ofMinutes(goalTimeInMinutes));
