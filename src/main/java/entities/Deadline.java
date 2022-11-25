@@ -31,4 +31,8 @@ public class Deadline {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public void addDeadline(Week givenWeek){
+        givenWeek.addDeadline(this);
+    }
 }

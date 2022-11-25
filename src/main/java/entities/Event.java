@@ -72,4 +72,8 @@ public class Event {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public void addEvent(Week week){
+        week.addEvent(this);
+    }
 }
