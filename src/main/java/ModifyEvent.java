@@ -6,53 +6,38 @@ public class ModifyEvent extends Event{
     // this part changes a lot depending on how the entities.Event Class is implemented
     Event event;
 
-    // constructors
-
-    /* public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime){
-        super(name, startTime, endTime, commuteTime);
-    }
-    public ModifyEvent(String name, Date startTime, Date endTime){
-        super(name, startTime, endTime);
-    }
-
-    public ModifyEvent(String name, Date startTime, Date endTime, String location){
-        super(name, startTime, endTime, location);
-    }
-
-     */
-
     public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime, String location){
         super(name, startTime, endTime, commuteTime, location);
     }
 
-    public void ChangeEventStart(Date new_start){
-        event.startTime = new_start;
+    public void ChangeEventStartTime(Date newStartTime){
+        event.setStartTime(newStartTime);
     }
 
-    public void ChangeEventEnd(Date new_end){
-        event.endTime = new_end;
+    public void ChangeEventEndTime(Date newEndTime){
+        event.setEndTime(newEndTime);
     }
 
-    public void ChangeLocation(String new_location){
+    public void ChangeLocation(String newLocation){
 
         // is location default null or empty string?
 
         // if this event object contains location:
-        if(event.location == null) {
-            event.location = new_location;
+        if(event.getLocation() == null) {
+            event.setLocation(newLocation);
         }
     }
 
-    public void ChangeName(String new_name){
-            event.name = new_name;
+    public void ChangeName(String newName){
+            event.setName(newName);
     }
 
-    public void ChangeCommuteTime(Time new_commuteTime){
-        Time default_time = new Time(0);
+    public void ChangeCommuteTime(Time newCommuteTime){
+        Time defaultTime = new Time(0);
 
         // if this event object contains commute time:
-        if(!new_commuteTime.equals(default_time)) {
-            event.commuteTime = new_commuteTime;
+        if(!newCommuteTime.equals(defaultTime)) { // review this !!!
+            event.setCommuteTime(newCommuteTime);
         }
     }
 }
