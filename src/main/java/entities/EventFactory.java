@@ -7,7 +7,7 @@ class EventFactory {
 
     public Event getEvent(String eventType,
                           String name, Date startTime,
-                          Date endTime, Time commuteTime,
+                          Date endTime, Event commute,
                           String location) throws Exception {
 
         if (eventType == null) {
@@ -15,13 +15,13 @@ class EventFactory {
         }
 
         if (eventType.equalsIgnoreCase("SINGLE")) {
-            return new SingleEvent(name, startTime, endTime, commuteTime, location);
+            return new SingleEvent(name, startTime, endTime, commute, location);
 
         } else if (eventType.equalsIgnoreCase("RECURRENT")) {
-            return new RecurrentEvent(name, startTime, endTime, commuteTime, location);
+            return new RecurrentEvent(name, startTime, endTime, commute, location);
 
         } else if (eventType.equalsIgnoreCase("DYNAMIC")) {
-            return new DynamicEvent(name, startTime, endTime, commuteTime, location);
+            return new DynamicEvent(name, startTime, endTime, commute, location);
         }
 
         throw new Exception("This event type is invalid.");

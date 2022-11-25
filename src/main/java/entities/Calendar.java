@@ -30,7 +30,7 @@ public class Calendar {
             cal.add(java.util.Calendar.DATE, -1);
         }
 
-        Week firstWeek = new Week(cal.getTime(), new HashMap<>(), new ArrayList<>());
+        Week firstWeek = new Week(cal.getTime(), new HashMap<>(), new ArrayList<>(), true);
 
         this.weekMaps.put(cal.getTime(), firstWeek);
 
@@ -61,13 +61,13 @@ public class Calendar {
 
         if (week.getIsOdd()) {
             this.weekMaps.put(getNextSunday(week.getWeekStart()),
-                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsEven));
+                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsEven, false));
         }
 
 
         else{
             this.weekMaps.put(getNextSunday(week.getWeekStart()),
-                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsOdd));
+                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsOdd, true));
         }
 
     }

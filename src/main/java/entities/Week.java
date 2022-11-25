@@ -15,11 +15,12 @@ public class Week {
 
     private boolean isOdd;
 
-    public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents){
+    public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents, boolean odd){
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
         this.events = idealRecurrentEvents;
         this.deadlines = new ArrayList<>();
+        this.isOdd = odd;
     }
 
     public HashMap<String, Duration> getGoalMap(){
@@ -89,10 +90,6 @@ public class Week {
 
     public boolean getIsOdd(){
         return this.isOdd;
-    }
-
-    public void setIsOdd(boolean isOdd){
-        this.isOdd = isOdd;
     }
 
     public Date getWeekStart(){

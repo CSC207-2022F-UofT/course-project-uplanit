@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Event {
     private String name;
-    private Time commuteTime;
+    private Event commute;
     private Date startTime;
     private Date endTime;
     private String location;
@@ -22,14 +22,14 @@ public class Event {
      * @param name the name of the event (required)
      * @param startTime the time the event starts (required)
      * @param endTime the time the event ends (required)
-     * @param commuteTime the commute time to get to the event (optional, may be null)
+     * @param commute the commute time to get to the event (optional, may be null)
      * @param location the location of the event (optional, may be null)
      */
-    public Event(String name, Date startTime, Date endTime, Time commuteTime, String location){
+    public Event(String name, Date startTime, Date endTime, Event commute, String location){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.commuteTime = commuteTime;
+        this.commute = commute;
         this.location = location;
     }
 
@@ -41,36 +41,24 @@ public class Event {
         this.name = name;
     }
 
-    public Time getCommuteTime() {
-        return commuteTime;
+    public Event getCommuteTime() {
+        return this.commute;
     }
 
-    public void setCommuteTime(Time commuteTime) {
-        this.commuteTime = commuteTime;
+    public void setCommuteTime(Event commuteTime) {
+        this.commute = commuteTime;
     }
 
     public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
     public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public void addEvent(Week week){
