@@ -11,6 +11,9 @@ public class Calendar {
     public HashMap<Date, Week> weekMaps; // Hashmap containing Week objects and the first day of their week
                                         // a Date object.
 
+    public Week idealWeek1;
+    public Week idealWeek2;
+
     // we are still missing the ideal week stuff. addNextSixMonths method may be removed later.
 
     public Calendar() {
@@ -30,6 +33,9 @@ public class Calendar {
 
         this.weekMaps.put(cal.getTime(), firstWeek);
         addNextSixMonths(today);
+
+        this.idealWeek1 = new Week(null, null, null);
+        this.idealWeek2 = new Week(null, null, null);
     }
 
     public void addNextSixMonths(Date today) {
@@ -51,8 +57,21 @@ public class Calendar {
         return new ArrayList<>(this.weekMaps.values());
     }
 
+    public Week getIdealWeek1(){
+        return this.idealWeek1;
+    }
 
+    public void setIdealWeek1(Week newIdealWeek1){
+        this.idealWeek1 = newIdealWeek1;
+    }
 
+    public Week getIdealWeek2(){
+        return this.idealWeek2;
+    }
+
+    public void setIdealWeek2(Week newIdealWeek2){
+        this.idealWeek2 = newIdealWeek2;
+    }
 
 
 }
