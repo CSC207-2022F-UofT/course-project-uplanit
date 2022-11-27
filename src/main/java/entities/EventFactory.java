@@ -5,15 +5,14 @@ import java.util.Date;
 
 class EventFactory {
 
-    public Event getEvent(String eventType,
+    public static Event getEvent(String eventType,
                           String name, Date startTime,
                           Date endTime, Event commute,
-                          String location) throws Exception {
+                          String location) {
 
         if (eventType == null) {
             return null;
         }
-
         if (eventType.equalsIgnoreCase("SINGLE")) {
             return new SingleEvent(name, startTime, endTime, commute, location);
 
@@ -24,6 +23,9 @@ class EventFactory {
             return new DynamicEvent(name, startTime, endTime, commute, location);
         }
 
-        throw new Exception("This event type is invalid.");
+        else {
+            throw new IllegalArgumentException("Not a Valid Event Type");
+        }
+
     }
 }
