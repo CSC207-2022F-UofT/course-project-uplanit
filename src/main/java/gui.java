@@ -1,6 +1,9 @@
 import javax.swing.*;
 
 public class gui {
+    //trying out stuff for modifying Event
+    private JButton modifyEventButton;
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("UPLANIT");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,5 +24,17 @@ public class gui {
 
         frame.add(pnl);
         frame.setVisible(true);
+    }
+
+    // testing stuff for modifying event
+    public void modifyEventInput(){
+        modifyEventButton = new JButton("edit event");
+
+    }
+    modifyEventButton.addActionListener(new ActionListener()) {
+
+    }
+    public void actionPerformed(ActionEvent e) {
+        //your actions
     }
 }
