@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class gui {
+public class Main {
     //trying out stuff for modifying Event
     private JButton modifyEventButton;
 
@@ -31,10 +31,10 @@ public class gui {
         modifyEventButton = new JButton("edit event");
 
     }
-    modifyEventButton.addActionListener(new ActionListener()) {
+    //modifyEventButton.addActionListener(new ActionListener()) {
 
     }
-    public void actionPerformed(ActionEvent e) {
+    //public void actionPerformed(ActionEvent e) {}
         //your actions
-    }
-}
+
+
