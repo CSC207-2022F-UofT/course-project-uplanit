@@ -15,6 +15,15 @@ public class Week {
 
     private boolean isOdd;
 
+
+    /**
+     * Construct a new week with the given specifications.
+     *
+     * @param startDate the date of the first sunday of this week
+     * @param idealGoalMap
+     * @param idealRecurrentEvents
+     * @param odd
+     */
     public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents, boolean odd){
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
@@ -22,6 +31,7 @@ public class Week {
         this.deadlines = new ArrayList<>();
         this.isOdd = odd;
     }
+
 
     public HashMap<String, Duration> getGoalMap(){
         return this.goalMap;
@@ -69,8 +79,8 @@ public class Week {
 
     public boolean checkConflict(Event newEvent){
         for (Event e: this.events){
-            if (newEvent.getStartTime().before(e.getEndTime()) &&
-                    newEvent.getEndTime().after(e.getStartTime())){
+            if (newEvent.getStartTime().isBefore(e.getEndTime()) &&
+                    newEvent.getEndTime().isAfter(e.getStartTime())){
                 return true;
             }
         }

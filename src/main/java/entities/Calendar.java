@@ -9,13 +9,12 @@ import java.util.HashMap;
 public class Calendar {
     public HashMap<Date, Week> weekMaps; // Hashmap containing Week objects and the first day of their week
                                         // a Date object.
-
     private List<Event> idealRecurrentEventsOdd;
     private List<Event> idealRecurrentEventsEven;
-
     private HashMap<String, Duration> idealGoalMap;
 
     // we are still missing the ideal week stuff. addNextSixMonths method may be removed later.
+
 
     public Calendar() {
         this.weekMaps = new HashMap<>();

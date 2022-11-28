@@ -6,7 +6,8 @@ This is the DynamicEvent Entity;
 package entities;
 
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public class DynamicEvent extends Event{
 
@@ -20,7 +21,7 @@ public class DynamicEvent extends Event{
      * @param commute the time it takes to get to this event
      * @param location the location of the event to be created
      */
-    public DynamicEvent(String name, Date startTime, Date endTime, Event commute, String location){
+    public DynamicEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Event commute, String location){
         super(name, startTime, endTime, commute, location);
     }
 
