@@ -1,7 +1,7 @@
-package tutorial;
+package presenters;
 import java.util.Scanner;
 
-public class Presenter {
+public class ModifyEventPresenter {
     // how this (is supposed to) work
     // 1) scan what type of info the user is trying to modify (name/startTime/endTime/commute/location)
         // (1-1) make 5 methods in gui
@@ -15,7 +15,7 @@ public class Presenter {
      * Constructs a presenter
      */
 
-    public Presenter(){
+    public ModifyEventPresenter(){
         this.modifiedInfo = "";
         this.infoType = "";
     }

@@ -1,11 +1,13 @@
+package use_case_interactors;
+
 import entities.*;
 
 import java.sql.Time;
 import java.util.Date;
-public class ModifyEvent{
+public class ModifyEventInteractor {
     Event event;
 
-    public ModifyEvent(Event e){
+    public ModifyEventInteractor(Event e){
         event = e;
     }
 
@@ -39,7 +41,7 @@ public class ModifyEvent{
     }
 
     public void ChangeName(String newName){
-            event.setName(newName);
+            // event.setName(newName);
     }
 
     public void ChangeCommuteTime(Time newCommuteTime){
