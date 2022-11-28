@@ -6,13 +6,15 @@ This is the Event Entity; It is a parent class to children SingleEvent, Recurren
 package entities;
 
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public class Event {
+
     private String name;
     private Event commute;
-    private Date startTime;
-    private Date endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String location;
 
 
@@ -25,7 +27,8 @@ public class Event {
      * @param commute the commute time to get to the event (optional, may be null)
      * @param location the location of the event (optional, may be null)
      */
-    public Event(String name, Date startTime, Date endTime, Event commute, String location){
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, Event commute, String location){
+
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -33,33 +36,41 @@ public class Event {
         this.location = location;
     }
 
+
+    /**
+     * Return the name of this event.
+     *
+     * @return
+     */
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
+    /**
+     * Return the commute time event object that correlates to this event.
+     *
+     * @return
+     */
     public Event getCommuteTime() {
         return this.commute;
     }
 
-    public void setCommuteTime(Event commuteTime) {
-        this.commute = commuteTime;
-    }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+
+    public LocalDateTime getEndTime() {
         return endTime;
     }
+
 
     public String getLocation() {
         return location;
     }
+
 
     public void addEvent(Week week){
         week.addEvent(this);
