@@ -25,8 +25,6 @@ public class ModifyEvent{
     // 4) if the loop doesn't return anything, go back to "HOW WE ARE MODIFYING EVENTS NOW" step
     // note: to do the for loop, this class needs access to all the events stored in that date (probably as a list)
 
-
-
     public void ChangeEventStartTime(Date newStartTime){
 
     }
@@ -40,9 +38,9 @@ public class ModifyEvent{
         //if(event.getLocation() != null) {}
     }
 
-    // public void ChangeName(String newName){
-         //   event.setName(newName);
-   // }
+    public void ChangeName(String newName){
+            event.setName(newName);
+    }
 
     public void ChangeCommuteTime(Time newCommuteTime){
 
