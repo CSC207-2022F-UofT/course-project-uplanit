@@ -6,9 +6,13 @@ import java.sql.Time;
 import java.util.Date;
 public class ModifyEventInteractor {
     Event event;
+    Date weekStart;
+    Week week;
 
-    public ModifyEventInteractor(Event e){
+    public ModifyEventInteractor(Event e, Date w){
         event = e;
+        weekStart = w;
+        // week = new Week();
     }
 
     // HOW WE ARE MODIFYING EVENTS NOW:
@@ -35,16 +39,16 @@ public class ModifyEventInteractor {
 
     }
 
-    public void ChangeLocation(String newLocation){
+    public void ChangeEventLocation(String newLocation){
         // if this event object contains location:
         //if(event.getLocation() != null) {}
     }
 
-    public void ChangeName(String newName){
+    public void ChangeEventName(String newName){
             // event.setName(newName);
     }
 
-    public void ChangeCommuteTime(Time newCommuteTime){
+    public void ChangeEventCommuteTime(Time newCommuteTime){
 
         // 1) calculate what would be the "start time" and "end time" of commute
         // 2) get into the date that holds this event object

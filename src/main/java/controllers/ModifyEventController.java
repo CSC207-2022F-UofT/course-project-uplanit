@@ -1,7 +1,9 @@
 package controllers;
+import use_case_interactors.*;
 import entities.*;
 import java.sql.Time;
 import java.util.Date;
+
 
 public class ModifyEventController {
 
@@ -12,13 +14,33 @@ public class ModifyEventController {
     // 4) UC would send that info to Event entity
 
     Event event;
+    ModifyEventInteractor uc;
+    Date startDate;
 
-    public ModifyEventController(Event e){
+    public ModifyEventController(Event e, Date s){
         event = e;
+        startDate = s;
+        uc = new ModifyEventInteractor(e, s);
     }
 
-    public void setInfoForModifyingEvent(){
+    public void SetNewStartTime(Date t){
+        uc.ChangeEventStartTime(t);
+    }
 
+    public void SetNewEndTime(Date t){
+        uc.ChangeEventEndTime(t);
+    }
+
+    public void SetNewLocation(String location){
+        uc.ChangeEventLocation(location);
+    }
+
+    public void SetNewName(String name){
+        uc.ChangeEventName(name);
+    }
+
+    public void SetNewCommute(Time commute){
+        uc.ChangeEventCommuteTime(commute);
     }
 
 }
