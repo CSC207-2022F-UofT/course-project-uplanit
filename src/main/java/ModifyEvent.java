@@ -1,55 +1,54 @@
-import entities.Event;
+import entities.*;
 
 import java.sql.Time;
 import java.util.Date;
-public class ModifyEvent extends Event{
-    // this part changes a lot depending on how the entities.Event Class is implemented
+public class ModifyEvent{
     Event event;
 
-    // constructors
-    public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime){
-        super(name, startTime, endTime, commuteTime);
-    }
-    public ModifyEvent(String name, Date startTime, Date endTime){
-        super(name, startTime, endTime);
+    public ModifyEvent(Event e){
+        event = e;
     }
 
-    public ModifyEvent(String name, Date startTime, Date endTime, String location){
-        super(name, startTime, endTime, location);
+    // HOW WE ARE MODIFYING EVENTS NOW:
+    // 0) temporary store the old event's info
+    // 0.5) if user is trying to change commute time, do the * part first
+    // 1) delete the old event (access the week of this event, call delete event)
+    // 2) update the temporal variable depending on what info the user wants to change
+    // 3) recreate the event with those variables
+    // 4) add it to the calendar (access the week of this event, call add event)
+
+    // * HOW WE CHECK THE CONFLICT (FOR COMMUTE TIME)
+    // 0) since commute time is an event as well, it has a startTime and endTime attribute
+    // 1) for events on that date (call it otherEvent for now):
+    //      2) if (newCommute.startTime < otherEvent.startTime || newCommute.startTime < otherEvent.endTime):
+    //              3) don't allow to change commute Time (return something)
+    // 4) if the loop doesn't return anything, go back to "HOW WE ARE MODIFYING EVENTS NOW" step
+    // note: to do the for loop, this class needs access to all the events stored in that date (probably as a list)
+
+    public void ChangeEventStartTime(Date newStartTime){
+
     }
 
-    public ModifyEvent(String name, Date startTime, Date endTime, Time commuteTime, String location){
-        super(name, startTime, endTime, commuteTime, location);
+    public void ChangeEventEndTime(Date newEndTime){
+
     }
 
-    public void ChangeEventStart(Date new_start){
-        event.startTime = new_start;
-    }
-
-    public void ChangeEventEnd(Date new_end){
-        event.endTime = new_end;
-    }
-
-    public void ChangeLocation(String new_location){
-
-        // is location default null or empty string?
-
+    public void ChangeLocation(String newLocation){
         // if this event object contains location:
-        if(event.location == null) {
-            event.location = new_location;
-        }
+        //if(event.getLocation() != null) {}
     }
 
-    public void ChangeName(String new_name){
-            event.name = new_name;
+    public void ChangeName(String newName){
+            event.setName(newName);
     }
 
-    public void ChangeCommuteTime(Time new_commuteTime){
-        Time default_time = new Time(0);
+    public void ChangeCommuteTime(Time newCommuteTime){
+
+        // 1) calculate what would be the "start time" and "end time" of commute
+        // 2) get into the date that holds this event object
+        // 3) check if there is another event object that has startTime-endTime "trapping" the new commuteTime
 
         // if this event object contains commute time:
-        if(!new_commuteTime.equals(default_time)) {
-            event.commuteTime = new_commuteTime;
-        }
+        // if(event.getCommuteTime() != null) { // review this !!! -> if commuteTime is not null}
     }
 }

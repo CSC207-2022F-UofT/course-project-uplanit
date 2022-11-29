@@ -8,16 +8,19 @@ import java.util.List;
 
 
 public class Week {
-    private Date weekStart;
+    private final Date weekStart;
     private List<Event> events;
     private HashMap<String, Duration> goalMap; //map tying goal names to time objects (goal counters)
     private List<Deadline> deadlines; //deadline names to deadline objects
 
-    public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents){
+    private boolean isOdd;
+
+    public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents, boolean odd){
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
         this.events = idealRecurrentEvents;
-        this.deadlines = new ArrayList<Deadline>();
+        this.deadlines = new ArrayList<>();
+        this.isOdd = odd;
     }
 
     public HashMap<String, Duration> getGoalMap(){
@@ -66,14 +69,15 @@ public class Week {
 
     public boolean checkConflict(Event newEvent){
         for (Event e: this.events){
-            if (newEvent.startTime.before(e.endTime) && newEvent.endTime.after(e.startTime)){
+            if (newEvent.getStartTime().before(e.getEndTime()) &&
+                    newEvent.getEndTime().after(e.getStartTime())){
                 return true;
             }
         }
         return false;
     }
 
-    public void modifyGoalTime (String goal, long minuteDiff){
+    public void addGoalTime (String goal, long minuteDiff){
         //Duration in minutes gets added to the goal. To subtract, simply use a negative integer. Cannot go below 0.
         Duration x = this.goalMap.get(goal).plusMinutes(minuteDiff);
         if (x.isNegative()) {
@@ -83,4 +87,13 @@ public class Week {
             this.goalMap.put(goal, x);
         }
     }
+
+    public boolean getIsOdd(){
+        return this.isOdd;
+    }
+
+    public Date getWeekStart(){
+        return this.weekStart;
+    }
+
 }
