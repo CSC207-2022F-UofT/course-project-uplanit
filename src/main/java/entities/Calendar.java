@@ -1,112 +1,108 @@
 package entities;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.HashMap;
-
+import java.time.temporal.ChronoUnit;
 public class Calendar {
-    public HashMap<Date, Week> weekMaps; // Hashmap containing Week objects and the first day of their week
-                                        // a Date object.
-    private List<Event> idealRecurrentEventsOdd;
-    private List<Event> idealRecurrentEventsEven;
-    private HashMap<String, Duration> idealGoalMap;
+    public HashMap<LocalDate, Week> weekMap; // Hashmap containing Week objects and the first day of their week
+    // a Date object.
+
+    private Week idealWeekOdd;
+    private Week idealWeekEven;
+
+    private LocalDate originalMonday;
+
+    private HashMap<String, ArrayList<Event>> recurrentEventLists;
 
     // we are still missing the ideal week stuff. addNextSixMonths method may be removed later.
 
-
     public Calendar() {
-        this.weekMaps = new HashMap<>();
+        this.weekMap = new HashMap<>();
 
-        // Find the first day (Sunday) of the starting week as a Date object
-        Date today = java.util.Calendar.getInstance().getTime();
+        LocalDate today = LocalDate.now();
+        this.originalMonday = getMonday(today);
 
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.setTime(today);
-
-        while (cal.get(java.util.Calendar.DAY_OF_WEEK) > cal.getFirstDayOfWeek()) {
-            cal.add(java.util.Calendar.DATE, -1);
-        }
-
-        Week firstWeek = new Week(cal.getTime(), new HashMap<>(), new ArrayList<>(), true);
-
-        this.weekMaps.put(cal.getTime(), firstWeek);
-
-        this.idealRecurrentEventsOdd = new ArrayList<>();
-        this.idealRecurrentEventsEven = new ArrayList<>();
-
-        this.idealGoalMap = new HashMap<>();
-    }
-    public Date getSunday(Date day){
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.setTime(day);
-
-        while (cal.get(java.util.Calendar.DAY_OF_WEEK) > cal.getFirstDayOfWeek()) {
-            cal.add(java.util.Calendar.DATE, -1);
-        }
-        return cal.getTime();
-    }
-
-    public Date getNextSunday(Date Sunday){
-
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        cal.setTime(Sunday);
-        cal.add(java.util.Calendar.DATE, 7);
-        return cal.getTime();
+        Week firstWeek = new Week(this.originalMonday, new HashMap<>(), new ArrayList<>(), true);
+        this.weekMap.put(this.originalMonday, firstWeek);
+        this.idealWeekOdd = new Week(this.originalMonday.minusWeeks(2), new HashMap<>(), new ArrayList<>(), true);
+        this.idealWeekEven = new Week(this.originalMonday.minusWeeks(1), new HashMap<>(), new ArrayList<>(), false);
+        this.recurrentEventLists = new HashMap<String, ArrayList<Event>>();
 
     }
-    public void addNextWeek(Week week){
-
-        if (week.getIsOdd()) {
-            this.weekMaps.put(getNextSunday(week.getWeekStart()),
-                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsEven, false));
-        }
-
-
-        else{
-            this.weekMaps.put(getNextSunday(week.getWeekStart()),
-                    new Week(getNextSunday(week.getWeekStart()), idealGoalMap, idealRecurrentEventsOdd, true));
-        }
-
+    public LocalDate getMonday(LocalDate day){
+        return day.minusDays((day.getDayOfWeek().getValue()-1));
     }
 
-    public void addIdealRecurrentEvent(Event recurrentEvent, boolean isOddWeek){
-        if (isOddWeek) {
-            this.idealRecurrentEventsOdd.add(recurrentEvent);
+    private boolean calculateIsOdd(LocalDate newMonday){
+        long diff = this.originalMonday.until(newMonday, ChronoUnit.WEEKS);
+        return (diff%2 == 0);
+    }
+    private void addWeek(LocalDate newMonday){
+        if (calculateIsOdd(newMonday)){
+            Week w = idealWeekOdd.getCopyWithNewDate(newMonday, true);
+            this.weekMap.put(newMonday, w);
         }
+        else {
+            Week w = idealWeekEven.getCopyWithNewDate(newMonday, false);
+            this.weekMap.put(newMonday, w);
 
-        else{
-            this.idealRecurrentEventsEven.add(recurrentEvent);
         }
     }
-    public void removeIdealRecurrentEvent(Event recurrentEvent) throws Exception {
-        if (this.idealRecurrentEventsOdd.contains(recurrentEvent)){
-            this.idealRecurrentEventsOdd.remove(recurrentEvent);
-        }
-        else this.idealRecurrentEventsEven.remove(recurrentEvent);
-        throw new Exception("This event type is invalid.");
-        }
 
-    public void addIdealGoal(String goal, long goalTimeInMinutes){
-        this.idealGoalMap.put(goal, Duration.ofMinutes(goalTimeInMinutes));
+    public void addIdealEvent(RecurrentEvent e){
+        if (e.getHappensBiweekly()){
+            if (this.calculateIsOdd(e.getStartTime().toLocalDate())){
+                idealWeekOdd.addEvent(e);
+            }
+            else{
+                idealWeekEven.addEvent(e);
+            }
+        }
+        else {
+            idealWeekOdd.addEvent(e);
+            idealWeekEven.addEvent(e);
+        }
+    }
+    //TOP FUNCTION MIGHT BREAK: WE NEED TO MAKE SURE THE DATE IN THE OBJECT IS CORRECT.
+
+    public void addOddIdealGoal(String goal, long goalTimeInMinutes){
+        idealWeekOdd.addGoal(goal, goalTimeInMinutes);
     }
 
-    public void addIdealGoalTime(String goal, long minuteDiff){
-        Duration x = this.idealGoalMap.get(goal).plusMinutes(minuteDiff);
-        this.idealGoalMap.put(goal, x);
+    public void addEvenIdealGoal(String goal, long goalTimeInMinutes){
+        idealWeekEven.addGoal(goal, goalTimeInMinutes);
     }
+
+    public void addOddIdealGoalTime(String goal, long minuteDiff){
+        idealWeekOdd.addGoalTime(goal, minuteDiff);
+    }
+    public void addEvenIdealGoalTime(String goal, long minuteDiff){
+        idealWeekEven.addGoalTime(goal, minuteDiff);
+    }
+
 
     public void removeIdealGoal(String goal){
         this.idealGoalMap.remove(goal);
     }
-
-    public Week getWeek(Date startDate){
-        return this.weekMaps.get(startDate);
+    public void removeIdealEvent(Event e) throws Exception {
+        if (idealWeekEven.getEvents().contains(e)){
+            idealWeekEven.getEvents().remove(e);
         }
+        else idealWeekOdd.getEvents().remove(e);
+        throw new Exception("This event type is invalid.");
+    }
+
+    //RILEY PLS FIX EXCEPTION
+
+    public Week getWeek(LocalDate startDate){
+        return this.weekMap.get(startDate);
+    }
 
     public ArrayList<Week> getAllWeeks(){
-        return new ArrayList<>(this.weekMaps.values());
+        return new ArrayList<>(this.weekMap.values());
     }
 
 

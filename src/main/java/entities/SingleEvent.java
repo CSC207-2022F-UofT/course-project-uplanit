@@ -21,7 +21,7 @@ public class SingleEvent extends Event {
      * @param commute commute time to get to the event (optional, may be null)
      * @param location the location of the event (optional, may be null)
      */
-    public SingleEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Event commute, String location){
-        super(name, startTime, endTime, commute, location);
+    public SingleEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Boolean isCommute, Event commute, String location){
+        super(name, startTime, endTime, isCommute, commute, location);
     }
 }
