@@ -10,7 +10,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300,300);
 
-        //adds uplannit
+        //adds uplanit
         JLabel label = new JLabel("UPLANNIT");
         label.setBounds(90, 120, 90, 180);
 
