@@ -62,11 +62,11 @@ public class Week {
     }
 
     public void addEvent(Event newEvent){
-        /*
-        Expects a "clean" event, i.e. does not check to see if there is conflict.
-        If checking for conflict is necessary, checkConflict must be called by whomever is calling this function.
-         */
-        this.events.add(newEvent);
+            this.events.add(newEvent);
+    }
+
+    public void addMultipleEvents(ArrayList<Event> eventList){
+        this.events.addAll(eventList);
     }
 
     public void addDeadline(Deadline d){
@@ -111,6 +111,10 @@ public class Week {
     }
 
     public Week getCopyWithNewDate(LocalDate targetMonday, Boolean isOdd){
+        /*
+        Returns a copy of this week with all events/parameters changed to match a new start time.
+        Requires the new start time and whether the new week is odd/even with respect to target calendar.
+         */
         long d = this.weekStart.until(targetMonday, ChronoUnit.WEEKS);
         ArrayList<Event> newEvents = new ArrayList<Event>();
         for (Event e : this.events){

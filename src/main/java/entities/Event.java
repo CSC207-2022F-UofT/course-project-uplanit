@@ -8,7 +8,7 @@ package entities;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList
+import java.util.ArrayList;
 
 
 
@@ -62,7 +62,6 @@ public class Event {
         return this.commute;
     }
 
-
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -82,6 +81,9 @@ public class Event {
     }
 
     public ArrayList<Event> getCopyWithAddedWeeks(long d){
+        /*
+        Returns a list containing a copy of both this event (0) and its commute (1), with their values updated to add d weeks to them.
+         */
         ArrayList<Event> newEvents = new ArrayList<>();
         LocalDateTime newStartTime = this.getStartTime().plusWeeks(d);
         LocalDateTime newEndTime = this.getEndTime().plusWeeks(d);
@@ -100,6 +102,8 @@ public class Event {
         }
         return newEvents;
     }
+
+
 
 
     public void addEvent(Week week){

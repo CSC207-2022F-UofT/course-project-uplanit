@@ -39,7 +39,6 @@ public class ModifyEvent{
     }
 
     public void ChangeName(String newName){
-            event.setName(newName);
     }
 
     public void ChangeCommuteTime(Time newCommuteTime){
