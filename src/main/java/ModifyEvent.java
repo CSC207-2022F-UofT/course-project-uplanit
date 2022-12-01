@@ -38,10 +38,6 @@ public class ModifyEvent{
         //if(event.getLocation() != null) {}
     }
 
-    public void ChangeName(String newName){
-            event.setName(newName);
-    }
-
     public void ChangeCommuteTime(Time newCommuteTime){
 
         // 1) calculate what would be the "start time" and "end time" of commute

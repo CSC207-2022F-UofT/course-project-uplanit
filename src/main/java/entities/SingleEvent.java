@@ -6,9 +6,11 @@ This is the SingleEvent Entity;
 package entities;
 
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 public class SingleEvent extends Event {
+
 
     /**
      * Constructs a SingleEvent with a name, startTime, endTime, commuteTime, and location.
@@ -19,7 +21,7 @@ public class SingleEvent extends Event {
      * @param commute commute time to get to the event (optional, may be null)
      * @param location the location of the event (optional, may be null)
      */
-    public SingleEvent(String name, Date startTime, Date endTime, Event commute, String location){
+    public SingleEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Event commute, String location){
         super(name, startTime, endTime, commute, location);
     }
 }
