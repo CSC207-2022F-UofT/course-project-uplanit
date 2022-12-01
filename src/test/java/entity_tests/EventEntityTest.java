@@ -16,7 +16,7 @@ public class EventEntityTest {
 
         RecurrentEvent tester = new RecurrentEvent("Hangout",
                 LocalDateTime.of(LocalDate.of(2022, 10, 23), LocalTime.of(11, 0)),
-                LocalDateTime.of(LocalDate.of(2022, 10, 23), LocalTime.of(13, 0)),
+                LocalDateTime.of(LocalDate.of(2022, 10, 23), LocalTime.of(13, 0)), false,
                 null, null);
         Assertions.assertEquals("Hangout", tester.getName());
     }

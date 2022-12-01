@@ -126,5 +126,4 @@ public class Week {
         Week result = new Week(targetMonday, this.getGoalMapCopy(), newEvents, isOdd);
         return result;
     }
-
 }
