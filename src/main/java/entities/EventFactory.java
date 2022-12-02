@@ -22,7 +22,7 @@ class EventFactory {
      */
     public static Event getEvent(String eventType,
                           String name, LocalDateTime startTime,
-                          LocalDateTime endTime, Event commute,
+                          LocalDateTime endTime, Boolean isCommute, Event commute,
                           String location) {
 
         if  (endTime.isBefore(startTime)) {
@@ -33,13 +33,13 @@ class EventFactory {
             return null;
         }
         if (eventType.equalsIgnoreCase("SINGLE")) {
-            return new SingleEvent(name, startTime, endTime, commute, location);
+            return new SingleEvent(name, startTime, endTime, isCommute, commute, location);
 
         } else if (eventType.equalsIgnoreCase("RECURRENT")) {
-            return new RecurrentEvent(name, startTime, endTime, commute, location);
+            return new RecurrentEvent(name, startTime, endTime, isCommute, commute, location);
 
         } else if (eventType.equalsIgnoreCase("DYNAMIC")) {
-            return new DynamicEvent(name, startTime, endTime, commute, location);
+            return new DynamicEvent(name, startTime, endTime, isCommute, commute, location);
         }
 
         else {

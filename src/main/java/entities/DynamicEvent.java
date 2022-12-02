@@ -21,8 +21,8 @@ public class DynamicEvent extends Event{
      * @param commute the time it takes to get to this event
      * @param location the location of the event to be created
      */
-    public DynamicEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Event commute, String location){
-        super(name, startTime, endTime, commute, location);
+    public DynamicEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Boolean isCommute, Event commute, String location){
+        super(name, startTime, endTime, isCommute, commute, location);
     }
 
     public String getDynamicGoal(){
