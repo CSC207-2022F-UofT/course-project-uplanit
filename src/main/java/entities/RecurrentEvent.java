@@ -23,8 +23,8 @@ public class RecurrentEvent extends Event {
      * @param commuteTime the time it takes to get to this event
      * @param location the location of the event to be created
      */
-    public RecurrentEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Event commuteTime, String location) {
-        super(name, startTime, endTime, commuteTime, location);
+    public RecurrentEvent(String name, LocalDateTime startTime, LocalDateTime endTime, Boolean isCommute, Event commuteTime, String location) {
+        super(name, startTime, endTime, isCommute, commuteTime, location);
         this.isBiweekly = false;
     }
 

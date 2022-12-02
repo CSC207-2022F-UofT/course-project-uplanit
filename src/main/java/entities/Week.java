@@ -1,17 +1,20 @@
 package entities;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.time.temporal.ChronoUnit;
 
 
 public class Week {
-    private final Date weekStart;
-    private List<Event> events;
+    private final LocalDate weekStart;
+    private ArrayList<Event> events;
     private HashMap<String, Duration> goalMap; //map tying goal names to time objects (goal counters)
-    private List<Deadline> deadlines; //deadline names to deadline objects
+    private ArrayList<Deadline> deadlines; //deadline names to deadline objects
 
     private boolean isOdd;
 
@@ -24,7 +27,7 @@ public class Week {
      * @param idealRecurrentEvents
      * @param odd
      */
-    public Week(Date startDate, HashMap<String, Duration> idealGoalMap, List<Event> idealRecurrentEvents, boolean odd){
+    public Week(LocalDate startDate, HashMap<String, Duration> idealGoalMap, ArrayList<Event> idealRecurrentEvents, boolean odd){
         this.weekStart = startDate;
         this.goalMap = idealGoalMap;
         this.events = idealRecurrentEvents;
@@ -37,15 +40,20 @@ public class Week {
         return this.goalMap;
     }
 
-    public List<Event> getEvents(){
+    public HashMap<String, Duration> getGoalMapCopy(){
+        HashMap<String, Duration> copy = new HashMap<String, Duration>(this.goalMap);
+        return copy;
+    }
+
+    public ArrayList<Event> getEvents(){
         return this.events;
     }
 
-    public List<Deadline> getDeadlines(){
+    public ArrayList<Deadline> getDeadlines(){
         return this.deadlines;
     }
 
-    public Date getStartTime(){
+    public LocalDate getStartTime(){
         return this.weekStart;
     }
 
@@ -54,11 +62,11 @@ public class Week {
     }
 
     public void addEvent(Event newEvent){
-        /*
-        Expects a "clean" event, i.e. does not check to see if there is conflict.
-        If checking for conflict is necessary, checkConflict must be called by whomever is calling this function.
-         */
-        this.events.add(newEvent);
+            this.events.add(newEvent);
+    }
+
+    public void addMultipleEvents(ArrayList<Event> eventList){
+        this.events.addAll(eventList);
     }
 
     public void addDeadline(Deadline d){
@@ -102,8 +110,20 @@ public class Week {
         return this.isOdd;
     }
 
-    public Date getWeekStart(){
-        return this.weekStart;
+    public Week getCopyWithNewDate(LocalDate targetMonday, Boolean isOdd){
+        /*
+        Returns a copy of this week with all events/parameters changed to match a new start time.
+        Requires the new start time and whether the new week is odd/even with respect to target calendar.
+         */
+        long d = this.weekStart.until(targetMonday, ChronoUnit.WEEKS);
+        ArrayList<Event> newEvents = new ArrayList<Event>();
+        for (Event e : this.events){
+            if (!e.isCommute()){
+                ArrayList<Event> l = e.getCopyWithAddedWeeks(d);
+                newEvents.addAll(l);
+            }
+        }
+        Week result = new Week(targetMonday, this.getGoalMapCopy(), newEvents, isOdd);
+        return result;
     }
-
 }
