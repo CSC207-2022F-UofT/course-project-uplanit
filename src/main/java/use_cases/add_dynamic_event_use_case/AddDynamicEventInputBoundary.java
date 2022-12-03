@@ -7,5 +7,5 @@ public interface AddDynamicEventInputBoundary {
     AddDynamicEventResponseModel create(AddDynamicEventRequestModel requestModel);
 }
 
-}
+
 

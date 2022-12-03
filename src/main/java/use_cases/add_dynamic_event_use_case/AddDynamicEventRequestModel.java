@@ -8,18 +8,20 @@ import java.time.LocalDateTime;
 public class AddDynamicEventRequestModel {
 
     private String name;
-    private Event commute;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private final boolean isCommute;
+    private Event commute;
     private String location;
 
 
-    public AddDynamicEventRequestModel(String name, Event commute, LocalDateTime startTime, LocalDateTime endTime,
-                                       String location){
+    public AddDynamicEventRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute,
+                                       Event commute, String location){
         this.name = name;
-        this.commute = commute;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isCommute = isCommute;
+        this.commute = commute;
         this.location = location;
     }
 
@@ -52,4 +54,8 @@ public class AddDynamicEventRequestModel {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public boolean getIsCommute(){return isCommute; }
+
+
 }
