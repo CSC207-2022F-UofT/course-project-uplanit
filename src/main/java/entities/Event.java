@@ -2,14 +2,9 @@
 This is the Event Entity; It is a parent class to children SingleEvent, RecurrentEvent, and DynamicEvent.
 
  */
-
 package entities;
-
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
 
 
 public class Event {
@@ -20,7 +15,7 @@ public class Event {
     private LocalDateTime endTime;
     private String location;
 
-    private final Boolean isCommute;
+    private final boolean isCommute;
 
 
     /**
@@ -32,7 +27,7 @@ public class Event {
      * @param commute the commute time to get to the event (optional, may be null)
      * @param location the location of the event (optional, may be null)
      */
-    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, Boolean isCommute, Event commute, String location){
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute, Event commute, String location){
 
         this.name = name;
         this.startTime = startTime;
@@ -62,6 +57,7 @@ public class Event {
         return this.commute;
     }
 
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -76,9 +72,11 @@ public class Event {
         return location;
     }
 
-    public Boolean isCommute(){
+
+    public boolean isCommute(){
         return this.isCommute;
     }
+
 
     public ArrayList<Event> getCopyWithAddedWeeks(long d){
         /*
@@ -102,8 +100,6 @@ public class Event {
         }
         return newEvents;
     }
-
-
 
 
     public void addEvent(Week week){
