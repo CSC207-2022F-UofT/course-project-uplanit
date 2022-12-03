@@ -1,7 +1,11 @@
 package use_cases.add_dynamic_event_use_case;
 
+import entities.Calendar;
 import entities.DynamicEvent;
 import entities.DynamicEventFactory;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 // Use Case Layer
 
@@ -22,7 +26,7 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
     }
     @Override
     public AddDynamicEventResponseModel create(AddDynamicEventRequestModel requestModel) {
-        if () {
+        if (Calendar.getWeek(LocalDate.from(requestModel.getStartTime())) == null){
             return dynamicEventPresenter.prepareFailView("User already exists.");
         } else if (!requestModel.getPassword().equals(requestModel.getRepeatPassword())) {
             return dynamicEventPresenter.prepareFailView("Passwords don't match.");
