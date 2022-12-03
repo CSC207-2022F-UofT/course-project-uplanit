@@ -1,6 +1,11 @@
 package use_cases.add_dynamic_event_use_case;
 
-// Use case layer
+// Use Case Layer
 
 public interface AddDynamicEventInputBoundary {
+
+    AddDynamicEventResponseModel create(AddDynamicEventRequestModel requestModel);
 }
+
+}
+
