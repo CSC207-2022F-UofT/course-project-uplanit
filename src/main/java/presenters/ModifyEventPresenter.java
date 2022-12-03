@@ -1,31 +1,35 @@
 package presenters;
-import java.util.Scanner;
+import controllers.ModifyEventController;
+import entities.*;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 public class ModifyEventPresenter {
     // how this (is supposed to) work
-    // 1) scan what type of info the user is trying to modify (name/startTime/endTime/commute/location)
-        // (1-1) make 5 methods in gui
-        // (1-2) gui needs to call the corresponding method in the presenter
-    // 3) send that to controller
+    // 1) In main, make 5 methods (name/startTime/endTime/commute/location) which gets triggered when user clicks on to
+    // corresponding button
+    // 2) main would accept the new (and valid) information from user
+    // 3) send that to the presenter, presenter will send that info in a format that controller can handle
 
-    private final String infoType;
-    private final String modifiedInfo;
+
+    ModifyEventController controller;
+
 
     /**
      * Constructs a presenter
      */
-
-    public ModifyEventPresenter(){
-        this.modifiedInfo = "";
-        this.infoType = "";
+    public ModifyEventPresenter(Event e, Calendar c, LocalDate s){
+        controller = new ModifyEventController(e, c, s);
     }
 
-    public void GetNewInfo(String[] input) {
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
-        String modifiedInfo = scanner.nextLine();  // Read user input
+    public void PresentNewName(String name){
+        controller.SetNewName(name);
     }
 
-    public String SetNewInfo() {
-        return modifiedInfo;
+    public void PresentNewStartTime(LocalDateTime startTime){
+        controller.SetNewStartTime(startTime);
     }
+
+
 }

@@ -1,8 +1,8 @@
 package controllers;
 import use_case_interactors.*;
 import entities.*;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class ModifyEventController {
@@ -15,19 +15,23 @@ public class ModifyEventController {
 
     Event event;
     ModifyEventInteractor uc;
-    Date startDate;
+    LocalDate startDate;
 
-    public ModifyEventController(Event e, Date s){
+    public ModifyEventController(Event e, Calendar c, LocalDate weekStart){
         event = e;
-        startDate = s;
-        uc = new ModifyEventInteractor(e, s);
+        startDate = weekStart;
+        uc = new ModifyEventInteractor(e, c, weekStart);
     }
 
-    public void SetNewStartTime(Date t){
+    public void SetNewName(String name){
+        uc.ChangeEventName(name);
+    }
+
+    public void SetNewStartTime(LocalDateTime t){
         uc.ChangeEventStartTime(t);
     }
 
-    public void SetNewEndTime(Date t){
+    public void SetNewEndTime(LocalDateTime t){
         uc.ChangeEventEndTime(t);
     }
 
@@ -35,11 +39,7 @@ public class ModifyEventController {
         uc.ChangeEventLocation(location);
     }
 
-    public void SetNewName(String name){
-        uc.ChangeEventName(name);
-    }
-
-    public void SetNewCommute(Time commute){
+    public void SetNewCommute(Event commute){
         uc.ChangeEventCommuteTime(commute);
     }
 
