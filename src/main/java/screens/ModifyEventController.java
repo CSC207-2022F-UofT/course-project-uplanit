@@ -16,28 +16,59 @@ public class ModifyEventController implements ModifyEventInputBoundary {
     ModifyEventInteractor uc;
     LocalDate startDate;
 
+    /***
+     *
+     * @param e Event object that is going to be modified
+     * @param c Calendar Object that user in interacting
+     * @param weekStart start date of the week
+     */
     public ModifyEventController(Event e, Calendar c, LocalDate weekStart){
         event = e;
         startDate = weekStart;
         uc = new ModifyEventInteractor(e, c, weekStart);
     }
 
+    /***
+     * Sends new name to the use case
+     *
+     * @param name new name the user input
+     */
     public void SetNewName(String name){
         uc.ChangeEventName(name);
     }
 
+    /***
+     * Sends new start Time to the use case
+     *
+     * @param startTime new start Time user input
+     */
     public void SetNewStartTime(LocalDateTime startTime){
         uc.ChangeEventStartTime(startTime);
     }
 
+    /***
+     * Sends new end Time to the use case
+     *
+     * @param endTime new end Time user input
+     */
     public void SetNewEndTime(LocalDateTime endTime){
         uc.ChangeEventEndTime(endTime);
     }
 
+    /***
+     * Sends new location to the use case
+     *
+     * @param location new location user input
+     */
     public void SetNewLocation(String location){
         uc.ChangeEventLocation(location);
     }
 
+    /***
+     * Sends new commute to the use case
+     *
+     * @param commute new commute object user input
+     */
     public void SetNewCommute(Event commute){
         uc.ChangeEventCommuteTime(commute);
     }

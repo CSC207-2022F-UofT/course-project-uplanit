@@ -1,7 +1,5 @@
 package use_cases.modify_event_use_case;
-import screens.ModifyEventController;
 import entities.*;
-import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 
@@ -9,8 +7,8 @@ public class ModifyEventPresenter implements ModifyEventOutputBoundary{
 
     // Presenter is SENDING OUT (in other words, showing the info) to the user
     // how this (is supposed to) work
-    // 1) get updated info from interactor, send it to Main?
-    // Note: these methods are called from interactors
+    // 1) get updated info from uc, send it to Main?
+    // Note: these methods are called from uc
 
 
     /**
@@ -25,7 +23,7 @@ public class ModifyEventPresenter implements ModifyEventOutputBoundary{
     }
 
     /**
-    *
+    * @param e send updated event info to main to be presented
     */
     public void PresentNewInfo(Event e){
         // should call method in Main

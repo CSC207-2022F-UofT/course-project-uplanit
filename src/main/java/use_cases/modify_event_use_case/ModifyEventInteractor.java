@@ -45,7 +45,7 @@ public class ModifyEventInteractor {
     }
 
     /***
-     * Create a event object with new name
+     * Create an event object with new name
      *
      * @param newName new name that user wants to use
      */
@@ -55,7 +55,7 @@ public class ModifyEventInteractor {
     }
 
     /***
-     * Create a event object with new startTime
+     * Create an event object with new startTime
      *
      * @param newStartTime new startTime that user wants to use
      */
@@ -65,7 +65,7 @@ public class ModifyEventInteractor {
     }
 
     /***
-     * Create a event object with new endTime
+     * Create an event object with new endTime
      *
      * @param newEndTime new endTime that user wants to use
      */
@@ -75,7 +75,7 @@ public class ModifyEventInteractor {
     }
 
     /***
-     * Create a event object with new name
+     * Create an event object with new name
      *
      * @param newLocation new location that user wants to use
      */
@@ -86,7 +86,7 @@ public class ModifyEventInteractor {
 
 
     /***
-     * Create a event object with new name
+     * Create na event object with new name
      *
      * @param newCommute new commute that user wants to use
      */
@@ -110,7 +110,11 @@ public class ModifyEventInteractor {
         SendNewEventInformation(e);
     }
 
-
+    /***
+     * Create na event object with new name
+     *
+     * @param e send updated event information to the presenter
+     */
     public void SendNewEventInformation(Event e){
         presenter.PresentNewInfo(e);
     }
