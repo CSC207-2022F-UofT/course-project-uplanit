@@ -1,10 +1,9 @@
 import javax.swing.*;
 
 public class Main {
+    //trying out stuff for modifying Event
+    private JButton modifyEventButton;
 
-    // The purpose of this file (by convention) is to instantiate the ui when the program is run.
-    // the additional screens that need to be displayed in accordance with use of the GUI will be created as
-    // separate files (one per view) in the screens package.
     public static void main(String[] args) {
         JFrame frame = new JFrame("UPLANIT");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,4 +25,16 @@ public class Main {
         frame.add(pnl);
         frame.setVisible(true);
     }
-}
+
+    // testing stuff for modifying event
+    public void modifyEventInput(){
+        modifyEventButton = new JButton("edit event");
+
+    }
+    //modifyEventButton.addActionListener(new ActionListener()) {
+
+    }
+    //public void actionPerformed(ActionEvent e) {}
+        //your actions
+
+
