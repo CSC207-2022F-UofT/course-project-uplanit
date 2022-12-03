@@ -1,4 +1,4 @@
-package use_case_interactors;
+package use_cases.modify_event_use_case;
 
 import entities.*;
 import java.time.LocalDateTime;
@@ -7,9 +7,11 @@ import java.time.LocalDate;
 
 public class ModifyEventInteractor {
     Event oldEvent;
-    LocalDate weekStart;
+
     Week week;
     Calendar calendar;
+
+    ModifyEventPresenter presenter;
 
     String oldName;
 
@@ -33,6 +35,7 @@ public class ModifyEventInteractor {
         oldEvent = e;
         calendar = c;
         week = c.getWeek(weekStart);
+        presenter = new ModifyEventPresenter(e, c, weekStart);
 
         oldName = e.getName();
         oldStartTime = e.getStartTime();
@@ -104,6 +107,12 @@ public class ModifyEventInteractor {
     public void updateEvents(Event e){
         week.deleteEvent(oldEvent);
         week.addEvent(e);
+        SendNewEventInformation(e);
+    }
+
+
+    public void SendNewEventInformation(Event e){
+        presenter.PresentNewInfo(e);
     }
 }
 

@@ -1,17 +1,16 @@
-package controllers;
-import use_case_interactors.*;
+package screens;
 import entities.*;
+import use_cases.modify_event_use_case.ModifyEventInteractor;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-public class ModifyEventController {
+public class ModifyEventController implements ModifyEventInputBoundary {
 
-    // How I'm planning to implement modify event
-    // 1) get user input from the presenter (which info the user is trying to modify)
-    // 2) presenter would send that info to the controller, which is this class
+    // Controller is GETTING info from the user. Methods in this class should be called by Main? I think?
+    // 1) get user input from Main
     // 3) controller would send that info in a form that modifyEvent class can interact
-    // 4) UC would send that info to Event entity
 
     Event event;
     ModifyEventInteractor uc;
@@ -27,12 +26,12 @@ public class ModifyEventController {
         uc.ChangeEventName(name);
     }
 
-    public void SetNewStartTime(LocalDateTime t){
-        uc.ChangeEventStartTime(t);
+    public void SetNewStartTime(LocalDateTime startTime){
+        uc.ChangeEventStartTime(startTime);
     }
 
-    public void SetNewEndTime(LocalDateTime t){
-        uc.ChangeEventEndTime(t);
+    public void SetNewEndTime(LocalDateTime endTime){
+        uc.ChangeEventEndTime(endTime);
     }
 
     public void SetNewLocation(String location){
