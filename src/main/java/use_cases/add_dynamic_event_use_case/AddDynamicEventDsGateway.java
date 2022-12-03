@@ -4,4 +4,8 @@ package use_cases.add_dynamic_event_use_case;
 
 public interface AddDynamicEventDsGateway {
 
+    // implement these methods in screens
+    void save(AddDynamicEventDsRequestModel requestModel);
+
+
 }
