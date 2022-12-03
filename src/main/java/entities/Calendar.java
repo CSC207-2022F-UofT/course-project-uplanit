@@ -17,6 +17,8 @@ public class Calendar {
 
     private HashMap<String, ArrayList<Event>> recurrentEventLists;
 
+    private static Calendar current;
+
     // we are still missing the ideal week stuff. addNextSixMonths method may be removed later.
 
     public Calendar() {
@@ -83,6 +85,17 @@ public class Calendar {
 
     public ArrayList<Week> getAllWeeks(){
         return new ArrayList<>(this.weekMap.values());
+    }
+
+
+    // Returns the current calendar which holds the most up to date scheduling information
+    public static Calendar getCurrent() {
+        return current;
+    }
+
+    // Sets a calendar object as the new current calendar (mainly for recreating the calendar from saved data)
+    public static void setCurrent(Calendar newCurrent) {
+        current = newCurrent;
     }
 
 }
