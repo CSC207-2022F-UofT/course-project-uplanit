@@ -1,6 +1,8 @@
 package entities;
 import java.time.LocalDateTime;
 
+// Entity layer
+
 public interface EventFactory {
 
     /**
