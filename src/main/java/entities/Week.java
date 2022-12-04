@@ -6,8 +6,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
-import java.time.temporal.ChronoUnit;
 
 
 public class Week {
@@ -110,7 +108,7 @@ public class Week {
         return this.isOdd;
     }
 
-    public Week getCopyWithNewDate(LocalDate targetMonday, Boolean isOdd){
+    public Week getCopyWithNewDate(LocalDate targetMonday, boolean isOdd){
         /*
         Returns a copy of this week with all events/parameters changed to match a new start time.
         Requires the new start time and whether the new week is odd/even with respect to target calendar.
