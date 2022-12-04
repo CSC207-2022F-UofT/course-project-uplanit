@@ -4,5 +4,5 @@ package use_cases.recurrent_event_use_case;
 
 public interface RecurrentEventInputBoundary {
 
-    RecurrentEventResponseModel create(UserRequestModel requestModel);
+    RecurrentEventResponseModel create (RecurrentEventRequestModel requestModel);
 }
