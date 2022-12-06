@@ -6,6 +6,6 @@ package use_cases.create_dynamic_goal_use_case;
 public interface CreateGoalInputBoundary {
     //*personalized data type used to pass information without making parameters infinitely long*
     //Create one of those objects with
-    outputDataStructure create(inputDataStructure);
+    OuputDataStructure create(InputDataStructure inputData);
 
 }
