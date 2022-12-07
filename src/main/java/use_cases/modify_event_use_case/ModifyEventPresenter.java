@@ -15,10 +15,8 @@ public class ModifyEventPresenter implements ModifyEventOutputBoundary{
      * Constructs a presenter
      *
      * @param e Event that is going to be modified
-     * @param c Calendar object that the user is interacting with
-     * @param s start date of the week
      */
-    public ModifyEventPresenter(Event e, Calendar c, LocalDate s){
+    public ModifyEventPresenter(Event e){
 
     }
 

@@ -8,40 +8,29 @@ import java.time.LocalDate;
 public class ModifyEventInteractor {
     Event oldEvent;
 
-    Week week;
-    Calendar calendar;
-
     ModifyEventPresenter presenter;
 
-    String oldName;
-
-    LocalDateTime oldStartTime;
-
-    LocalDateTime oldEndTime;
-
-    Event oldCommute;
-
-    String oldLocation;
+    private final String name;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    private final int commuteTime;
+    private final boolean isCommute;
+    private final String location;
 
 
     /**
      * Constructs a modify event interactor
      *
-     * @param e The event that the user is trying to modify
-     * @param c The calendar object that the user is using
-     * @param weekStart The start date of the week (to retrieve the week that holds the targeted event)
      */
-    public ModifyEventInteractor(Event e, Calendar c, LocalDate weekStart){
-        oldEvent = e;
-        calendar = c;
-        week = c.getWeek(weekStart);
-        presenter = new ModifyEventPresenter(e, c, weekStart);
+    public ModifyEventInteractor(String name, LocalDateTime startTime, LocalDateTime endTime,
+                                 int commuteTime, boolean isCommute, String location){
 
-        oldName = e.getName();
-        oldStartTime = e.getStartTime();
-        oldEndTime = e.getEndTime();
-        oldCommute = e.getCommute();
-        oldLocation = e.getLocation();
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.commuteTime = commuteTime;
+        this.isCommute = isCommute;
+        this.location = location;
     }
 
     /***
@@ -50,8 +39,7 @@ public class ModifyEventInteractor {
      * @param newName new name that user wants to use
      */
     public void ChangeEventName(String newName){
-        Event updatedEvent = new Event(newName, oldStartTime, oldEndTime, oldEvent.isCommute(), oldCommute, oldLocation);
-        updateEvents(updatedEvent);
+
     }
 
     /***
@@ -60,8 +48,7 @@ public class ModifyEventInteractor {
      * @param newStartTime new startTime that user wants to use
      */
     public void ChangeEventStartTime(LocalDateTime newStartTime){
-        Event updatedEvent = new Event(oldName, newStartTime, oldEndTime, oldEvent.isCommute(), oldCommute, oldLocation);
-        updateEvents(updatedEvent);
+
     }
 
     /***
@@ -70,8 +57,7 @@ public class ModifyEventInteractor {
      * @param newEndTime new endTime that user wants to use
      */
     public void ChangeEventEndTime(LocalDateTime newEndTime){
-        Event updatedEvent = new Event(oldName, oldStartTime, newEndTime, oldEvent.isCommute(), oldCommute, oldLocation);
-        updateEvents(updatedEvent);
+
     }
 
     /***
@@ -80,8 +66,7 @@ public class ModifyEventInteractor {
      * @param newLocation new location that user wants to use
      */
     public void ChangeEventLocation(String newLocation){
-        Event updatedEvent = new Event(oldName, oldStartTime, oldEndTime, oldEvent.isCommute(), oldCommute, newLocation);
-        updateEvents(updatedEvent);
+
     }
 
 
@@ -91,12 +76,7 @@ public class ModifyEventInteractor {
      * @param newCommute new commute that user wants to use
      */
     public void ChangeEventCommuteTime(Event newCommute){
-        Event updatedEvent = new Event(oldName, oldStartTime, oldEndTime, oldEvent.isCommute(), newCommute, oldLocation);
 
-        // if there is no conflict
-        if (!week.checkConflict(updatedEvent)){
-            updateEvents(updatedEvent);
-        }
     }
 
     /***
@@ -105,8 +85,6 @@ public class ModifyEventInteractor {
      * @param e event that contains updated information
      */
     public void updateEvents(Event e){
-        week.deleteEvent(oldEvent);
-        week.addEvent(e);
         SendNewEventInformation(e);
     }
 

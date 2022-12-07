@@ -18,14 +18,11 @@ public class ModifyEventController implements ModifyEventInputBoundary {
 
     /***
      *
-     * @param e Event object that is going to be modified
-     * @param c Calendar Object that user in interacting
-     * @param weekStart start date of the week
+
      */
-    public ModifyEventController(Event e, Calendar c, LocalDate weekStart){
-        event = e;
-        startDate = weekStart;
-        uc = new ModifyEventInteractor(e, c, weekStart);
+    public ModifyEventController(){
+
+        // uc = new ModifyEventInteractor(e);
     }
 
     /***
