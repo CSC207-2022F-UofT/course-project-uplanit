@@ -1,5 +1,6 @@
 package use_cases.add_dynamic_event_use_case;
 
+import entities.Event;
 import entities.DynamicEvent;
 import entities.DynamicEventFactory;
 
@@ -28,29 +29,26 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
         // return dynamicEventPresenter.prepareFailView
         if (dynamicEventDsGateway.checkConflict(requestModel)) {
             return dynamicEventPresenter.prepareFailView("Event has a conflict.");
-        }
+        } else {
 
-        else if () {
+            Event dynamicEvent = dynamicEventFactory.create(requestModel.getName(),
+                    requestModel.getStartTime(), requestModel.getEndTime(), false,
+                    null, requestModel.getLocation());
 
-        }
+            if (!dynamicEvent.isValid()) {
+                return dynamicEventPresenter.prepareFailView("Event start must be before event end.");
 
-        // (we know that the week exists, now, we have to check for conflicts)
-        // if there is no conflict, add the dynamic event and return dynamicEventPresenter.prepareSuccessView
-        // event is created, save this event to database
+            } else {
 
-        DynamicEvent dynamicEvent = new DynamicEventFactory.create(requestModel.getName(),
-                    requestModel.getStartTime(), requestModel.getEndTime(), requestModel.getIsCommute(),
-                    requestModel.getIsCommute(), requestModel.getLocation());
-        AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
+                AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
                     dynamicEvent.getStartTime(), dynamicEvent.getEndTime(),
                     dynamicEvent.isCommute(), dynamicEvent.getCommute(), dynamicEvent.getLocation());
-        AddDynamicEventDsGateway.save(eventDsModel);
+                dynamicEventDsGateway.save(eventDsModel);
 
-        AddDynamicEventResponseModel eventResponseModel = new AddDynamicEventResponseModel(dynamicEvent.getName(),
-                    "created");
-        return AddDynamicEventPresenter.prepareSuccessView(eventResponseModel);
-
-
+                AddDynamicEventResponseModel eventResponseModel = new AddDynamicEventResponseModel(dynamicEvent.getName(),
+                        "created");
+                return dynamicEventPresenter.prepareSuccessView(eventResponseModel);}
         }
+
     }
 }
