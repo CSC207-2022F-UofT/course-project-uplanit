@@ -17,12 +17,12 @@ public class AddDynamicEventDsRequestModel {
 
 
     public AddDynamicEventDsRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute,
-                                       Event commute, String location){
+                                         Event commute, String location){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.isCommute = isCommute;
-        this.commute = commute;
+        this.isCommute = false;
+        this.commute = null;
         this.location = location;
     }
 
@@ -33,10 +33,6 @@ public class AddDynamicEventDsRequestModel {
     }
 
     public Event getCommute(){return commute; }
-
-    public void setCommute(Event commute) {
-        this.commute = commute;
-    }
 
     public LocalDateTime getStartTime(){return startTime; }
 

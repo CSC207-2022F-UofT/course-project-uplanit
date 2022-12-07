@@ -1,7 +1,9 @@
 package screens;
 
+import entities.Event;
 import use_cases.add_dynamic_event_use_case.AddDynamicEventDsRequestModel;
 import use_cases.add_dynamic_event_use_case.AddDynamicEventDsGateway;
+import use_cases.add_dynamic_event_use_case.AddDynamicEventRequestModel;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -9,14 +11,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FileDynamicEvent implements AddDynamicEventDsGateway{
 
-        private File csvFile;
+        private final File csvFile;
 
-        private Map<String, Integer> headers = new LinkedHashMap<>();
+        private final Map<String, Integer> headers = new LinkedHashMap<>();
 
-        private  Map<String, AddDynamicEventDsRequestModel> accounts = new HashMap<>();
+        // LinkedHashMap is used to match each column with the headers.
+
+        private final Map<LocalDateTime, AddDynamicEventDsRequestModel> events = new HashMap<>();
 
         public FileDynamicEvent(String csvPath) throws IOException {
             csvFile = new File(csvPath);
@@ -40,18 +45,24 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
                 while ((row = reader.readLine()) != null) {
                     String[] col = row.split(",");
                     String name = String.valueOf(col[headers.get("name")]);
+
                     String start_time_str = String.valueOf(col[headers.get("start_time")]);
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+
                     LocalDateTime start_time = LocalDateTime.parse(start_time_str, formatter);
+
                     String end_time_str = String.valueOf(col[headers.get("end_time")]);
                     LocalDateTime end_time = LocalDateTime.parse(end_time_str, formatter);
-                    String is_commute = String.valueOf(col[headers.get("is_commute")]);
-                    String commute = String.valueOf(col[headers.get("commute")]);
+
+                    // String is_commute_str = String.valueOf(col[headers.get("is_commute")]);
+                    // boolean is_commute = !Objects.equals(is_commute_str, "false");
+
                     String location = String.valueOf(col[headers.get("location")]);
+
                     // String event_type = String.valueOf(col[headers.get("event_type")]);
-                    AddDynamicEventDsRequestModel user = new AddDynamicEventDsRequestModel(name, start_time, end_time,
-                            is_commute, commute, location);
-                    accounts.put(username, user);
+                    AddDynamicEventDsRequestModel event = new AddDynamicEventDsRequestModel(name, start_time, end_time,
+                            false, null, location);
+                    events.put(start_time, event);
                 }
 
                 reader.close();
@@ -64,7 +75,8 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
          */
         @Override
         public void save(AddDynamicEventDsRequestModel requestModel) {
-
+            events.put(requestModel.getStartTime(), requestModel);
+            this.save();
         }
 
         private void save() {
@@ -74,9 +86,10 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
                 writer.write(String.join(",", headers.keySet()));
                 writer.newLine();
 
-                for (AddDynamicEventDsRequestModel user : accounts.values()) {
-                    String line = "%s,%s,%s".formatted(
-                            user.getName(), user.getPassword(), user.getCreationTime());
+                for (AddDynamicEventDsRequestModel event : events.values()) {
+                    String line = String.format("%s,%s,%s,%s,%s,%s,%s",
+                            event.getName(), event.getStartTime(), event.getEndTime(), event.getIsCommute(),
+                            event.getCommute(), event.getLocation(), "D");
                     writer.write(line);
                     writer.newLine();
                 }
@@ -90,13 +103,19 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
 
 
         /**
-         * Return whether a user exists with username identifier.
-         * @param identifier the username to check.
-         * @return whether a user exists with username identifier
+         * Return whether there is a conflicting event with newEvent to be added to the calendar.
+         * @param newEvent the event to check.
+         * @return true iff newEvent conflicts with an already existent event.
          */
         @Override
-        public boolean existsByName(String identifier) {
-            return accounts.containsKey(identifier);
+        public boolean checkConflict(AddDynamicEventRequestModel newEvent) {
+            for (AddDynamicEventDsRequestModel requestModel : events.values()) {
+                if (newEvent.getStartTime().isBefore(requestModel.getEndTime()) &&
+                        newEvent.getEndTime().isAfter(requestModel.getStartTime())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
 }

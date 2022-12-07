@@ -1,11 +1,7 @@
 package use_cases.add_dynamic_event_use_case;
 
-import entities.Calendar;
 import entities.DynamicEvent;
 import entities.DynamicEventFactory;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 // Use Case Layer
 
@@ -27,14 +23,13 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
     @Override
     public AddDynamicEventResponseModel create(AddDynamicEventRequestModel requestModel) {
 
-        // if the corresponding week of requestModel.getStartTime() exists and there is a conflict;
+
+        // If the event to be added conflicts with the already existent events,
         // return dynamicEventPresenter.prepareFailView
-        if () {
-            return dynamicEventPresenter.prepareFailView("Event cannot be added due to a conflict.");
+        if (dynamicEventDsGateway.checkConflict(requestModel)) {
+            return dynamicEventPresenter.prepareFailView("Event has a conflict.");
         }
 
-        // else, if the corresponding week of requestModel.getStartTime() does not exist, create a week
-        // (we know that there will not be a conflict because the week did not exist previously)
         else if () {
 
         }
@@ -42,19 +37,18 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
         // (we know that the week exists, now, we have to check for conflicts)
         // if there is no conflict, add the dynamic event and return dynamicEventPresenter.prepareSuccessView
         // event is created, save this event to database
-        if () {
 
-            DynamicEvent dynamicEvent = new DynamicEventFactory.create(requestModel.getName(),
+        DynamicEvent dynamicEvent = new DynamicEventFactory.create(requestModel.getName(),
                     requestModel.getStartTime(), requestModel.getEndTime(), requestModel.getIsCommute(),
                     requestModel.getIsCommute(), requestModel.getLocation());
-            AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
-                    dynamicEvent.getStartTime(), dynamicEvent.getEndTime(), dynamicEvent.isCommute(),
-                    dynamicEvent.getCommute(), dynamicEvent.getLocation(), dynamicEvent.getEventType());
-            AddDynamicEventDsGateway.save(eventDsModel);
+        AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
+                    dynamicEvent.getStartTime(), dynamicEvent.getEndTime(),
+                    dynamicEvent.isCommute(), dynamicEvent.getCommute(), dynamicEvent.getLocation());
+        AddDynamicEventDsGateway.save(eventDsModel);
 
-            AddDynamicEventResponseModel eventResponseModel = new AddDynamicEventResponseModel(user.getName(),
-                    now.toString());
-            return AddDynamicEventPresenter.prepareSuccessView(eventResponseModel);
+        AddDynamicEventResponseModel eventResponseModel = new AddDynamicEventResponseModel(dynamicEvent.getName(),
+                    "created");
+        return AddDynamicEventPresenter.prepareSuccessView(eventResponseModel);
 
 
         }
