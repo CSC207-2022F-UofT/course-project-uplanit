@@ -1,7 +1,8 @@
 package use_cases.recurrent_event_use_case;
 
 import entities.Event;
-import entities.EventFactory;
+import entities.RecurrentEvent;
+import entities.RecurrentEventFactory;
 import java.time.LocalDateTime;
 
 // Use case layer
@@ -10,12 +11,12 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
 
     final RecurrentEventDsGateway recurrentDsGateway;
     final RecurrentEventPresenter recurrentPresenter;
-    final EventFactory eventFactory;
+    final RecurrentEventFactory eventFactory;
 
 
     public RecurrentEventInteractor(RecurrentEventDsGateway recurrentEventDfGateway,
                                     RecurrentEventPresenter recurrentEventPresenter,
-                                    EventFactory eventFactory) {
+                                    RecurrentEventFactory eventFactory) {
 
         this.recurrentDsGateway = recurrentEventDfGateway;
         this.recurrentPresenter = recurrentEventPresenter;
@@ -27,8 +28,24 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
     public RecurrentEventResponseModel create(RecurrentEventRequestModel requestModel) {
 
         if (recurrentDsGateway.hasConflict(requestModel.getStartTime(), requestModel.getEndTime())) {
-            return recurrentPresenter.prepareFailView("This event has a conflict");
+            return recurrentPresenter.prepareFailView("This event has a conflict.");
         }
-        else if ()
+
+        Event commute = eventFactory.create(requestModel.getName() + " commute", requestModel.getStartTime().minusMinutes(requestModel.getCommute()),
+                requestModel.getStartTime(), true, null, requestModel.getLocation());
+        Event event = eventFactory.create(requestModel.getName(), requestModel.getStartTime(),
+                requestModel.getEndTime(), false, commute, requestModel.getLocation());
+
+        if (something wrong) {
+            do something
+        }
+
+        RecurrentEventDsRequestModel commuteDsModel = new RecurrentEventDsRequestModel(commute.getName(), commute.getStartTime(),
+                commute.getEndTime(), true, null, commute.getLocation());
+        RecurrentEventDsRequestModel eventDsModel = new RecurrentEventDsRequestModel(event.getName(), event.getStartTime(),
+                event.getEndTime(), requestModel.getCommute(), event.getLocation());
+
+        RecurrentEventResponseModel responseModel =
+
     }
 }
