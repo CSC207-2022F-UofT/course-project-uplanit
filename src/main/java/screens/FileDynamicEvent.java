@@ -85,11 +85,15 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
                 writer = new BufferedWriter(new FileWriter(csvFile));
                 writer.write(String.join(",", headers.keySet()));
                 writer.newLine();
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
                 for (AddDynamicEventDsRequestModel event : events.values()) {
+
+                    String formatted_start_time = event.getStartTime().format(dateTimeFormatter);
+                    String formatted_end_time = event.getEndTime().format(dateTimeFormatter);
                     String line = String.format("%s,%s,%s,%s,%s,%s,%s",
-                            event.getName(), event.getStartTime(), event.getEndTime(), event.getIsCommute(),
-                            event.getCommute(), event.getLocation(), "D");
+                            event.getName(), formatted_start_time, formatted_end_time, event.getIsCommute(),
+                            "0", event.getLocation(), "D");
                     writer.write(line);
                     writer.newLine();
                 }
