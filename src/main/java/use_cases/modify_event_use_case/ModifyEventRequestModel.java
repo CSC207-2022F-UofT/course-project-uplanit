@@ -27,7 +27,7 @@ public class ModifyEventRequestModel {
 
     public LocalDateTime getEndTime(){return endTime;}
 
-    public int getCommuteTime(){return commuteTime;}
+    public int getCommute(){return commuteTime;}
 
     public boolean getIsCommute(){return isCommute;}
 

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-public class ModifyEventController implements ModifyEventInputBoundary {
+public class ModifyEventController{
 
 
 }

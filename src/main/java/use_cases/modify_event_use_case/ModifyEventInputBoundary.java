@@ -4,5 +4,5 @@ import entities.*;
 import java.time.LocalDateTime;
 
 public interface ModifyEventInputBoundary {
-
+    ModifyEventResponseModel create(ModifyEventRequestModel requestModel);
 }
