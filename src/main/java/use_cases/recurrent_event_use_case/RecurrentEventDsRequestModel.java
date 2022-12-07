@@ -9,6 +9,7 @@ public class RecurrentEventDsRequestModel {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final int commuteTime;
+
     private final boolean isCommute = false;
     private final String location;
 
