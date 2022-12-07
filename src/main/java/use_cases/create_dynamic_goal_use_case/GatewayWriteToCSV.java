@@ -4,5 +4,5 @@ import entities.DynamicEvent;
 
 public interface GatewayWriteToCSV {
     //translates from Dynamic Event format to CSV-able format and transcribes to CSV file; implemented by FileCalendar
-    boolean Save(InputDataStructure newDynamicGoal);
+    void Save(GatewayDataStructure goalsToFile);
 }
