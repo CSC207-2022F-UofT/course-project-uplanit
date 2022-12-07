@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 
@@ -6,9 +7,14 @@ public class Main {
     // the additional screens that need to be displayed in accordance with use of the GUI will be created as
     // separate files (one per view) in the screens package.
     public static void main(String[] args) {
-        JFrame frame = new JFrame("UPLANIT");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300,300);
+
+        //building the main program window
+        JFrame application = new JFrame("UPLANIT");
+        CardLayout cardLayout = new CardLayout();
+        JPanel screens = new JPanel(cardLayout);
+
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        application.setSize(750,650);
 
         //adds uplanit
         JLabel label = new JLabel("UPLANNIT");
