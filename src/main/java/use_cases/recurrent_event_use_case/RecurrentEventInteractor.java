@@ -31,21 +31,25 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
             return recurrentPresenter.prepareFailView("This event has a conflict.");
         }
 
+        if commute ()
+
         Event commute = eventFactory.create(requestModel.getName() + " commute", requestModel.getStartTime().minusMinutes(requestModel.getCommute()),
                 requestModel.getStartTime(), true, null, requestModel.getLocation());
         Event event = eventFactory.create(requestModel.getName(), requestModel.getStartTime(),
                 requestModel.getEndTime(), false, commute, requestModel.getLocation());
 
-        if (something wrong) {
-            do something
+        if (!event.isValid()) {
+
         }
+        if (!commute.isValid())
+
 
         RecurrentEventDsRequestModel commuteDsModel = new RecurrentEventDsRequestModel(commute.getName(), commute.getStartTime(),
                 commute.getEndTime(), true, null, commute.getLocation());
         RecurrentEventDsRequestModel eventDsModel = new RecurrentEventDsRequestModel(event.getName(), event.getStartTime(),
                 event.getEndTime(), requestModel.getCommute(), event.getLocation());
 
-        RecurrentEventResponseModel responseModel =
+        RecurrentEventResponseModel eventResponseModel = new RecurrentEventResponseModel(event.getName(), "")
 
     }
 }

@@ -7,7 +7,6 @@ public class RecurrentEventResponseModel {
     String name;
     String message;
 
-
     // Construct the response we would like to give to the presenter
     public RecurrentEventResponseModel(String name, String message) {
 

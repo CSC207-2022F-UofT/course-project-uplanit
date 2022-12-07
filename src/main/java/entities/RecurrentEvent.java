@@ -21,18 +21,8 @@ public class RecurrentEvent extends Event {
         this.isBiweekly = false;
     }
 
-
-    /**
-     *
-     *
-     * @return
-     */
-    public Boolean getHappensBiweekly(){
-        return this.isBiweekly;
-    }
-
-    public void setHappensBiweekly(Boolean happensBiweekly) {
-        this.isBiweekly = happensBiweekly;
-    }
-
 }
+
+
+
+
