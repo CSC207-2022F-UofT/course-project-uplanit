@@ -12,6 +12,6 @@ public class InputDataStructure {
 
     String getGoalTitle(){return goalTitle;}
 
-    void setGoalInMinutes(String newGoal){this.goalInMinutes = newGoal; }
+    void setGoalInMinutes(int newGoal){this.goalInMinutes = newGoal; }
     void setGoalTitle(String newTitle) {this.goalTitle = newTitle; }
 }
