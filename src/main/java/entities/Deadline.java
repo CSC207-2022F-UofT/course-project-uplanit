@@ -32,7 +32,4 @@ public class Deadline {
         this.date = date;
     }
 
-    public void addDeadline(Week givenWeek){
-        givenWeek.addDeadline(this);
-    }
 }
