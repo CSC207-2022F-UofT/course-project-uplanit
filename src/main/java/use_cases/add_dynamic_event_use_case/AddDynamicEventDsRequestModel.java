@@ -13,6 +13,7 @@ public class AddDynamicEventDsRequestModel {
     private final boolean isCommute;
     private Event commute;
     private String location;
+    // private String eventType;
 
 
     public AddDynamicEventDsRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute,
@@ -56,4 +57,8 @@ public class AddDynamicEventDsRequestModel {
     }
 
     public boolean getIsCommute(){return isCommute; }
+
+    // public String getEventType() {return eventType; }
+
+    // public void setEventType(String eventType) {this.eventType = eventType; }
 }

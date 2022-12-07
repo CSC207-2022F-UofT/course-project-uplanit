@@ -26,37 +26,37 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
     }
     @Override
     public AddDynamicEventResponseModel create(AddDynamicEventRequestModel requestModel) {
-        // if the corresponding week of requestModel.getStartTime() does not exist, create a week and add this event
-        // save this event to database
-        if ( ){
+
+        // if the corresponding week of requestModel.getStartTime() exists and there is a conflict;
+        // return dynamicEventPresenter.prepareFailView
+        if () {
+            return dynamicEventPresenter.prepareFailView("Event cannot be added due to a conflict.");
+        }
+
+        // else, if the corresponding week of requestModel.getStartTime() does not exist, create a week
+        // (we know that there will not be a conflict because the week did not exist previously)
+        else if () {
+
+        }
+
+        // (we know that the week exists, now, we have to check for conflicts)
+        // if there is no conflict, add the dynamic event and return dynamicEventPresenter.prepareSuccessView
+        // event is created, save this event to database
+        if () {
 
             DynamicEvent dynamicEvent = new DynamicEventFactory.create(requestModel.getName(),
                     requestModel.getStartTime(), requestModel.getEndTime(), requestModel.getIsCommute(),
                     requestModel.getIsCommute(), requestModel.getLocation());
             AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
                     dynamicEvent.getStartTime(), dynamicEvent.getEndTime(), dynamicEvent.isCommute(),
-                    dynamicEvent.getCommute(), dynamicEvent.getLocation());
+                    dynamicEvent.getCommute(), dynamicEvent.getLocation(), dynamicEvent.getEventType());
             AddDynamicEventDsGateway.save(eventDsModel);
 
             AddDynamicEventResponseModel eventResponseModel = new AddDynamicEventResponseModel(user.getName(),
                     now.toString());
             return AddDynamicEventPresenter.prepareSuccessView(eventResponseModel);
-            return dynamicEventPresenter.prepareSuccessView(eventResponseModel);
 
-
-        // else (we know that the week exists, we have to check for conflicts)
-        // if there is no conflict, add the dynamic event and return dynamicEventPresenter.prepareSuccessView
-        // event is created, save this event to database
-        } else if () {
-
-
-        // else (we know that the week exists but there is conflict) we cannot add event, return
-        // dynamicEventPresenter.prepareFailView
-        } else {
-            return dynamicEventPresenter.prepareFailView("Event cannot be added due to a conflict.");
 
         }
-
-
     }
 }
