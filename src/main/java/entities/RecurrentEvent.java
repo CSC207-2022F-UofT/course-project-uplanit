@@ -1,14 +1,7 @@
-/*
-This is the RecurrentEvent Entity;
-
- */
-
 package entities;
-
-import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+// Entity layer
 
 public class RecurrentEvent implements Event {
 
@@ -56,11 +49,11 @@ public class RecurrentEvent implements Event {
         return this.isCommute;
     }
 
+
     @Override
     public boolean isValid() {
-        if (endTime.isBefore(startTime)) {
-            return false;
-        }
-        return true;
+        return startTime.isBefore(endTime) & startTime.getDayOfWeek() == endTime.getDayOfWeek();
+
     }
 }
+
