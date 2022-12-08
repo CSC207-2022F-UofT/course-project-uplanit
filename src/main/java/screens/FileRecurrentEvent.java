@@ -108,7 +108,6 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
         }
     }
 
-
     /**
      * Return whether this event conflicts with another
      * @param startTime the start time to check.
@@ -130,5 +129,4 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
         }
         return true;
     }
-
 }
