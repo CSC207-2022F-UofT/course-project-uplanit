@@ -1,14 +1,21 @@
+import screens.gui_screens.WeekDisplayScreen;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
 
     // The purpose of this file (by convention) is to instantiate the ui when the program is run.
     // the additional screens that need to be displayed in accordance with use of the GUI will be created as
     // separate files (one per view) in the screens package.
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        //=========================================================================
         //building the main program window GUI (will hold all screen components)
+        //=========================================================================
         JFrame application = new JFrame("UPLANIT - Schedule Management");
 
         // what action is taken when the screen closes. This is very important for other shifted
@@ -19,24 +26,39 @@ public class Main {
         // setSize sets the size of the screen and setDefaultCloseOperation defines
         application.setSize(850,675);
 
+        //=============================================================================
+        //application heading display.
+        //=============================================================================
+        JPanel heading = new JPanel(new FlowLayout());
+        heading.setLocation(10, 10);
+        heading.setBounds(10, 10, 400, 50);
 
-        // Week
+        JLabel appTitle = new JLabel("UPlanIt"); //creating the JLabel that contains the heading.
+
+////        BufferedImage logoPng = ImageIO.read(new File("img/logo.png"));
+//        JLabel logo = new JLabel(new ImageIcon("img/logo.png"));
+//        logo.setBounds(0, 0, 50, 50);
+//
+//        heading.add(logo);
+
+        heading.add(appTitle);
+        heading.setVisible(true);
+
+        //============================================================================
+        // Week Grid display
+        //============================================================================
+        JPanel weekDisplay = new WeekDisplayScreen();
+        weekDisplay.setBounds(10, 30, 600, 500);
 
 
-//        //adds uplanit
-//        JLabel label = new JLabel("UPLANNIT");
-//        label.setBounds(350, 10, 90, 180);
-//
-//        //adds button
-//        JButton button = new JButton("LETS GOOOOOOOOOOOOOOOO");
-//
-//        //creates a panel to show button and label
-//        JPanel pnl = new JPanel();
-//        pnl.add(label);
-//        pnl.add(button);
-//        pnl.setBorder(BorderFactory.createEmptyBorder(,10,10,10));
-//
-//        application.add(pnl);
+        //===========================================================================
+        //Event display (if selected an event from week
+        //===========================================================================
+
+
+
+        application.getContentPane().add(weekDisplay);
+        application.getContentPane().add(heading);
         application.setVisible(true);
     }
 }
