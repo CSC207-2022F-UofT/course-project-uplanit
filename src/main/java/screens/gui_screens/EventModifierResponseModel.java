@@ -1,4 +1,4 @@
-package use_cases.modify_event_use_case;
+package screens.gui_screens;
 
 public class EventModifierResponseModel {
 

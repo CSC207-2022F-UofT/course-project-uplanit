@@ -2,7 +2,7 @@ package screens;
 
 import use_cases.modify_event_use_case.EventModifierInputBoundary;
 import use_cases.modify_event_use_case.EventModifierRequestModel;
-import use_cases.modify_event_use_case.EventModifierResponseModel;
+import screens.gui_screens.EventModifierResponseModel;
 
 import java.time.LocalDateTime;
 
