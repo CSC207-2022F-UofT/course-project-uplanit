@@ -16,8 +16,8 @@ public class RecurrentEventController {
         this.eventInput = eventGateway;
     }
 
-    RecurrentEventResponseModel create(String name, String startTime, String endTime, String isCommute, String commute,
-                                       String location, String eventType) {
+    public RecurrentEventResponseModel create(String name, String startTime, String endTime, String isCommute, String commute,
+                                              String location, String eventType) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
         LocalDateTime start = LocalDateTime.parse(startTime, formatter);

@@ -11,7 +11,16 @@ import java.text.SimpleDateFormat;
 
 
 public class RecurrentEventAddScreen extends JFrame implements ActionListener {
-    public RecurrentEventAddScreen() {
+    JTextField eventName = new JTextField(15);
+    JTextField eventType = new JTextField("R", 15);
+    SimpleDateFormat eventDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+    JFormattedTextField eventDateStart = new JFormattedTextField(eventDateFormat);
+    JFormattedTextField eventDateEnd = new JFormattedTextField(eventDateFormat);
+
+    RecurrentEventController recurrentEventController;
+
+    public RecurrentEventAddScreen(RecurrentEventController controller) {
+        this.recurrentEventController = controller;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // setSize sets the size of the screen and setDefaultCloseOperation defines
@@ -25,26 +34,18 @@ public class RecurrentEventAddScreen extends JFrame implements ActionListener {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setForeground(new Color(12, 7, 125));
 
-        JLabel eventNameLabel = new JLabel("Event Name:");
-        JTextField eventName = new JTextField(15);
+        LabelTextPanel eventNameInfo = new LabelTextPanel(new JLabel("Event Name:"), eventName);
 
-        panel.add(eventNameLabel);
-        panel.add(eventName);
+        panel.add(eventNameInfo);
 
-        JTextField eventType = new JTextField("R", 15);
+        LabelDatePanel eventDateStartInfo = new LabelDatePanel(
+                new JLabel("Enter the start time: (day/Month/year hour:minute)"), eventDateStart);
 
-        SimpleDateFormat eventDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+        LabelDatePanel eventDateEndInfo = new LabelDatePanel(
+                new JLabel("Enter the end time: (day/Month/year hour:minute)"), eventDateEnd);
 
-        JLabel eventDateStartLabel = new JLabel("Enter the start time: (day/Month/year hour:minute)");
-        JFormattedTextField eventDateStart = new JFormattedTextField(eventDateFormat);
-
-        JLabel eventDateEndLabel = new JLabel("Enter the End time: (day/Month/year hour:minute)");
-        JFormattedTextField eventDateEnd = new JFormattedTextField(eventDateFormat);
-
-        panel.add(eventDateStartLabel);
-        panel.add(eventDateStart);
-        panel.add(eventDateEndLabel);
-        panel.add(eventDateEnd);
+        panel.add(eventDateStartInfo);
+        panel.add(eventDateEndInfo);
 
         JButton submit = new JButton("Submit");
         submit.addActionListener(this);
@@ -58,5 +59,15 @@ public class RecurrentEventAddScreen extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Click " + evt.getActionCommand());
+        try {
+            recurrentEventController.create(eventName.getText(),
+                    eventDateStart.getText(), eventDateEnd.getText(), "false","0",
+                    "Library", eventType.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
+
     }
+
 }
