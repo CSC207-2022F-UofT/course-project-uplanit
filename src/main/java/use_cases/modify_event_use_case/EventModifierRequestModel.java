@@ -1,23 +1,27 @@
 package use_cases.modify_event_use_case;
+
 import java.time.LocalDateTime;
 
-public class ModifyEventDsRequestModel {
+public class EventModifierRequestModel {
+    private final String name;
+    private final LocalDateTime startTime;
+    private  final LocalDateTime endTime;
+    private final int commuteTime;
 
-    String name;
-    LocalDateTime startTime;
-    LocalDateTime endTime;
-    int commuteTime;
+    private final boolean isCommute;
 
-    boolean isCommute;
-    String location;
+    private final String location;
 
-    public ModifyEventDsRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime,
-                                   int commuteTime, boolean isCommute, String location){
+    private final String eventType;
+
+    public EventModifierRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, int commuteTime,
+                                     boolean isCommute, String location, String eventType){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.commuteTime = commuteTime;
         this.location = location;
+        this.eventType = eventType;
         this.isCommute = isCommute;
     }
 
@@ -33,5 +37,5 @@ public class ModifyEventDsRequestModel {
 
     public String getLocation(){return location;}
 
-
+    public String getEventType(){return eventType;}
 }

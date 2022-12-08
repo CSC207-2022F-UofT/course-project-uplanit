@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 
 // Frameworks/Drivers layer
 
-public class ModifyEventScreen extends JFrame implements ActionListener {
+public class EventModifierScreen extends JFrame implements ActionListener {
 
-    ModifyEventController controller;
+    EventModifierController controller;
     JTextField name = new JTextField(15);
     JTextField startTime = new JTextField(15);
     JTextField endTime = new JTextField(15);
@@ -20,7 +20,7 @@ public class ModifyEventScreen extends JFrame implements ActionListener {
     JCheckBox isCommute = new JCheckBox();
     JTextField location = new JTextField(15);
 
-    public ModifyEventScreen(ModifyEventController controller) {
+    public EventModifierScreen(EventModifierController controller) {
 
         this.controller = controller;
 
