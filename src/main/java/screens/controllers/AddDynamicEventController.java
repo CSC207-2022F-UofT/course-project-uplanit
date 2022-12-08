@@ -34,7 +34,6 @@ public class AddDynamicEventController {
     AddDynamicEventResponseModel create(String event_name, String start_time_str, String end_time_str,
                                         String location) {
 
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
         LocalDateTime start_time = LocalDateTime.parse(start_time_str, formatter);
         LocalDateTime end_time = LocalDateTime.parse(end_time_str, formatter);
