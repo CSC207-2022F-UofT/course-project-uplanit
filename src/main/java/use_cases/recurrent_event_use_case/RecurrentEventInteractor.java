@@ -43,9 +43,9 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
         }
 
         RecurrentEventDsRequestModel commuteDsModel = new RecurrentEventDsRequestModel(commute.getName(), commute.getStartTime(),
-                commute.getEndTime(), 0, commute.getLocation());
+                commute.getEndTime(), true, 0, commute.getLocation(), "R");
         RecurrentEventDsRequestModel eventDsModel = new RecurrentEventDsRequestModel(event.getName(), event.getStartTime(),
-                event.getEndTime(), requestModel.getCommute(), event.getLocation());
+                event.getEndTime(), false, requestModel.getCommute(), event.getLocation(), "R");
 
         RecurrentEventResponseModel eventResponseModel = new RecurrentEventResponseModel(event.getName()," created");
 
