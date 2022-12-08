@@ -5,6 +5,7 @@ import entities.EventFactory;
 import entities.SingleEventFactory;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AddSingleEventInteractor implements AddSingleEventInputBoundary {
 /*
@@ -24,18 +25,22 @@ CALL EVENT FACTORY
 
     @Override
     public AddSingleEventResponseModel create(AddSingleEventRequestModel requestModel) {
-        LocalDateTime commuteStart = requestModel.getStartTime().minusMinutes(requestModel.getCommuteTime());
-        int commuteLength = requestModel.getCommuteTime();
-        if (reader.checkConflict(requestModel.getStartTime(), requestModel.getEndTime())){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+        LocalDateTime startTime = LocalDateTime.parse(requestModel.getStartTime(), formatter);
+        LocalDateTime endTime = LocalDateTime.parse(requestModel.getStartTime(), formatter);
+        int commuteLength = Integer.parseInt(requestModel.getCommuteTime());
+        LocalDateTime commuteStart = startTime.minusMinutes(commuteLength);
+
+        if (reader.checkConflict(startTime, endTime)){
             return presenter.prepareFailView("Event has conflict");
-        } else if (reader.checkConflict(commuteStart, requestModel.getStartTime())){
+        } else if (reader.checkConflict(commuteStart, startTime)){
             return presenter.prepareFailView("Commute has conflict");
         }
-        Event commuteEvent = factory.create((requestModel.getName() + " commute"), commuteStart, requestModel.getStartTime(), false, null, requestModel.getLocation());
+        Event commuteEvent = factory.create((requestModel.getName() + " commute"), commuteStart, startTime, false, null, requestModel.getLocation());
         if (!commuteEvent.isValid()) {
             return presenter.prepareFailView("Commute was invalid");
         }
-        Event event = factory.create(requestModel.getName(), requestModel.getStartTime(), requestModel.getEndTime(), true, commuteEvent, requestModel.getLocation());
+        Event event = factory.create(requestModel.getName(), startTime, endTime, true, commuteEvent, requestModel.getLocation());
         if (!event.isValid()) {
             return presenter.prepareFailView("Event was invalid");
         }
@@ -45,7 +50,7 @@ CALL EVENT FACTORY
         reader.save(commuteDs);
         reader.save(eventDs);
 
-        AddSingleEventResponseModel accountResponseModel = new AddSingleEventResponseModel(event.getName());
-        return presenter.prepareSuccessView(accountResponseModel);
+        AddSingleEventResponseModel response = new AddSingleEventResponseModel(event.getName());
+        return presenter.prepareSuccessView(response);
     }
 }

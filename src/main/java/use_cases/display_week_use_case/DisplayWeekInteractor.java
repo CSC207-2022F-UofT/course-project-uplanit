@@ -3,6 +3,7 @@ package use_cases.display_week_use_case;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,19 +25,27 @@ public class DisplayWeekInteractor implements DisplayWeekInputBoundary{
             return presenter.prepareFailView("Commute has conflict");
         }
         TODO: ADD CHECKERS
-        TODO: TURN LOCALDATETIME INTO LOCALDATE
          */
-        */
-        ArrayList<ArrayList<ArrayList<String>>> result = new ArrayList<ArrayList<ArrayList<>>>;
-        LocalDate temp = requestModel.getDay().toLocalDate();
-        LocalDate monday = temp.minusDays(temp.getDayOfWeek().getValue() -1);
-        for (LocalDateTime key : reader.eventMap().keySet()){
-            LocalDate day = key.toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
+        ArrayList<ArrayList<ArrayList<String>>> week = new ArrayList<>();
+        LocalDate temp = LocalDateTime.parse(requestModel.getDay(), formatter).toLocalDate();
+        LocalDate monday = temp.minusDays(temp.getDayOfWeek().getValue() -1);
+        LocalDate counter;
+        for (int i=0; i<8; i++){
+            counter = monday.plusDays(i);
+            for (LocalDateTime key : reader.eventMap().keySet()){
+                ArrayList<ArrayList<String>> thisDay = new ArrayList<>();
+                week.add(thisDay);
+                LocalDate keyDate = key.toLocalDate();
+                if (keyDate.equals(counter)){
+                    thisDay.add(reader.eventMap().get(key).toStringList());
+                }
+            }
 
         }
 
-        AddSingleEventResponseModel accountResponseModel = new AddSingleEventResponseModel(event.getName());
+        DisplayWeekResponseModel accountResponseModel = new DisplayWeekResponseModel(week);
         return presenter.prepareSuccessView(accountResponseModel);
     }
 }

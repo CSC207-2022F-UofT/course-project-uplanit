@@ -4,41 +4,37 @@ import java.time.LocalDateTime;
 
 public class AddSingleEventRequestModel {
     private String name;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private boolean isCommute;
+    private String startTime;
+    private String endTime;
+    private String isCommute;
     private String location;
-    private int commuteTime;
+    private String commuteTime;
     private String eventType;
 
 
-    public AddSingleEventRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, int commute, String location, String type){
+    public AddSingleEventRequestModel(String name, String startTime, String endTime, String commute, String location){
 
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.commuteTime = commute;
         this.location = location;
-        this.eventType = type;
     }
     public String getName() {
         return this.name;
     }
 
-    public int getCommuteTime() {
+    public String getCommuteTime() {
         return this.commuteTime;
     }
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
     public String getLocation() {
         return location;
-    }
-    public String getEventType(){
-        return this.eventType;
     }
 
 }

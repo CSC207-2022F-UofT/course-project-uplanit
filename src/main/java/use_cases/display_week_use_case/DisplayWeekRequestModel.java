@@ -3,11 +3,11 @@ package use_cases.display_week_use_case;
 import java.time.LocalDateTime;
 
 public class DisplayWeekRequestModel {
-    private LocalDateTime day;
-    public DisplayWeekRequestModel(LocalDateTime day){
+    private String day;
+    public DisplayWeekRequestModel(String day){
         this.day = day;
     }
-    public LocalDateTime getDay (){
+    public String getDay (){
         return this.day;
     }
 }

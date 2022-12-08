@@ -15,6 +15,6 @@ public class AddSingleEventResponseFormatter implements AddSingleEventPresenter 
 
     @Override
     public AddSingleEventResponseModel prepareFailView(String error) {
-        return null;
+        throw new AddSingleEventFailed(error);
     }
 }
