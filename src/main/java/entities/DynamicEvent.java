@@ -67,5 +67,6 @@ public class DynamicEvent implements Event{
     @Override
     public boolean isValid() {
         return startTime.isBefore(endTime) & startTime.getDayOfWeek() == endTime.getDayOfWeek();
+
     }
 }
