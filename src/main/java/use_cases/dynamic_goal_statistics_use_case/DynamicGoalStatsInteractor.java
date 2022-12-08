@@ -1,7 +1,5 @@
 package use_cases.dynamic_goal_statistics_use_case;
 
-import entities.DynamicEvent;
-
 public class DynamicGoalStatsInteractor implements DynamicGoalStatsInputBoundary{
 
     final DynamicGoalStatsDsGateway goalStatsDsGateway;

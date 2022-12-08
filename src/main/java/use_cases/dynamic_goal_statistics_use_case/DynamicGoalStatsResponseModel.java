@@ -15,10 +15,6 @@ public class DynamicGoalStatsResponseModel{
         this.statsPerDay = calculateStats(goal);
     }
 
-    private HashMap<String, Duration> calculateStats(String goal) {
-
-    }
-
     public String getGoal() {
         return goal;
     }

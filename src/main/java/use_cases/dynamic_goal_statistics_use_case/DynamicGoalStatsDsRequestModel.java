@@ -8,6 +8,7 @@ import java.util.HashMap;
 public class DynamicGoalStatsDsRequestModel {
 
     private final String goalName;
+    private final String timeSpent;
 
     public DynamicGoalStatsDsRequestModel(String name) {
         this.goalName = name;
@@ -16,5 +17,9 @@ public class DynamicGoalStatsDsRequestModel {
 
     public String getGoalName() {
         return this.goalName;
+    }
+
+    public String getTimeSpent() {
+        return this.timeSpent;
     }
 }
