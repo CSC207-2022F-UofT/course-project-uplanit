@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 
 
 public class RecurrentEventAddScreen extends JPanel implements ActionListener {
-
-
-
     /**
      * React to a button click that results in evt.
      */

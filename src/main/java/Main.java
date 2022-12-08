@@ -8,28 +8,31 @@ public class Main {
     // separate files (one per view) in the screens package.
     public static void main(String[] args) {
 
-        //building the main program window
-        JFrame application = new JFrame("UPLANIT");
-        CardLayout cardLayout = new CardLayout();
-        JPanel screens = new JPanel(cardLayout);
+        //building the main program window GUI (will hold all screen components)
+        JFrame application = new JFrame("UPLANIT - Schedule Management");
 
+        // what action is taken when the screen closes. This is very important for other shifted
+        // screens (using separate layout managers) so that when you close one screen, the main
+        // program doesn't close
         application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        application.setSize(750,650);
 
-        //adds uplanit
-        JLabel label = new JLabel("UPLANNIT");
-        label.setBounds(90, 120, 90, 180);
+        // setSize sets the size of the screen and setDefaultCloseOperation defines
+        application.setSize(850,675);
 
-        //adds button
-        JButton button = new JButton("LETS GOOOOOOOOOOOOOOOO");
-
-        //creates a panel to show button and label
-        JPanel pnl = new JPanel();
-        pnl.add(label);
-        pnl.add(button);
-        pnl.setBorder(BorderFactory.createEmptyBorder(90,10,10,10));
-
-        frame.add(pnl);
-        frame.setVisible(true);
+//        //adds uplanit
+//        JLabel label = new JLabel("UPLANNIT");
+//        label.setBounds(350, 10, 90, 180);
+//
+//        //adds button
+//        JButton button = new JButton("LETS GOOOOOOOOOOOOOOOO");
+//
+//        //creates a panel to show button and label
+//        JPanel pnl = new JPanel();
+//        pnl.add(label);
+//        pnl.add(button);
+//        pnl.setBorder(BorderFactory.createEmptyBorder(,10,10,10));
+//
+//        application.add(pnl);
+        application.setVisible(true);
     }
 }
