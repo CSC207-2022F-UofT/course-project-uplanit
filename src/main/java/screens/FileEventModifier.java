@@ -2,9 +2,11 @@ package screens;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.time.format.DateTimeFormatter;
 
+import use_cases.add_dynamic_event_use_case.AddDynamicEventDsRequestModel;
 import use_cases.modify_event_use_case.EventModifierDsGateway;
 import use_cases.modify_event_use_case.EventModifierRequestModel;
 import use_cases.modify_event_use_case.EventModifierDsRequestModel;
@@ -13,7 +15,7 @@ import use_cases.modify_event_use_case.EventModifierDsRequestModel;
 public class FileEventModifier implements EventModifierDsGateway {
     private final File csvFile;
 
-    private final Map<String, Integer> headers;
+    private final Map<String, Integer> headers = new LinkedHashMap<>();
 
 
     private final Map<String, EventModifierDsRequestModel> events = new HashMap<>();
@@ -26,10 +28,9 @@ public class FileEventModifier implements EventModifierDsGateway {
     private String originalLocation;
 
 
-    public FileEventModifier(String csvPath, Map<String, Integer> headers,
-                             LocalDateTime startTimeIdentifier) throws IOException {
+    public FileEventModifier(String csvPath) throws IOException {
         csvFile = new File(csvPath);
-        this.headers = headers;
+
         headers.put("name", 0);
         headers.put("start_time", 1);
         headers.put("end_time", 2);
@@ -52,31 +53,34 @@ public class FileEventModifier implements EventModifierDsGateway {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
             LocalDateTime startTime = LocalDateTime.parse(startTimeString, formatter);
 
+            String name = String.valueOf(col[headers.get("name")]);
 
-            // if it matches the event that user wants to modify, stop the reader?
-            if (startTime == startTimeIdentifier){
-                String name = String.valueOf(col[headers.get("name")]);
+            String endTimeString = String.valueOf(col[headers.get("end_time")]);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeString, formatter);
 
-                String endTimeString = String.valueOf(col[headers.get("end_time")]);
-                LocalDateTime endTime = LocalDateTime.parse(endTimeString, formatter);
+            int commuteTime =  headers.get("commute");
 
-                int commuteTime =  headers.get("commute");
+            boolean isCommute = Boolean.parseBoolean(col[headers.get("is_commute")]);
 
-                boolean isCommute = Boolean.parseBoolean(col[headers.get("is_commute")]);
+            String location =  String.valueOf(col[headers.get("location")]);
 
-                String location =  String.valueOf(col[headers.get("location")]);
+            EventModifierDsRequestModel event = new EventModifierDsRequestModel(name, startTime, endTime,
+                        commuteTime, isCommute, location);
 
+            events.put(startTimeString, event);
+
+                /*
                 this.originalName = name;
                 this.originalStartTime = startTime;
                 this.originalEndTime = endTime;
                 this.originalCommuteTime = commuteTime;
                 this.originalIsCommute = isCommute;
                 this.originalLocation = location;
+                 */
 
                 reader.close();
                 }
             }
-        }
 
     /**
      * Add requestModel to storage.
@@ -84,8 +88,6 @@ public class FileEventModifier implements EventModifierDsGateway {
      */
     @Override
     public void save(EventModifierDsRequestModel reqModel) {
-
-        checkChangedInfo(reqModel);
 
         String id = reqModel.getStartTime().toString();
         events.put(id, reqModel);
@@ -95,9 +97,10 @@ public class FileEventModifier implements EventModifierDsGateway {
     private void Save() {
         BufferedWriter writer;
         try {
-            String line = "";
             writer = new BufferedWriter(new FileWriter(csvFile));
             writer.write(String.join(",", headers.keySet()));
+            writer.newLine();
+
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
 
@@ -105,15 +108,13 @@ public class FileEventModifier implements EventModifierDsGateway {
                 String formattedStartTime= event.getStartTime().format(dateTimeFormatter);
                 String formattedEndTime = event.getEndTime().format(dateTimeFormatter);
 
-                line = String.format("%s,%s,%s,%s,%s,%s",
+                String line = String.format("%s,%s,%s,%s,%s,%s",
                         event.getName(), formattedStartTime, formattedEndTime, event.getCommute(),
                         event.getIsCommute(), event.getLocation());
+
+                writer.write(line);
+                writer.newLine();
             }
-
-            // overwrite the corresponding line
-            writer.write(line);
-
-            writer.newLine();
             writer.close();
 
         } catch (IOException e) {
@@ -130,62 +131,5 @@ public class FileEventModifier implements EventModifierDsGateway {
             }
         }
         return false;
-    }
-
-    public void checkChangedInfo (EventModifierDsRequestModel reqModel){
-        boolean n = false;
-        boolean s = false;
-        boolean e = false;
-        boolean cTime = false;
-        boolean isC = false;
-        boolean l = false;
-
-        if (!reqModel.getName().equals("")){
-            n = true;
-        }
-
-        if (reqModel.getStartTime() != null){
-            s = true;
-        }
-        if (reqModel.getEndTime() != null){
-            e = true;
-        }
-        if (reqModel.getCommute() != -1){
-            cTime = true;
-        }
-
-        if (reqModel.getIsCommute() != originalIsCommute){
-            isC = true;
-        }
-
-        if (!reqModel.getLocation().equals("")){
-            l = true;
-        }
-
-
-
-        if (!n){
-            reqModel.setName(originalName);
-        }
-
-        if (!s){
-            reqModel.setStartTime(originalStartTime);
-        }
-
-        if (!e){
-            reqModel.setEndTime(originalEndTime);
-        }
-
-        if (!cTime){
-            reqModel.setCommuteTime(originalCommuteTime);
-        }
-
-        if (!isC){
-            reqModel.setIsCommute(originalIsCommute);
-        }
-
-        if (!l){
-            reqModel.setLocation(originalLocation);
-        }
     }
 }
