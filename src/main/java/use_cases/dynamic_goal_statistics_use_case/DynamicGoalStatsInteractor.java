@@ -22,6 +22,10 @@ public class DynamicGoalStatsInteractor implements DynamicGoalStatsInputBoundary
         // need to access csv file
         DynamicGoalStatsResponseModel goalResponseModel = new DynamicGoalStatsResponseModel(goal);
 
-        return DynamicGoalStatsPresenter.prepareSuccessView(goalResponseModel);
+        //check
+        return goalResponseModel;
+
+        //return DynamicGoalStatsPresenter
+                //.prepareSuccessView(goalResponseModel);
     }
 }

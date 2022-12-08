@@ -8,11 +8,11 @@ import java.util.HashMap;
 public class DynamicGoalStatsResponseModel{
 
     String goal;
-    HashMap<String, Duration> statsPerDay;
+    //HashMap<String, Duration> statsPerDay;
 
     public DynamicGoalStatsResponseModel(String goal) {
         this.goal = goal;
-        this.statsPerDay = calculateStats(goal);
+        //this.statsPerDay = calculateStats(goal);
     }
 
     public String getGoal() {

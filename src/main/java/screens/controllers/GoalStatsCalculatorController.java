@@ -14,9 +14,8 @@ public class GoalStatsCalculatorController {
         this.userInput = accountGateway;
     }
 
-    DynamicGoalStatsResponseModel create(String goal) {
-        DynamicGoalStatsRequestModel requestModel = new DynamicGoalStatsRequestModel(goal);
-
-        return userInput.create(requestModel);
-    }
+    // DynamicGoalStatsResponseModel create(String goal) {
+    //    DynamicGoalStatsRequestModel requestModel = new DynamicGoalStatsRequestModel(goal);
+    //    return userInput.create(requestModel);
+    //}
 }
