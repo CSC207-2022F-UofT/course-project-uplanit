@@ -1,3 +1,4 @@
+import screens.controllers.RecurrentEventController;
 import screens.gui_screens.EventInformationScreen;
 import screens.gui_screens.EventsAddScreen;
 import screens.gui_screens.WeekDisplayScreen;
@@ -58,7 +59,7 @@ public class Main {
         //============================================================================
         // Setting up parts to plug into the Use Case+Entities engine
         //============================================================================
-
+        RecurrentEventController recurrentEventController;
 
 
 

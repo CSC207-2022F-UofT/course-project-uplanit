@@ -1,5 +1,7 @@
 package screens.gui_screens;
 
+import screens.controllers.RecurrentEventController;
+
 import javax.swing.*;
 import java.awt.*;
 

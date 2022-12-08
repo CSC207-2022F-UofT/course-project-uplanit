@@ -1,5 +1,7 @@
 package screens.gui_screens;
 
+import screens.controllers.RecurrentEventController;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -17,7 +19,6 @@ public class EventAddButton extends JPanel implements ActionListener {
         button.setBackground(new Color(68, 60, 244));
         this.add(button);
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
