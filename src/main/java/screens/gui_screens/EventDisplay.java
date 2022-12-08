@@ -12,6 +12,7 @@ public class EventDisplay extends JPanel {
                 new EtchedBorder()));
         //random data, this will be getting information from the week display to showcase it
         JLabel name = new JLabel("Event Name");
+        name.setForeground(Color.blue);
         JLabel type = new JLabel("Event type");
         JLabel date = new JLabel("Event Date");
         this.add(name);

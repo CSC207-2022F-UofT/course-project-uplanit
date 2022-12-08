@@ -15,12 +15,22 @@ import java.util.List;
 public class WeekDisplayScreen extends JPanel implements ActionListener {
 
     public WeekDisplayScreen() {
-        this.setLayout(new GridLayout());
+        this.setLayout(new FlowLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel("Your Weekly Schedule");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.add(title);
+
+        JPanel schedule = new JPanel(new GridLayout());
+
         int[] lst = {4, 3, 2, 4, 5, 6, 2};
         for (int i:lst) {
             DayDisplay day = new DayDisplay(i);
-            this.add(day);
+            schedule.add(day);
         }
+
+        this.add(schedule);
 
     }
     @Override
