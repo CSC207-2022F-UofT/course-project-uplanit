@@ -19,7 +19,7 @@ public class ModifyEventController{
                                     boolean isCommute, String location) {
 
         ModifyEventRequestModel requestModel = new ModifyEventRequestModel(username, startTime, endTime,
-                commuteTime, isCommute, location);
+                commuteTime, isCommute, location, "S");
 
         return userInput.create(requestModel);
     }

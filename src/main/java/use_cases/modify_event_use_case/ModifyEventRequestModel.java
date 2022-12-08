@@ -7,18 +7,22 @@ public class ModifyEventRequestModel {
     private LocalDateTime startTime;
     private  LocalDateTime endTime;
     private int commuteTime;
-    private  final boolean isCommute;
+
+    private final boolean isCommute;
+
     private String location;
 
+    private final String eventType;
+
     public ModifyEventRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, int commuteTime,
-                                   boolean isCommute, String location){
+                                   boolean isCommute, String location, String eventType){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.commuteTime = commuteTime;
-        this.isCommute = isCommute;
         this.location = location;
-
+        this.eventType = eventType;
+        this.isCommute = isCommute;
     }
 
     public String getName(){return name;}
@@ -32,6 +36,8 @@ public class ModifyEventRequestModel {
     public boolean getIsCommute(){return isCommute;}
 
     public String getLocation(){return location;}
+
+    public String getEventType(){return eventType;}
 
 
     public void setName(String name){this.name = name;}

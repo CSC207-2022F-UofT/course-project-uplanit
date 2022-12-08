@@ -10,7 +10,8 @@ import entities.Event;
 import use_cases.modify_event_use_case.ModifyEventDsGateway;
 import use_cases.modify_event_use_case.ModifyEventDsRequestModel;
 
-public class FileEvents implements ModifyEventDsGateway {
+
+/***public class FileEvents implements ModifyEventDsGateway {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -62,7 +63,7 @@ public class FileEvents implements ModifyEventDsGateway {
     /**
      * Add requestModel to storage.
      * @param eventsToFile the event information to save.
-     */
+
     @Override
     public void save(ModifyEventDsRequestModel eventsToFile) {
         events.put(eventsToFile.getName(), eventsToFile);
@@ -91,3 +92,4 @@ public class FileEvents implements ModifyEventDsGateway {
         }
     }
 }
+*/

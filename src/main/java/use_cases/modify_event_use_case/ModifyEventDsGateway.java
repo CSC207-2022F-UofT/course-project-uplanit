@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 
 
 public interface ModifyEventDsGateway {
-    boolean hasConflict(LocalDateTime startTime, LocalDateTime endTime);
+    boolean hasConflict(ModifyEventRequestModel newEvent);
 
     void save(ModifyEventDsRequestModel requestModel);
 }
