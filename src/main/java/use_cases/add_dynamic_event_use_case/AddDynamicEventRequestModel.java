@@ -4,7 +4,7 @@ import entities.Event;
 
 import java.time.LocalDateTime;
 
-// Use Case Layer
+// Application Business Rules (Use Case) Layer
 public class AddDynamicEventRequestModel {
 
     private String name;

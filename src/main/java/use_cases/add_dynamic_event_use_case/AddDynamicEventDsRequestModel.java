@@ -4,7 +4,7 @@ import entities.Event;
 
 import java.time.LocalDateTime;
 
-// Use Case Layer; Data Structure
+// Application Business Rules (Use Case) Layer; Data Structure
 public class AddDynamicEventDsRequestModel {
     private String name;
     private LocalDateTime startTime;

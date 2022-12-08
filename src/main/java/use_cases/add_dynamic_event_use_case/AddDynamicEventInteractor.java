@@ -4,7 +4,7 @@ import entities.Event;
 import entities.DynamicEvent;
 import entities.DynamicEventFactory;
 
-// Use Case Layer
+// Application Business Rules (Use Case) Layer; Use Case Interactor
 
 public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
 
@@ -12,7 +12,14 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
     final AddDynamicEventPresenter dynamicEventPresenter;
     final DynamicEventFactory dynamicEventFactory;
 
-
+    /**
+     * Construct AddDynamicEventInteractor object given the addDynamicEventDfGateway, addDynamicEventPresenter,
+     * and dynamicEventFactory.
+     *
+     * @param addDynamicEventDfGateway gateway (data access interface object)
+     * @param addDynamicEventPresenter presenter
+     * @param dynamicEventFactory factory (design pattern) for generating a dynamic event
+     */
     public AddDynamicEventInteractor(AddDynamicEventDsGateway addDynamicEventDfGateway,
                                      AddDynamicEventPresenter addDynamicEventPresenter,
                                      DynamicEventFactory dynamicEventFactory) {
@@ -21,20 +28,31 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
         this.dynamicEventFactory = dynamicEventFactory;
 
     }
+
+    /**
+     * Return AddDynamicEventResponseModel object with given requestModel.
+     *
+     * @param requestModel AddDynamicEventRequestModel object
+     * @return AddDynamicEventResponseModel object
+     */
     @Override
     public AddDynamicEventResponseModel create(AddDynamicEventRequestModel requestModel) {
 
 
-        // If the event to be added conflicts with the already existent events,
-        // return dynamicEventPresenter.prepareFailView
+        // If the event to be added conflicts with any of the already existent events,
+        // return dynamicEventPresenter.prepareFailView with the corresponding error message.
         if (dynamicEventDsGateway.checkConflict(requestModel)) {
             return dynamicEventPresenter.prepareFailView("Event has a conflict.");
+
         } else {
 
+            // There is no conflict. Create the dynamic event.
             Event dynamicEvent = dynamicEventFactory.create(requestModel.getName(),
                     requestModel.getStartTime(), requestModel.getEndTime(), false,
                     null, requestModel.getLocation());
 
+            // Check whether the dynamic event is a valid one using the Event.isValid() method. If it is not a
+            // valid event, return dynamicEventPresenter.prepareFailView with the corresponding error message.
             if (!dynamicEvent.isValid()) {
                 return dynamicEventPresenter.prepareFailView("Event start must be before event end.");
 
