@@ -5,6 +5,8 @@ import entities.Week;
 import java.time.Duration;
 import java.util.HashMap;
 
+// Use-Case Layer
+
 public class DynamicGoalStatsDsRequestModel {
 
     private final String goalName;
@@ -14,7 +16,6 @@ public class DynamicGoalStatsDsRequestModel {
     public DynamicGoalStatsDsRequestModel(String name, Week week) {
         this.goalName = name;
         this.week = week;
-
         this.timeSpent = new HashMap<>();
         getStatistics(timeSpent);
 
