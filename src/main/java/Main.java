@@ -19,6 +19,10 @@ public class Main {
         // setSize sets the size of the screen and setDefaultCloseOperation defines
         application.setSize(850,675);
 
+
+        // Week
+
+
 //        //adds uplanit
 //        JLabel label = new JLabel("UPLANNIT");
 //        label.setBounds(350, 10, 90, 180);
