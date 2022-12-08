@@ -13,9 +13,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
+
+// Frameworks and Drivers layer
 public class FileDynamicEvent implements AddDynamicEventDsGateway{
 
-    // Frameworks and Drivers layer
         private final File csvFile;
 
         private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -24,7 +25,13 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
 
         private final Map<LocalDateTime, AddDynamicEventDsRequestModel> events = new HashMap<>();
 
-        public FileDynamicEvent(String csvPath) throws IOException {
+    /**
+     * Construct FileDynamicEvent given the csvPath.
+     *
+     * @param csvPath the pathway to creating the csv file
+     * @throws IOException may throw IOException
+     */
+    public FileDynamicEvent(String csvPath) throws IOException {
 
             // Constructor for creating a csv file which will store the dynamic events in comma separated format
             // There are 7 columns with the following headers in order:
