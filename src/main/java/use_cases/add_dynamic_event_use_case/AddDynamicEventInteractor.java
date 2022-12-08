@@ -56,8 +56,10 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
             if (!dynamicEvent.isValid()) {
                 return dynamicEventPresenter.prepareFailView("Event start must be before event end.");
 
+            // Event is valid and there is no conflict.
             } else {
 
+                // Create eventDsModel (Data Structure Request Model) for this event.
                 AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
                     dynamicEvent.getStartTime(), dynamicEvent.getEndTime(),
                     dynamicEvent.isCommute(), dynamicEvent.getCommute(), dynamicEvent.getLocation());
