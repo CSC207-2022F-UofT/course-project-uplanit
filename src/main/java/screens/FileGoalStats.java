@@ -38,7 +38,7 @@ public class FileGoalStats implements DynamicGoalStatsDsGateway {
 
                 String timeSpent = String.valueOf(col[headers.get("totalTimeSpent")]);
 
-                DynamicGoalStatsDsRequestModel goalStats = new DynamicGoalStatsDsRequestModel(goal, timeSpent);
+                DynamicGoalStatsDsRequestModel goalStats = new DynamicGoalStatsDsRequestModel(goal);
                 goals.put(goal, goalStats);
             }
 
@@ -64,7 +64,7 @@ public class FileGoalStats implements DynamicGoalStatsDsGateway {
             writer.newLine();
 
             for (DynamicGoalStatsDsRequestModel goalStats : goals.values()) {
-                String line = String.format("%s,%s", goalStats.getGoalName(), goalStats.getTimeSpent());
+                String line = String.format("%s,%s", goalStats.getGoalName());
                 writer.write(line);
                 writer.newLine();
             }
