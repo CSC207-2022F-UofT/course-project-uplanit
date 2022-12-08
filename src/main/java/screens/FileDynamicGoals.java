@@ -84,7 +84,7 @@ public class FileDynamicGoals implements  GatewayWriteToCSV {
             writer.newLine();
 
             for (GatewayDataStructure dynamicGoal : dynamicGoals.values()) {
-                String line = "%s,%s,%s".formatted(dynamicGoal.getGoalTitle(),
+                String line = String.format("%s,%s,%s,%s",dynamicGoal.getGoalTitle(),
                         dynamicGoal.getGoalInMinutes(), dynamicGoal.getStartDate(),
                         dynamicGoal.getEndDate());
                 writer.write(line);
