@@ -4,7 +4,6 @@ import use_cases.recurrent_event_use_case.RecurrentEventDsGateway;
 import use_cases.recurrent_event_use_case.RecurrentEventDsRequestModel;
 
 import java.io.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
