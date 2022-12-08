@@ -2,7 +2,6 @@ package use_cases.modify_event_use_case;
 
 import entities.*;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 
 public class ModifyEventInteractor implements ModifyEventInputBoundary {
@@ -28,10 +27,15 @@ public class ModifyEventInteractor implements ModifyEventInputBoundary {
             return presenter.prepareFailView("This event has a conflict.");
         }
 
-        // commute event
-        Event commute = eventFactory.create(requestModel.getName() + " commute",
-                requestModel.getStartTime().minusMinutes(requestModel.getCommute()),
-                requestModel.getStartTime(), true, null, requestModel.getLocation());
+        Event commute = null;
+
+        // if this event has commute
+        if (requestModel.getIsCommute()){
+            // create commute event
+            commute = eventFactory.create(requestModel.getName() + " commute",
+                    requestModel.getStartTime().minusMinutes(requestModel.getCommute()),
+                    requestModel.getStartTime(), true, null, requestModel.getLocation());
+        }
 
         // new event
         Event event = eventFactory.create(requestModel.getName(), requestModel.getStartTime(),
@@ -42,19 +46,22 @@ public class ModifyEventInteractor implements ModifyEventInputBoundary {
             return presenter.prepareFailView("Event start must be before event end.");
         }
 
-
         // if event has no issues
-        ModifyEventDsRequestModel commuteDsModel = new ModifyEventDsRequestModel(commute.getName(), commute.getStartTime(),
-                commute.getEndTime(), 0, commute.getLocation());
+
+        // if it has a commute
+        if (requestModel.getIsCommute()) {
+            assert commute != null;
+            ModifyEventDsRequestModel commuteDsModel = new ModifyEventDsRequestModel(commute.getName(),
+                    commute.getStartTime(), commute.getEndTime(), 0, true, commute.getLocation());
+        }
 
         ModifyEventDsRequestModel eventDsModel = new ModifyEventDsRequestModel(event.getName(), event.getStartTime(),
-                event.getEndTime(), requestModel.getCommute(), event.getLocation());
+                event.getEndTime(), requestModel.getCommute(), requestModel.getIsCommute(), event.getLocation());
 
         ModifyEventResponseModel eventResponseModel = new ModifyEventResponseModel(event.getName(),
                 " successfully modified");
 
         return presenter.prepareSuccessView(eventResponseModel);
     }
-
 }
 
