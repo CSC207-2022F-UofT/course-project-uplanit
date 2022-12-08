@@ -1,7 +1,15 @@
+import entities.EventFactory;
+import entities.RecurrentEventFactory;
+import screens.controllers.FileRecurrentEvent;
 import screens.controllers.RecurrentEventController;
+import screens.controllers.RecurrentEventResponseFormatter;
 import screens.gui_screens.EventInformationScreen;
 import screens.gui_screens.EventsAddScreen;
 import screens.gui_screens.WeekDisplayScreen;
+import use_cases.recurrent_event_use_case.RecurrentEventDsGateway;
+import use_cases.recurrent_event_use_case.RecurrentEventInputBoundary;
+import use_cases.recurrent_event_use_case.RecurrentEventInteractor;
+import use_cases.recurrent_event_use_case.RecurrentEventPresenter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -60,8 +68,17 @@ public class Main {
         // Setting up parts to plug into the Use Case+Entities engine
         //============================================================================
         RecurrentEventController recurrentEventController;
+        RecurrentEventDsGateway event;
+        try {
+            event = new FileRecurrentEvent("./events.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could Not Create File");
+        }
 
-
+        RecurrentEventPresenter presenter = new RecurrentEventResponseFormatter();
+        RecurrentEventFactory eventFactory = new RecurrentEventFactory();
+        RecurrentEventInputBoundary interactor = new RecurrentEventInteractor(event, presenter, eventFactory);
+        RecurrentEventController recurrentEventController1 = new RecurrentEventController(interactor);
 
         //============================================================================
         // Week Grid display
