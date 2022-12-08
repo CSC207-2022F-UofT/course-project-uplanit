@@ -6,7 +6,7 @@ import entities.SingleEventFactory;
 
 import java.time.LocalDateTime;
 
-public class AddSingleEventInteractor {
+public class AddSingleEventInteractor implements AddSingleEventInputBoundary {
 /*
 CALL EVENT FACTORY
 
@@ -35,7 +35,7 @@ CALL EVENT FACTORY
         if (!commuteEvent.isValid()) {
             return presenter.prepareFailView("Commute was invalid");
         }
-        Event event = factory.create(requestModel.getName(), requestModel.getStartTime(), requestModel.getEndTime(), requestModel.isCommute(), commuteEvent, requestModel.getLocation());
+        Event event = factory.create(requestModel.getName(), requestModel.getStartTime(), requestModel.getEndTime(), true, commuteEvent, requestModel.getLocation());
         if (!event.isValid()) {
             return presenter.prepareFailView("Event was invalid");
         }
