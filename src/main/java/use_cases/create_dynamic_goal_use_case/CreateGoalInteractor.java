@@ -32,7 +32,12 @@ public class CreateGoalInteractor implements CreateGoalInputBoundary {
                 inputData.getStartDate(), inputData.getEndDate());
 
         if (newGoal.isValid()) {
-            return goalPresenter.prepareSuccessView();
+            GatewayDataStructure gatewayData = new GatewayDataStructure(newGoal.getDuration(), newGoal.getName(),
+                    newGoal.getStartDate(), newGoal.getEndDate());
+            goalGatewayToFile.Save(gatewayData);
+
+            OuputDataStructure dataToPresent = new OuputDataStructure();
+            return goalPresenter.prepareSuccessView(dataToPresent);
         } else {
             return goalPresenter.prepareFailView("The input is invalid");
         }
