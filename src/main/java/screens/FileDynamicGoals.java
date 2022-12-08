@@ -52,7 +52,7 @@ public class FileDynamicGoals implements  GatewayWriteToCSV {
 
                 String endDateStr = String.valueOf(col[headers.get("end date")]);
                 DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-                LocalDate endDate = LocalDate.parse(endDateStr, formatter);
+                LocalDate endDate = LocalDate.parse(endDateStr, formatter2);
                 GatewayDataStructure dynamicGoal = new GatewayDataStructure(duration, goalName, startDate, endDate);
                 dynamicGoals.put(goalName, dynamicGoal);
             }
@@ -64,6 +64,16 @@ public class FileDynamicGoals implements  GatewayWriteToCSV {
     public void Save(GatewayDataStructure goalsToFile) {
         dynamicGoals.put(goalsToFile.getGoalTitle(), goalsToFile);
         this.Save();
+    }
+
+    /**
+     * Return whether a dynamic goal already exists with title name.
+     * @param name the goal title to check.
+     * @return whether a goal exists with with title name.
+     */
+    @Override
+    public boolean goalExistsByName(String name) {
+        return dynamicGoals.containsKey(name);
     }
 
     private void Save() {
