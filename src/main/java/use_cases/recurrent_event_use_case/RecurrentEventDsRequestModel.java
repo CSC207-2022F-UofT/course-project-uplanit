@@ -9,10 +9,8 @@ public class RecurrentEventDsRequestModel {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
     private final int commuteTime;
-
     private final boolean isCommute;
     private final String location;
-
     private final String eventType;
 
 
@@ -30,35 +28,33 @@ public class RecurrentEventDsRequestModel {
     }
 
 
-    String getName() {
+    public String getName() {
         return this.name;
     }
 
-    LocalDateTime getStartTime() {
+    public LocalDateTime getStartTime() {
         return this.startTime;
     }
 
-    LocalDateTime getEndTime() {
+    public LocalDateTime getEndTime() {
         return this.endTime;
     }
 
-    int getCommuteTime() {
+    public int getCommuteTime() {
         return this.commuteTime;
     }
 
-    boolean getIsCommute() {
+    public boolean getIsCommute() {
         return this.isCommute;
     }
 
-    String getLocation() {
+    public String getLocation() {
         return this.location;
     }
 
-    String getEventType() {
+    public String getEventType() {
         return this.eventType;
     }
-
-
 
 
 }

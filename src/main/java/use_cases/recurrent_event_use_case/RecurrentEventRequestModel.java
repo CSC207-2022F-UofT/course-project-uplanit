@@ -11,15 +11,18 @@ public class RecurrentEventRequestModel {
     private boolean isCommute = false;
     private int commute;
     private String location;
+    private String eventType;
 
-    public RecurrentEventRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, int commute,
-                                      String location) {
+
+    public RecurrentEventRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute,
+                                      int commute, String location, String eventType) {
 
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.commute = commute;
         this.location = location;
+        this.eventType = eventType;
 
     }
 

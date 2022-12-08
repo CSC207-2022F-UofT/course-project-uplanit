@@ -52,12 +52,13 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
                 LocalDateTime startTime = LocalDateTime.parse(stringStart, formatter2);
                 LocalDateTime endTime = LocalDateTime.parse(stringEnd, formatter2);
                 String isCommute = String.valueOf(col[headers.get("isCommute")]);
-                String commute = String.valueOf(col[headers.get("commute")]);
+                String stringCommute = String.valueOf(col[headers.get("commute")]);
+                int commute = Integer.parseInt(stringCommute);
                 String location = String.valueOf(col[headers.get("location")]);
                 String eventType = String.valueOf(col[headers.get("eventType")]);
 
                 RecurrentEventDsRequestModel event = new RecurrentEventDsRequestModel(name, startTime, endTime,
-                        Boolean.parseBoolean(isCommute), Integer.parseInt(commute), location, eventType);
+                        Boolean.parseBoolean(isCommute), commute, location, eventType);
 
                 events.put(startTime, event);
             }
@@ -66,11 +67,19 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
         }
     }
 
+
     /**
      * Add created request model to storage
+     * @param requestModel the event information to save.
      */
     @Override
-    public void save() {
+    public void save(RecurrentEventDsRequestModel requestModel) {
+        events.put(requestModel.getStartTime(), requestModel);
+        this.save();
+    }
+
+
+    private void save() {
 
         BufferedWriter writer;
 
@@ -79,16 +88,47 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
             writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+
             for (RecurrentEventDsRequestModel event : events.values()) {
-                String line = "%s,%s,%s".formatted(event.getName(), )
+                String formattedStart = event.getStartTime().format(formatter);
+                String formattedEnd = event.getEndTime().format(formatter);
+                String formattedIs = ((Boolean) event.getIsCommute()).toString();
+                String formattedCom = ((Integer) event.getCommuteTime()).toString();
+
+                String line = String.format("%s,%s,%s,%s,%s,%s,%s", event.getName(), formattedStart, formattedEnd,
+                        formattedIs, formattedCom, event.getLocation(), event.getEventType());
+                writer.write(line);
+                writer.newLine();
             }
-
+            writer.close();
         }
-
-
-
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
+    /**
+     * Return whether this event conflicts with another
+     * @param startTime the start time to check.
+     * @param endTime the end time to check.
+     */
+    @Override
+    public boolean hasConflict(LocalDateTime startTime, LocalDateTime endTime) {
+
+        if (events.containsKey(startTime)) {
+            return false;
+        }
+        for (LocalDateTime start : events.keySet()) {
+            LocalDateTime end = events.get(start).getEndTime();
+
+            if (!(startTime.isBefore(start) & endTime.isBefore(start)) |
+            !(startTime.isAfter(end) & endTime.isAfter(end))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

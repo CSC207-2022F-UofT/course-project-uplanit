@@ -22,6 +22,4 @@ public class RecurrentEventResponseModel {
         return this.message;
     }
 
-    // not sure if this needs setters
-
 }

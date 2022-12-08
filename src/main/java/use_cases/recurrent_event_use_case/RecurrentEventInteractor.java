@@ -1,7 +1,6 @@
 package use_cases.recurrent_event_use_case;
 
 import entities.Event;
-import entities.RecurrentEvent;
 import entities.RecurrentEventFactory;
 import java.time.LocalDateTime;
 
@@ -24,6 +23,8 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
 
     }
 
+
+    // Create a new request model for the commute and event from the users input and save it
     @Override
     public RecurrentEventResponseModel create(RecurrentEventRequestModel requestModel) {
 
@@ -37,15 +38,16 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
                 requestModel.getEndTime(), false, commute, requestModel.getLocation());
 
         if (!event.isValid()) {
-
             return recurrentPresenter.prepareFailView("Event start must be before event end.");
-
         }
 
         RecurrentEventDsRequestModel commuteDsModel = new RecurrentEventDsRequestModel(commute.getName(), commute.getStartTime(),
                 commute.getEndTime(), true, 0, commute.getLocation(), "R");
         RecurrentEventDsRequestModel eventDsModel = new RecurrentEventDsRequestModel(event.getName(), event.getStartTime(),
                 event.getEndTime(), false, requestModel.getCommute(), event.getLocation(), "R");
+
+        recurrentDsGateway.save(commuteDsModel);
+        recurrentDsGateway.save(eventDsModel);
 
         RecurrentEventResponseModel eventResponseModel = new RecurrentEventResponseModel(event.getName()," created");
 
