@@ -1,21 +1,28 @@
 package use_cases.add_dynamic_event_use_case;
 
-// Use Case Layer
-
 import entities.Event;
 
 import java.time.LocalDateTime;
 
+// Use Case Layer; Data Structure
 public class AddDynamicEventDsRequestModel {
     private String name;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private final boolean isCommute;
-    private Event commute;
+    private final Event commute;
     private String location;
-    // private String eventType;
 
-
+    /**
+     * Construct AddDynamicEventDsRequestModel object given the name, startTime, endTime, isCommute, commute,
+     * and location.
+     * @param name the name for this event
+     * @param startTime the start time for this event
+     * @param endTime the end time for this event
+     * @param isCommute whether this event requires commute
+     * @param commute the event corresponding to the commute
+     * @param location the location of this event
+     */
     public AddDynamicEventDsRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute,
                                          Event commute, String location){
         this.name = name;
@@ -54,7 +61,4 @@ public class AddDynamicEventDsRequestModel {
 
     public boolean getIsCommute(){return isCommute; }
 
-    // public String getEventType() {return eventType; }
-
-    // public void setEventType(String eventType) {this.eventType = eventType; }
 }
