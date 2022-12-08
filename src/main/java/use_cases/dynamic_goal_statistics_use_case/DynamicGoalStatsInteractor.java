@@ -1,24 +1,29 @@
 package use_cases.dynamic_goal_statistics_use_case;
 
-import entities.Week;
+import entities.DynamicEvent;
 
 public class DynamicGoalStatsInteractor implements DynamicGoalStatsInputBoundary{
 
     final DynamicGoalStatsDsGateway goalStatsDsGateway;
     final DynamicGoalStatsPresenter goalStatsPresenter;
 
-    public UserRegisterInteractor(DynamicGoalStatsDsGateway goalStatsDfGateway,
-                                  DynamicGoalStatsPresenter userRegisterPresenter) {
-        this.userDsGateway = userRegisterDfGateway;
-        this.userPresenter = userRegisterPresenter;
+    public DynamicGoalStatsInteractor(DynamicGoalStatsDsGateway goalStatsDfGateway,
+                                  DynamicGoalStatsPresenter goalStatsPresenter) {
+        this.goalStatsDsGateway = goalStatsDfGateway;
+        this.goalStatsPresenter = goalStatsPresenter;
 
     }
 
     @Override
     public DynamicGoalStatsResponseModel create(DynamicGoalStatsRequestModel requestModel) {
-        if (DynamicGoalStatsDsGateway.existsByName(requestModel.getName())) {
-            return userPresenter.prepareFailView("User already exists.");
-        } else if (!requestModel.getPassword().equals(requestModel.getRepeatPassword())) {
-            return userPresenter.prepareFailView("Passwords don't match.");
-        }
+        String goal = requestModel.getGoalName();
+
+        DynamicGoalStatsDsRequestModel statsDsModel = new DynamicGoalStatsDsRequestModel(goal);
+        goalStatsDsGateway.save(statsDsModel);
+
+        // need to access csv file
+        DynamicGoalStatsResponseModel goalResponseModel = new DynamicGoalStatsResponseModel(goal);
+
+        return DynamicGoalStatsPresenter.prepareSuccessView(goalResponseModel);
+    }
 }
