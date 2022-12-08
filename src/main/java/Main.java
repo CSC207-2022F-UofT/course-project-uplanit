@@ -71,13 +71,13 @@ public class Main {
 
 
         //===========================================================================
-        //Event display (if selected an event from week
+        //Event display (if selected an event from week)
         //===========================================================================
         EventInformationScreen eventInfo = new EventInformationScreen();
         eventInfo.setBounds(620, 200, 250, 400);
 
         //===========================================================================
-        //ADD Buttons
+        //Event ADD Buttons
         //==========================================================================
         EventsAddScreen addEvents = new EventsAddScreen();
         addEvents.setBackground(Color.white);
