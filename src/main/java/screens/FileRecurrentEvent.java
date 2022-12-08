@@ -122,8 +122,9 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
         for (LocalDateTime start : events.keySet()) {
             LocalDateTime end = events.get(start).getEndTime();
 
-            if (!(startTime.isBefore(start) & endTime.isBefore(start)) |
-            !(startTime.isAfter(end) & endTime.isAfter(end))) {
+            if (!((startTime.isBefore(start) | startTime.isEqual(start)) & (endTime.isBefore(start) |
+                    endTime.isEqual(start))) |
+            !(((startTime.isAfter(end) | startTime.isEqual(end)) & (endTime.isAfter(end))) | endTime.isEqual(end))) {
                 return false;
             }
         }
