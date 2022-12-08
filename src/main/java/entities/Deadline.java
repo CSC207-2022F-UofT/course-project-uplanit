@@ -1,11 +1,8 @@
-/*
-This is the Deadline Entity;
-
- */
-
 package entities;
 
 import java.util.Date;
+
+// Entity layer
 
 public class Deadline {
     private String name;
