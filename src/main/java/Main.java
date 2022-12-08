@@ -1,40 +1,89 @@
+import screens.gui_screens.EventInformationScreen;
+import screens.gui_screens.EventsAddScreen;
+import screens.gui_screens.WeekDisplayScreen;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 public class Main {
-    //trying out stuff for modifying Event
-    private JButton modifyEventButton;
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("UPLANIT");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300,300);
 
-        //adds uplanit
-        JLabel label = new JLabel("UPLANNIT");
-        label.setBounds(90, 120, 90, 180);
+    // The purpose of this file (by convention) is to instantiate the ui when the program is run.
+    // the additional screens that need to be displayed in accordance with use of the GUI will be created as
+    // separate files (one per view) in the screens package.
+    public static void main(String[] args) throws IOException {
+        //=========================================================================
+        //building the main program window GUI (will hold all screen components)
+        //=========================================================================
+        JFrame application = new JFrame("UPLANIT - Schedule Management");
+        application.setBackground(Color.white);
+        //use a cardlayout to switch between  this screen and the add events screen
 
-        //adds button
-        JButton button = new JButton("LETS GOOOOOOOOOOOOOOOO");
 
-        //creates a panel to show button and label
-        JPanel pnl = new JPanel();
-        pnl.add(label);
-        pnl.add(button);
-        pnl.setBorder(BorderFactory.createEmptyBorder(90,10,10,10));
+        // what action is taken when the screen closes. This is very important for other shifted
+        // screens (using separate layout managers) so that when you close one screen, the main
+        // program doesn't close
+        application.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.add(pnl);
-        frame.setVisible(true);
+        // setSize sets the size of the screen and setDefaultCloseOperation defines
+        application.setSize(950,675);
+
+        //=============================================================================
+        //application heading display.
+        //=============================================================================
+        JPanel heading = new JPanel(new FlowLayout());
+        heading.setBackground(Color.white);
+        heading.setLocation(10, 10);
+        heading.setBounds(10, 10, 400, 150);
+
+        JLabel appTitle = new JLabel("UPlanIt"); //creating the JLabel that contains the heading.
+        appTitle.setForeground(new Color(12, 7, 125));
+
+//        JLabel logo = new JLabel();
+//        logo.setIcon(new ImageIcon());
+//        logo.setVisible(true);
+//        logo.setBounds(200, 25, 100, 100);
+//
+//
+//        heading.add(logo);
+        heading.add(appTitle);
+        heading.setVisible(true);
+
+        //============================================================================
+        // Week Grid display
+        //============================================================================
+        JPanel weekDisplay = new WeekDisplayScreen();
+        weekDisplay.setBackground(Color.white);
+        weekDisplay.setBounds(10, 30, 600, 500);
+
+
+        //===========================================================================
+        //Event display (if selected an event from week
+        //===========================================================================
+        EventInformationScreen eventInfo = new EventInformationScreen();
+        eventInfo.setBounds(620, 200, 250, 400);
+
+        //===========================================================================
+        //ADD Buttons
+        //==========================================================================
+        EventsAddScreen addEvents = new EventsAddScreen();
+        addEvents.setBackground(Color.white);
+        addEvents.setBounds(620, 30, 250, 150);
+
+
+
+
+
+        application.getContentPane().add(addEvents);
+        application.getContentPane().add(eventInfo);
+        application.getContentPane().add(weekDisplay);
+        application.getContentPane().add(heading);
+        application.setVisible(true);
     }
-
-    // testing stuff for modifying event
-    public void modifyEventInput(){
-        modifyEventButton = new JButton("edit event");
-
-    }
-    //modifyEventButton.addActionListener(new ActionListener()) {
-
-    }
-    //public void actionPerformed(ActionEvent e) {}
-        //your actions
-
-
+}
