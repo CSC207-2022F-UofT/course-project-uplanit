@@ -1,5 +1,6 @@
-package screens;
+package screens.controllers;
 
+import screens.controllers.EventCreationFailed;
 import use_cases.recurrent_event_use_case.RecurrentEventPresenter;
 import use_cases.recurrent_event_use_case.RecurrentEventResponseModel;
 

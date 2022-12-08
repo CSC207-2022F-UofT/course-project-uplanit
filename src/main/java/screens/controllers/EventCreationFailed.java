@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 public class EventCreationFailed extends RuntimeException {
 

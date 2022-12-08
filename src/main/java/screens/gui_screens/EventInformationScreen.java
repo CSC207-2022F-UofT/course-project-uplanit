@@ -6,6 +6,7 @@ package screens.gui_screens;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -31,10 +32,16 @@ public class EventInformationScreen extends JPanel{
 
         JButton modifyButton = new JButton("Modify Event");
         modifyButton.setBackground(new Color(68, 60, 244));
+        modifyButton.setBorder(new EmptyBorder(10, 20, 10, 20));
         modifyButton.setForeground(Color.white);
+
+        JLabel emptySpace = new JLabel("");
+        emptySpace.setBorder(new EmptyBorder(10, 20, 10, 20));
+
         JButton deleteButton = new JButton("Delete this event");
         deleteButton.setBackground(new Color(68, 60, 244));
         deleteButton.setForeground(Color.white);
+        deleteButton.setBorder(new EmptyBorder(10, 20, 10, 20));
 
         this.add(title);
         this.add(sampleName);
@@ -42,6 +49,7 @@ public class EventInformationScreen extends JPanel{
         this.add(sampleType);
 
         this.add(modifyButton);
+        this.add(emptySpace);
         this.add(deleteButton);
     }
 }
