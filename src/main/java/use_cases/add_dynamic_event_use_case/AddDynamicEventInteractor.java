@@ -63,10 +63,15 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
                 AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
                     dynamicEvent.getStartTime(), dynamicEvent.getEndTime(),
                     dynamicEvent.isCommute(), dynamicEvent.getCommute(), dynamicEvent.getLocation());
+
+                // Use the save method implemented in FileDynamicEvent to save this event into the events HashMap and
+                // to the csv file.
                 dynamicEventDsGateway.save(eventDsModel);
 
                 AddDynamicEventResponseModel eventResponseModel = new AddDynamicEventResponseModel(dynamicEvent.getName(),
                         "created");
+
+                // Return dynamicEventPresenter.prepareSuccessView with the corresponding message.
                 return dynamicEventPresenter.prepareSuccessView(eventResponseModel);}
         }
 
