@@ -8,5 +8,6 @@ public interface RecurrentEventDsGateway {
 
     boolean hasConflict(LocalDateTime startTime, LocalDateTime endTime);
 
+    void save(RecurrentEventDsRequestModel requestModel);
 
 }
