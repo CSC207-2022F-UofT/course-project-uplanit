@@ -1,4 +1,7 @@
-package screens.controllers;
+package screens.gui_screens;
+
+import screens.controllers.EventModifierController;
+import screens.controllers.LabelTextPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 
 public class EventModifierScreen extends JFrame implements ActionListener {
 
-    EventModifierController controller;
+    public EventModifierController controller;
     JTextField name = new JTextField(15);
     JTextField startTime = new JTextField(15);
     JTextField endTime = new JTextField(15);
@@ -27,17 +30,17 @@ public class EventModifierScreen extends JFrame implements ActionListener {
         JLabel title = new JLabel("Modify Event (leave the space blank for the info you don't want to edit)");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel nameInfo = new LabelTextPanel(
+        screens.controllers.LabelTextPanel nameInfo = new screens.controllers.LabelTextPanel(
                 new JLabel("Enter new name"), name);
-        LabelTextPanel startTimeInfo = new LabelTextPanel(
+        screens.controllers.LabelTextPanel startTimeInfo = new screens.controllers.LabelTextPanel(
                 new JLabel("Enter new start time"), startTime);
-        LabelTextPanel endTimeInfo = new LabelTextPanel(
+        screens.controllers.LabelTextPanel endTimeInfo = new screens.controllers.LabelTextPanel(
                 new JLabel("Enter new end time"), endTime);
-        LabelTextPanel commuteTimeInfo = new LabelTextPanel(
+        screens.controllers.LabelTextPanel commuteTimeInfo = new screens.controllers.LabelTextPanel(
                 new JLabel("Enter new commute time"), commuteTime);
-        LabelTextPanel isCommuteInfo = new LabelTextPanel(
+        screens.controllers.LabelTextPanel isCommuteInfo = new screens.controllers.LabelTextPanel(
                 new JLabel("This event has commute time"), isCommute);
-        LabelTextPanel locationInfo = new LabelTextPanel(
+        screens.controllers.LabelTextPanel locationInfo = new LabelTextPanel(
                 new JLabel("Enter new location"), location);
 
         JButton modify = new JButton("modify");

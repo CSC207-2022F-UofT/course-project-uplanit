@@ -1,8 +1,6 @@
 package use_cases.modify_event_use_case;
 
 
-import screens.gui_screens.EventModifierResponseModel;
-
 public class EventModifierInteractor implements EventModifierInputBoundary {
 
     final EventModifierDsGateway eventModifierDsGateway;
