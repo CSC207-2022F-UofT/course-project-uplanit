@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 import entities.Event;
 import use_cases.add_dynamic_event_use_case.AddDynamicEventDsRequestModel;
