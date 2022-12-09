@@ -46,5 +46,9 @@ public class DeleteEventRequestModel {
     String getLocation() {
         return this.location;
     }
+
+    String getEventType() {
+        return this.eventType;
+    }
 }
 

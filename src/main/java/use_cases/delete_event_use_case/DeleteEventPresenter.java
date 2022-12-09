@@ -4,7 +4,7 @@ package use_cases.delete_event_use_case;
 
 public interface DeleteEventPresenter {
 
-    DeleteEventResponseModel prepareSuccessView(DeleteEventRequestModel requestModel);
+    DeleteEventResponseModel prepareSuccessView(DeleteEventResponseModel responseModel);
 
     DeleteEventResponseModel prepareFailView(String error);
 }

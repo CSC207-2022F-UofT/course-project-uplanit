@@ -2,7 +2,6 @@ package use_cases.recurrent_event_use_case;
 
 import entities.Event;
 import entities.RecurrentEventFactory;
-import java.time.LocalDateTime;
 
 // Use case layer
 

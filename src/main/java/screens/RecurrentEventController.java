@@ -6,7 +6,7 @@ import use_cases.recurrent_event_use_case.RecurrentEventResponseModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// Interface adapters layer
+// // Interface adapters layer
 
 public class RecurrentEventController {
 
