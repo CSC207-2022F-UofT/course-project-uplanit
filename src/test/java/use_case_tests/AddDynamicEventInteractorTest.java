@@ -36,8 +36,8 @@ public class AddDynamicEventInteractorTest {
         AddDynamicEventInputBoundary interactor = new AddDynamicEventInteractor(eventRepository,
                 presenter, dynamicEventFactory);
 
-        // Input data: Normally created by Controller; however, for the purposes of testing, we can make up an
-        // event.
+        // Input data: Normally created by Controller.
+        // However, for the purposes of testing, we can make up an event.
         String start_time_str = "29/07/2023 11:45";
         String end_time_str = "29/07/2023 13:45";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
