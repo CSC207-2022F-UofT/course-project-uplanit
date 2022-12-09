@@ -162,15 +162,6 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway, DeleteEventD
         if (events.containsKey(startTime)) {
             return true;
         }
-        for (LocalDateTime start : events.keySet()) {
-            LocalDateTime end = events.get(start).getEndTime();
-
-            if (!((startTime.isBefore(start) & (endTime.isBefore(start)) |
-                    endTime.isEqual(start))) |
-            !(((startTime.isAfter(end) | startTime.isEqual(end)) & (endTime.isAfter(end))) | endTime.isEqual(end))) {
-                return true;
-            }
-        }
         return false;
     }
 
