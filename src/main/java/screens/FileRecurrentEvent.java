@@ -174,9 +174,6 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway, DeleteEventD
         return false;
     }
 
-    /**
-     * Check if the event to be deleted exists.
-     */
     @Override
     public boolean isEvent(LocalDateTime startTime) {
 
