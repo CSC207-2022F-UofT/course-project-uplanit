@@ -30,13 +30,14 @@ public class AddDynamicEventInteractorTest {
                 fail("Use case failure is unexpected.");
                 return null;
             }
+
         };
 
         DynamicEventFactory dynamicEventFactory = new DynamicEventFactory();
         AddDynamicEventInputBoundary interactor = new AddDynamicEventInteractor(eventRepository,
                 presenter, dynamicEventFactory);
 
-        // Input data: Normally created by Controller.
+        // Input data is normally created by Controller.
         // However, for the purposes of testing, we can make up an event.
         String start_time_str = "29/07/2023 11:45";
         String end_time_str = "29/07/2023 13:45";
