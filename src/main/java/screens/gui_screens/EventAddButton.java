@@ -19,6 +19,18 @@ public class EventAddButton extends JPanel implements ActionListener {
         button.setBackground(new Color(68, 60, 244));
         this.add(button);
     }
+//    public EventAddButton(String name, RecurrentEventController recurrentEventController){
+//        JPanel recurrentAddScreen = new RecurrentEventAddScreen(recurrentEventController);
+//        this.add(recurrentAddScreen);
+//
+//        this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(2, 2, 2, 2),
+//                new EtchedBorder()));
+//        JButton button = new JButton(name);
+//        button.addActionListener(this);
+//        button.setForeground(Color.white);
+//        button.setBackground(new Color(68, 60, 244));
+//        this.add(button);
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

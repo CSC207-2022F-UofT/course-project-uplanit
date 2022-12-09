@@ -2,6 +2,9 @@ package screens.controllers;
 
 import use_cases.recurrent_event_use_case.RecurrentEventDsGateway;
 import use_cases.recurrent_event_use_case.RecurrentEventDsRequestModel;
+import use_cases.delete_event_use_case.DeleteEventDsGateway;
+import use_cases.delete_event_use_case.DeleteEventDsRequestModel;
+
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -11,13 +14,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class FileRecurrentEvent implements RecurrentEventDsGateway {
+public class FileRecurrentEvent implements RecurrentEventDsGateway, DeleteEventDsGateway {
 
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
     private final Map<LocalDateTime, RecurrentEventDsRequestModel> events = new HashMap<>();
+
+    private final Map<LocalDateTime, DeleteEventDsRequestModel> events1 = new HashMap<>();
 
 
     public FileRecurrentEvent(String csvPath) throws IOException {
@@ -58,8 +63,11 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
 
                 RecurrentEventDsRequestModel event = new RecurrentEventDsRequestModel(name, startTime, endTime,
                         Boolean.parseBoolean(isCommute), commute, location, eventType);
+                DeleteEventDsRequestModel event1 = new DeleteEventDsRequestModel(name, startTime, endTime,
+                        Boolean.parseBoolean(isCommute), commute, location, eventType);
 
                 events.put(startTime, event);
+                events1.put(startTime, event1);
             }
 
             reader.close();
@@ -75,6 +83,42 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
     public void save(RecurrentEventDsRequestModel requestModel) {
         events.put(requestModel.getStartTime(), requestModel);
         this.save();
+    }
+
+    @Override
+    public void delete(DeleteEventDsRequestModel requestModel) {
+        events1.remove(requestModel.getStartTime(), requestModel);
+        this.delete();
+    }
+
+
+    private void delete() {
+
+        BufferedWriter writer;
+
+        try {
+            writer = new BufferedWriter(new FileWriter(csvFile));
+            writer.write(String.join(",", headers.keySet()));
+            writer.newLine();
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+
+            for (DeleteEventDsRequestModel event1 : events1.values()) {
+                String formattedStart = event1.getStartTime().format(formatter);
+                String formattedEnd = event1.getEndTime().format(formatter);
+                String formattedIs = ((Boolean) event1.getIsCommute()).toString();
+                String formattedCom = ((Integer) event1.getCommuteTime()).toString();
+
+                String line = String.format("%s,%s,%s,%s,%s,%s,%s", event1.getName(), formattedStart, formattedEnd,
+                        formattedIs, formattedCom, event1.getLocation(), event1.getEventType());
+                writer.write(line);
+                writer.newLine();
+            }
+            writer.close();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -121,11 +165,22 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway {
         for (LocalDateTime start : events.keySet()) {
             LocalDateTime end = events.get(start).getEndTime();
 
-            if (!(startTime.isBefore(start) & endTime.isBefore(start)) |
-            !(startTime.isAfter(end) & endTime.isAfter(end))) {
+            if (!((startTime.isBefore(start) | startTime.isEqual(start)) & (endTime.isBefore(start) |
+                    endTime.isEqual(start))) |
+            !(((startTime.isAfter(end) | startTime.isEqual(end)) & (endTime.isAfter(end))) | endTime.isEqual(end))) {
                 return false;
             }
         }
         return true;
     }
+
+    /**
+     * Check if the event to be deleted exists.
+     */
+    @Override
+    public boolean isEvent(LocalDateTime startTime) {
+
+        return events.containsKey(startTime);
+    }
+
 }
