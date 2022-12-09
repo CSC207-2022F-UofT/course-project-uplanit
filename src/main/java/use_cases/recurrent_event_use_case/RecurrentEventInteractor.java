@@ -32,19 +32,20 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
         for (int i = 0; i <= 11; i++) {
 
 
-            if (recurrentDsGateway.hasConflict(requestModel.getStartTime(), requestModel.getEndTime())) {
+            if (recurrentDsGateway.hasConflict(requestModel.getStartTime().plusDays(7*i), requestModel.getEndTime().plusDays(7*i))) {
                 return recurrentPresenter.prepareFailView("This event has a conflict.");
             }
 
-            if (recurrentDsGateway.hasConflict(requestModel.getStartTime(), requestModel.getEndTime())) {
+            if (recurrentDsGateway.hasConflict(requestModel.getStartTime().plusDays(7*i).minusMinutes(requestModel.getCommute()),
+                    requestModel.getEndTime().plusDays(7*i).minusMinutes(requestModel.getCommute()))) {
                 return recurrentPresenter.prepareFailView("This commute has a conflict.");
 
             }
 
-            Event commute = eventFactory.create(requestModel.getName() + " commute", requestModel.getStartTime().minusMinutes(requestModel.getCommute()),
-                    requestModel.getStartTime(), true, null, requestModel.getLocation());
-            event = eventFactory.create(requestModel.getName(), requestModel.getStartTime(),
-                    requestModel.getEndTime(), false, commute, requestModel.getLocation());
+            Event commute = eventFactory.create(requestModel.getName() + " commute", requestModel.getStartTime().plusDays(7*i).minusMinutes(requestModel.getCommute()),
+                    requestModel.getStartTime().plusDays(7*i), true, null, requestModel.getLocation());
+            event = eventFactory.create(requestModel.getName(), requestModel.getStartTime().plusDays(7*i),
+                    requestModel.getEndTime().plusDays(7*i), false, commute, requestModel.getLocation());
 
             if (!event.isValid()) {
                 return recurrentPresenter.prepareFailView("Event start must be before event end.");
