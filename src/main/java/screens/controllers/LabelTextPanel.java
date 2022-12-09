@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 import javax.swing.*;
 
 public class LabelTextPanel extends JPanel {
