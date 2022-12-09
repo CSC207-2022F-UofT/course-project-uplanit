@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 import use_cases.add_single_event_use_case.AddSingleEventInputBoundary;
 import use_cases.add_single_event_use_case.AddSingleEventRequestModel;
@@ -11,7 +11,7 @@ public class AddSingleEventController {
         this.eventInput = gateway;
     }
 
-    AddSingleEventResponseModel create(String name, String startTime, String endTime, String commute, String location) {
+    public AddSingleEventResponseModel create(String name, String startTime, String endTime, String commute, String location) {
         AddSingleEventRequestModel requestModel = new AddSingleEventRequestModel(name,startTime, endTime, commute, location);
 
         return eventInput.create(requestModel);

@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 import use_cases.modify_event_use_case.EventModifierInputBoundary;
 import use_cases.modify_event_use_case.EventModifierRequestModel;

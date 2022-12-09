@@ -16,8 +16,8 @@ public class DynamicGoalStatsInteractor implements DynamicGoalStatsInputBoundary
     public DynamicGoalStatsResponseModel create(DynamicGoalStatsRequestModel requestModel) {
         String goal = requestModel.getGoalName();
 
-        DynamicGoalStatsDsRequestModel statsDsModel = new DynamicGoalStatsDsRequestModel(goal);
-        goalStatsDsGateway.save(statsDsModel);
+        //DynamicGoalStatsDsRequestModel statsDsModel = new DynamicGoalStatsDsRequestModel(goal);
+        //goalStatsDsGateway.save(statsDsModel);
 
         // need to access csv file
         DynamicGoalStatsResponseModel goalResponseModel = new DynamicGoalStatsResponseModel(goal);
