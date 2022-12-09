@@ -1,6 +1,15 @@
+import entities.EventFactory;
+import entities.RecurrentEventFactory;
+import screens.controllers.FileRecurrentEvent;
+import screens.controllers.RecurrentEventController;
+import screens.controllers.RecurrentEventResponseFormatter;
 import screens.gui_screens.EventInformationScreen;
 import screens.gui_screens.EventsAddScreen;
 import screens.gui_screens.WeekDisplayScreen;
+import use_cases.recurrent_event_use_case.RecurrentEventDsGateway;
+import use_cases.recurrent_event_use_case.RecurrentEventInputBoundary;
+import use_cases.recurrent_event_use_case.RecurrentEventInteractor;
+import use_cases.recurrent_event_use_case.RecurrentEventPresenter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -45,15 +54,31 @@ public class Main {
         JLabel appTitle = new JLabel("UPlanIt"); //creating the JLabel that contains the heading.
         appTitle.setForeground(new Color(12, 7, 125));
 
-//        JLabel logo = new JLabel();
-//        logo.setIcon(new ImageIcon());
-//        logo.setVisible(true);
-//        logo.setBounds(200, 25, 100, 100);
-//
-//
-//        heading.add(logo);
+        JLabel logo = new JLabel();
+        logo.setIcon(new ImageIcon());
+        logo.setVisible(true);
+        logo.setBounds(200, 25, 100, 100);
+
+
+        heading.add(logo);
         heading.add(appTitle);
         heading.setVisible(true);
+
+        //============================================================================
+        // Setting up parts to plug into the Use Case+Entities engine
+        //============================================================================
+        RecurrentEventController recurrentEventController;
+        RecurrentEventDsGateway event;
+        try {
+            event = new FileRecurrentEvent("./events.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could Not Create File");
+        }
+
+        RecurrentEventPresenter presenter = new RecurrentEventResponseFormatter();
+        RecurrentEventFactory eventFactory = new RecurrentEventFactory();
+        RecurrentEventInputBoundary interactor = new RecurrentEventInteractor(event, presenter, eventFactory);
+        RecurrentEventController recurrentEventController1 = new RecurrentEventController(interactor);
 
         //============================================================================
         // Week Grid display
@@ -64,13 +89,13 @@ public class Main {
 
 
         //===========================================================================
-        //Event display (if selected an event from week
+        //Event display (if selected an event from week)
         //===========================================================================
         EventInformationScreen eventInfo = new EventInformationScreen();
         eventInfo.setBounds(620, 200, 250, 400);
 
         //===========================================================================
-        //ADD Buttons
+        //Event ADD Buttons
         //==========================================================================
         EventsAddScreen addEvents = new EventsAddScreen();
         addEvents.setBackground(Color.white);
@@ -79,7 +104,7 @@ public class Main {
 
 
 
-
+        //Adding all panels to the frame.
         application.getContentPane().add(addEvents);
         application.getContentPane().add(eventInfo);
         application.getContentPane().add(weekDisplay);

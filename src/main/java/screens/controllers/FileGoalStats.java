@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 import use_cases.dynamic_goal_statistics_use_case.DynamicGoalStatsDsRequestModel;
 import use_cases.dynamic_goal_statistics_use_case.DynamicGoalStatsDsGateway;

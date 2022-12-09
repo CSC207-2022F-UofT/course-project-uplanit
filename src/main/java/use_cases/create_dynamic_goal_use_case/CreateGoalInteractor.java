@@ -1,7 +1,6 @@
 package use_cases.create_dynamic_goal_use_case;
 
 import entities.DynamicGoal;
-import screens.FileDynamicGoals;
 
 
 public class CreateGoalInteractor implements CreateGoalInputBoundary {
