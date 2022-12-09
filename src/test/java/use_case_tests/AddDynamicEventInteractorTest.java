@@ -49,5 +49,6 @@ public class AddDynamicEventInteractorTest {
 
         // Running the use case.
         interactor.create(inputData);
+
     }
 }
