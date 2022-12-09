@@ -160,18 +160,18 @@ public class FileRecurrentEvent implements RecurrentEventDsGateway, DeleteEventD
     public boolean hasConflict(LocalDateTime startTime, LocalDateTime endTime) {
 
         if (events.containsKey(startTime)) {
-            return false;
+            return true;
         }
         for (LocalDateTime start : events.keySet()) {
             LocalDateTime end = events.get(start).getEndTime();
 
-            if (!((startTime.isBefore(start) | startTime.isEqual(start)) & (endTime.isBefore(start) |
+            if (!((startTime.isBefore(start) & (endTime.isBefore(start)) |
                     endTime.isEqual(start))) |
             !(((startTime.isAfter(end) | startTime.isEqual(end)) & (endTime.isAfter(end))) | endTime.isEqual(end))) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**

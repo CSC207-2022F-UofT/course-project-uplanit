@@ -29,6 +29,7 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
 
         Event event = null;
 
+        // using variable i to iterate through the 12 weeks that this recurrent event will be scheduled on.
         for (int i = 0; i <= 11; i++) {
 
 
