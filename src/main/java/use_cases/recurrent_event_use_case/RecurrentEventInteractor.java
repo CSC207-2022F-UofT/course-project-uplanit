@@ -22,7 +22,6 @@ public class RecurrentEventInteractor implements RecurrentEventInputBoundary {
 
     }
 
-
     // Create a new request model for the commute and event recurring 12 times from the users input and save it
     @Override
     public RecurrentEventResponseModel create(RecurrentEventRequestModel requestModel) {
