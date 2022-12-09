@@ -52,7 +52,7 @@ public class AddDynamicEventInteractorTest {
         // 2) Input data — we can make this up for the test. Normally it would
         // be created by the Controller.
         AddDynamicEventRequestModel inputData = new  AddDynamicEventRequestModel(
-                "paul", "pwd1234", "pwd1234");
+                "paul", "29/07/2023 11:45", "29/07/2023 13:45");
 
         // 3) Run the use case
         interactor.create(inputData);

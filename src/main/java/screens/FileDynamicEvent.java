@@ -136,7 +136,7 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
 
                     // The row for the event is created using the String.format() method.
                     String line = String.format("%s,%s,%s,%s,%s,%s,%s",
-                            event.getName(), formatted_start_time, formatted_end_time, event.getIsCommute(),
+                            event.getName(), formatted_start_time, formatted_end_time, "false",
                             "0", event.getLocation(), "D");
                     writer.write(line);
                     writer.newLine();

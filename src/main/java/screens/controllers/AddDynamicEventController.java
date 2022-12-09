@@ -39,7 +39,7 @@ public class AddDynamicEventController {
         LocalDateTime end_time = LocalDateTime.parse(end_time_str, formatter);
 
         AddDynamicEventRequestModel requestModel = new AddDynamicEventRequestModel(event_name, start_time,
-                end_time, false, null, location);
+                end_time, location);
 
         // Calls the create method that is defined in the AddDynamicEventInputBoundary interface and implemented
         // in the AddDynamicEventInteractor to return AddDynamicEventResponseModel object.
