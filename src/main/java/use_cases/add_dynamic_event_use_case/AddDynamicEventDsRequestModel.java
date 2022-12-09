@@ -19,12 +19,9 @@ public class AddDynamicEventDsRequestModel {
      * @param name the name for this event
      * @param startTime the start time for this event
      * @param endTime the end time for this event
-     * @param isCommute whether this event requires commute
-     * @param commute the event corresponding to the commute
      * @param location the location of this event
      */
-    public AddDynamicEventDsRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, boolean isCommute,
-                                         Event commute, String location){
+    public AddDynamicEventDsRequestModel(String name, LocalDateTime startTime, LocalDateTime endTime, String location){
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;

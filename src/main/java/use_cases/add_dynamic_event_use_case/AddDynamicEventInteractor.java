@@ -1,7 +1,6 @@
 package use_cases.add_dynamic_event_use_case;
 
 import entities.Event;
-import entities.DynamicEvent;
 import entities.DynamicEventFactory;
 
 // Application Business Rules (Use Case) Layer; Use Case Interactor
@@ -61,8 +60,7 @@ public class AddDynamicEventInteractor implements AddDynamicEventInputBoundary {
 
                 // Create eventDsModel (Data Structure Request Model) for this event.
                 AddDynamicEventDsRequestModel eventDsModel = new AddDynamicEventDsRequestModel(dynamicEvent.getName(),
-                    dynamicEvent.getStartTime(), dynamicEvent.getEndTime(),
-                    dynamicEvent.isCommute(), dynamicEvent.getCommute(), dynamicEvent.getLocation());
+                    dynamicEvent.getStartTime(), dynamicEvent.getEndTime(), dynamicEvent.getLocation());
 
                 // Use the save method implemented in FileDynamicEvent to save this event into the events HashMap and
                 // to the csv file.

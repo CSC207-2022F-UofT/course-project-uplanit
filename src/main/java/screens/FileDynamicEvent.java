@@ -1,6 +1,5 @@
 package screens;
 
-import entities.Event;
 import use_cases.add_dynamic_event_use_case.AddDynamicEventDsRequestModel;
 import use_cases.add_dynamic_event_use_case.AddDynamicEventDsGateway;
 import use_cases.add_dynamic_event_use_case.AddDynamicEventRequestModel;
@@ -11,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 
 
 // Frameworks and Drivers layer
@@ -85,7 +83,7 @@ public class FileDynamicEvent implements AddDynamicEventDsGateway{
                     // The information read for the event is stored as type AddDynamicEventDsRequestModel and is added
                     // to the events HashMap.
                     AddDynamicEventDsRequestModel event = new AddDynamicEventDsRequestModel(name, start_time, end_time,
-                            false, null, location);
+                            location);
                     events.put(start_time, event);
                 }
 
