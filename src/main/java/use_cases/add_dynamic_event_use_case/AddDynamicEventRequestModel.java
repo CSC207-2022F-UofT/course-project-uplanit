@@ -1,7 +1,5 @@
 package use_cases.add_dynamic_event_use_case;
 
-import entities.Event;
-
 import java.time.LocalDateTime;
 
 // Application Business Rules (Use Case) Layer; Input Data Structure
