@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 import use_cases.add_single_event_use_case.AddSingleEventInputBoundary;
 import use_cases.add_single_event_use_case.AddSingleEventRequestModel;

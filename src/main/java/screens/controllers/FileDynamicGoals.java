@@ -1,4 +1,4 @@
-package screens;
+package screens.controllers;
 
 import entities.DynamicGoal;
 import use_cases.create_dynamic_goal_use_case.GatewayDataStructure;
