@@ -41,7 +41,7 @@ public class FileAddEvent implements AddSingleEventDsGateway {
                 String name = values[titles.get("name")];
                 LocalDateTime startTime = LocalDateTime.parse(values[titles.get("startTime")], formatter);
                 LocalDateTime endTime = LocalDateTime.parse(values[titles.get("endTime")], formatter);
-                boolean isCommute = Boolean.parseBoolean(values[titles.get("name")]);
+                boolean isCommute = Boolean.parseBoolean(values[titles.get("isCommute")]);
                 int commuteTime = Integer.parseInt(values[titles.get("commuteTime")]);
                 String location = values[titles.get("location")];
                 String eventType = values[titles.get("eventType")];

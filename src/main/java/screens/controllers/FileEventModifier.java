@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.time.format.DateTimeFormatter;
 
-import use_cases.add_dynamic_event_use_case.AddDynamicEventDsRequestModel;
 import use_cases.modify_event_use_case.EventModifierDsGateway;
 import use_cases.modify_event_use_case.EventModifierRequestModel;
 import use_cases.modify_event_use_case.EventModifierDsRequestModel;
@@ -69,14 +68,6 @@ public class FileEventModifier implements EventModifierDsGateway {
 
             events.put(startTimeString, event);
 
-                /*
-                this.originalName = name;
-                this.originalStartTime = startTime;
-                this.originalEndTime = endTime;
-                this.originalCommuteTime = commuteTime;
-                this.originalIsCommute = isCommute;
-                this.originalLocation = location;
-                 */
 
                 reader.close();
                 }
