@@ -42,27 +42,30 @@ public class FileGoalStats implements DynamicGoalStatsDsGateway {
         headersDynEvents.put("location", 5);
         headersDynEvents.put("event_type", 6);
 
-        if (csvGoalsFile.length() == 0) {}
-
         BufferedReader reader1 = new BufferedReader(new FileReader(csvDynEventFile));
         reader1.readLine(); // skips the header
 
-            // Reads dynamic event csv file
+            // Reads dynamic events csv file
             String row1;
             while ((row1 = reader1.readLine()) != null) {
                 String[] col1 = row1.split(",");
                 String name = String.valueOf(col1[headersDynEvents.get("name")]);
 
-                String start_time_str = String.valueOf(col1[headersDynEvents.get("start_time")]);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
+                String start_time_str = String.valueOf(col1[headersDynEvents.get("start_time")]);
                 LocalDateTime start_time = LocalDateTime.parse(start_time_str, formatter);
 
                 String end_time_str = String.valueOf(col1[headersDynEvents.get("end_time")]);
                 LocalDateTime end_time = LocalDateTime.parse(end_time_str, formatter);
 
+                String event_type = String.valueOf(col1[headersDynEvents.get("event_type")]);
+
                 DynEventDsRequestModel events = new DynEventDsRequestModel(name, start_time, end_time);
-                eventsMap.put(name, events);
+
+                if(event_type.equals("D")){
+                    eventsMap.put(name, events);
+                }
             }
             reader1.close();
 
@@ -72,9 +75,9 @@ public class FileGoalStats implements DynamicGoalStatsDsGateway {
             // Reads dynamic goal csv file
             String row2;
             while ((row2 = reader2.readLine()) != null) {
-                String[] col = reader2.readLine().split(",");
-                String goalName = String.valueOf(col[headersGoals.get("Goal name")]);
-                int duration = Integer.parseInt(col[headersGoals.get("Time in minutes")]);
+                String[] col2 = row2.split(",");
+                String goalName = String.valueOf(col2[headersGoals.get("Goal name")]);
+                int duration = Integer.parseInt(col2[headersGoals.get("Time in minutes")]);
 
                 DynGoalDsRequestModel goals = new DynGoalDsRequestModel(goalName, duration);
                 goalsMap.put(goalName, goals);
@@ -82,13 +85,10 @@ public class FileGoalStats implements DynamicGoalStatsDsGateway {
             }
             reader2.close();
         }
-
-        public Map getGoalsMap(){
+        public Map<String, DynGoalDsRequestModel> getGoalsMap(){
         return this.goalsMap;
         }
-
-    public Map getEventsMap(){
+        public Map<String, DynEventDsRequestModel> getEventsMap(){
         return this.eventsMap;
     }
-
-    }
+}
