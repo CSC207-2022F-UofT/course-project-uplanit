@@ -20,7 +20,4 @@ public class AddDynamicEventResponseModel {
         return name;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }
