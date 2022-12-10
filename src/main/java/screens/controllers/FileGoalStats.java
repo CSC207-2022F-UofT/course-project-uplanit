@@ -1,7 +1,6 @@
 package screens.controllers;
 
 import use_cases.dynamic_goal_statistics_use_case.DynEventDsRequestModel;
-import use_cases.dynamic_goal_statistics_use_case.DynamicGoalStatsDsGateway;
 import use_cases.dynamic_goal_statistics_use_case.DynGoalDsRequestModel;
 
 import java.io.*;
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileGoalStats implements DynamicGoalStatsDsGateway {
+public class FileGoalStats {
 
     private final File csvGoalsFile;
     private final File csvDynEventFile;
