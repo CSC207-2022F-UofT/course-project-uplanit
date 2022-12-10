@@ -14,10 +14,12 @@ import java.awt.event.ActionEvent;
 
 public class SingleEventAddScreen extends JPanel implements ActionListener {
     JTextField eventName = new JTextField(15);
-    JTextField eventType = new JTextField("R", 15);
+    JTextField eventType = new JTextField("S", 15);
 
     JTextField eventDateStart = new JTextField(15);
     JTextField eventDateEnd = new JTextField(15);
+
+    JTextField commute = new JTextField(15);
 
     AddSingleEventController singleEventController;
     public SingleEventAddScreen(AddSingleEventController singleEventController) {
@@ -34,6 +36,11 @@ public class SingleEventAddScreen extends JPanel implements ActionListener {
 
         LabelTextPanel eventNameInfo = new LabelTextPanel(new JLabel("Event Name:"), eventName);
         this.add(eventNameInfo);
+
+        LabelTextPanel commuteInfo = new LabelTextPanel(
+                new JLabel("Commute time"), commute);
+        this.add(commuteInfo);
+
         JLabel formatinfo = new JLabel("(Format: dd/MM/YY HH:MM)");
         this.add(formatinfo);
 
@@ -45,6 +52,7 @@ public class SingleEventAddScreen extends JPanel implements ActionListener {
 
         this.add(eventDateStartInfo);
         this.add(eventDateEndInfo);
+
 
         JButton submit = new JButton("Submit");
         submit.addActionListener(this);
@@ -58,7 +66,7 @@ public class SingleEventAddScreen extends JPanel implements ActionListener {
         System.out.println("Click " + evt.getActionCommand());
         try {
             singleEventController.create(eventName.getText(),
-                    eventDateStart.getText(), eventDateEnd.getText(), "false", "library");
+                    eventDateStart.getText(), eventDateEnd.getText(), commute.getText(), "library");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
