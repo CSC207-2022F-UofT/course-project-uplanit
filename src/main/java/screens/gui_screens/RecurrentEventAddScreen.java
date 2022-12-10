@@ -7,52 +7,47 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
 
 
-public class RecurrentEventAddScreen extends JFrame implements ActionListener {
+public class RecurrentEventAddScreen extends JPanel implements ActionListener {
     JTextField eventName = new JTextField(15);
     JTextField eventType = new JTextField("R", 15);
-    SimpleDateFormat eventDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
-    JFormattedTextField eventDateStart = new JFormattedTextField(eventDateFormat);
-    JFormattedTextField eventDateEnd = new JFormattedTextField(eventDateFormat);
+
+    JTextField eventDateStart = new JTextField(15);
+    JTextField eventDateEnd = new JTextField(15);
 
     RecurrentEventController recurrentEventController;
 
     public RecurrentEventAddScreen(RecurrentEventController controller) {
         this.recurrentEventController = controller;
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // setSize sets the size of the screen and setDefaultCloseOperation defines
-        this.setSize(950,675);
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        panel.setBackground(Color.WHITE);
+        this.setLayout(new FlowLayout());
+        this.setBackground(Color.WHITE);
+        this.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 
-        JLabel title = new JLabel("Add a one time event");
+        JLabel title = new JLabel("Add a recurring event");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setForeground(new Color(12, 7, 125));
+        this.add(title);
 
         LabelTextPanel eventNameInfo = new LabelTextPanel(new JLabel("Event Name:"), eventName);
+        this.add(eventNameInfo);
+        JLabel formatinfo = new JLabel("(Format: dd/MM/YY HH:MM)");
+        this.add(formatinfo);
 
-        panel.add(eventNameInfo);
+        LabelTextPanel eventDateStartInfo = new LabelTextPanel(
+                new JLabel("Start Time:"), eventDateStart);
 
-        LabelDatePanel eventDateStartInfo = new LabelDatePanel(
-                new JLabel("Enter the start time: (day/Month/year hour:minute)"), eventDateStart);
+        LabelTextPanel eventDateEndInfo = new LabelTextPanel(
+                new JLabel("End Time"), eventDateEnd);
 
-        LabelDatePanel eventDateEndInfo = new LabelDatePanel(
-                new JLabel("Enter the end time: (day/Month/year hour:minute)"), eventDateEnd);
-
-        panel.add(eventDateStartInfo);
-        panel.add(eventDateEndInfo);
+        this.add(eventDateStartInfo);
+        this.add(eventDateEndInfo);
 
         JButton submit = new JButton("Submit");
         submit.addActionListener(this);
 
-        panel.add(submit);
-
-        this.add(panel);
+        this.add(submit);
     }
 
 

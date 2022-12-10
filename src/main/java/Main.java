@@ -1,11 +1,13 @@
 import entities.EventFactory;
 import entities.RecurrentEventFactory;
-import screens.controllers.FileRecurrentEvent;
-import screens.controllers.RecurrentEventController;
-import screens.controllers.RecurrentEventResponseFormatter;
-import screens.gui_screens.EventInformationScreen;
-import screens.gui_screens.EventsAddScreen;
-import screens.gui_screens.WeekDisplayScreen;
+import entities.SingleEventFactory;
+import screens.controllers.*;
+import screens.gui_screens.*;
+import use_cases.add_single_event_use_case.AddSingleEventDsGateway;
+import use_cases.add_single_event_use_case.AddSingleEventInputBoundary;
+import use_cases.add_single_event_use_case.AddSingleEventInteractor;
+import use_cases.add_single_event_use_case.AddSingleEventPresenter;
+import use_cases.display_week_use_case.DisplayWeekDsGateway;
 import use_cases.recurrent_event_use_case.RecurrentEventDsGateway;
 import use_cases.recurrent_event_use_case.RecurrentEventInputBoundary;
 import use_cases.recurrent_event_use_case.RecurrentEventInteractor;
@@ -21,8 +23,6 @@ import java.net.URL;
 import java.util.Objects;
 
 public class Main {
-
-
     // The purpose of this file (by convention) is to instantiate the ui when the program is run.
     // the additional screens that need to be displayed in accordance with use of the GUI will be created as
     // separate files (one per view) in the screens package.
@@ -55,7 +55,7 @@ public class Main {
         appTitle.setForeground(new Color(12, 7, 125));
 
         JLabel logo = new JLabel();
-        logo.setIcon(new ImageIcon());
+        logo.setIcon(new ImageIcon("img/logo.png"));
         logo.setVisible(true);
         logo.setBounds(200, 25, 100, 100);
 
@@ -67,18 +67,37 @@ public class Main {
         //============================================================================
         // Setting up parts to plug into the Use Case+Entities engine
         //============================================================================
-        RecurrentEventController recurrentEventController;
-        RecurrentEventDsGateway event;
+        RecurrentEventDsGateway recurrentEvent;
         try {
-            event = new FileRecurrentEvent("./events.csv");
+            recurrentEvent = new FileRecurrentEvent("./events.csv");
         } catch (IOException e) {
             throw new RuntimeException("Could Not Create File");
         }
 
-        RecurrentEventPresenter presenter = new RecurrentEventResponseFormatter();
-        RecurrentEventFactory eventFactory = new RecurrentEventFactory();
-        RecurrentEventInputBoundary interactor = new RecurrentEventInteractor(event, presenter, eventFactory);
-        RecurrentEventController recurrentEventController1 = new RecurrentEventController(interactor);
+        RecurrentEventPresenter recurrentEventPresenter = new RecurrentEventResponseFormatter();
+        RecurrentEventFactory recurrentEventFactory = new RecurrentEventFactory();
+        RecurrentEventInputBoundary recurrentEventInteractor = new RecurrentEventInteractor(recurrentEvent,
+                recurrentEventPresenter, recurrentEventFactory);
+        RecurrentEventController recurrentEventController = new RecurrentEventController(recurrentEventInteractor);
+
+        AddSingleEventDsGateway singleEvent;
+        try {
+            singleEvent = new FileAddEvent("./events.csv");
+        } catch (IOException e) {
+            throw new RuntimeException("Could Not Create File");
+        }
+//        //for single event
+        AddSingleEventPresenter singleEventPresenter = new AddSingleEventResponseFormatter();
+        SingleEventFactory singleEventFactory = new SingleEventFactory();
+        AddSingleEventInputBoundary singleEventInteractor = new AddSingleEventInteractor(singleEvent,
+                singleEventPresenter, singleEventFactory);
+        AddSingleEventController singleEventController = new AddSingleEventController(singleEventInteractor);
+
+
+//        //for displaying week
+//        DisplayWeekController displayWeekController;
+//        DisplayWeekDsGateway week;
+
 
         //============================================================================
         // Week Grid display
@@ -97,18 +116,26 @@ public class Main {
         //===========================================================================
         //Event ADD Buttons
         //==========================================================================
-        EventsAddScreen addEvents = new EventsAddScreen();
-        addEvents.setBackground(Color.white);
-        addEvents.setBounds(620, 30, 250, 150);
 
+        //for recurrent events
+        JPanel recurrentScreen = new RecurrentEventAddScreen(recurrentEventController);
+        recurrentScreen.setBounds(620, 30, 300, 200);
 
-
+        JPanel singleEventScreen = new SingleEventAddScreen(singleEventController);
+        singleEventScreen.setBounds(620, 245, 300, 200);
 
         //Adding all panels to the frame.
-        application.getContentPane().add(addEvents);
-        application.getContentPane().add(eventInfo);
+        application.getContentPane().add(recurrentScreen);
+        application.getContentPane().add(singleEventScreen);
         application.getContentPane().add(weekDisplay);
         application.getContentPane().add(heading);
         application.setVisible(true);
     }
 }
+
+
+
+//THE FOLLOWING JPANEL SCREEN WAS REMOVED IN FAVOR OF ADDING THE EVENT INPUTS IN THE MAIN APPLICATIONJFRAME
+//        EventsAddScreen addEvents = new EventsAddScreen(recurrentEventController);
+//        addEvents.setBackground(Color.white);
+//        addEvents.setBounds(620, 30, 250, 150);

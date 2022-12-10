@@ -4,8 +4,10 @@ package use_cases.display_week_use_case;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.zip.DataFormatException;
 
 public class DisplayWeekInteractor implements DisplayWeekInputBoundary{
     final DisplayWeekDsGateway reader;
@@ -29,7 +31,13 @@ public class DisplayWeekInteractor implements DisplayWeekInputBoundary{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
         ArrayList<ArrayList<ArrayList<String>>> week = new ArrayList<>();
-        LocalDate temp = LocalDateTime.parse(requestModel.getDay(), formatter).toLocalDate();
+        LocalDate temp;
+        try{
+            temp = LocalDateTime.parse(requestModel.getDay(), formatter).toLocalDate();
+        } catch (DateTimeParseException ex){
+            return presenter.prepareFailView("Wrong date format");
+        }
+
         LocalDate monday = temp.minusDays(temp.getDayOfWeek().getValue() -1);
         LocalDate counter;
         for (int i=0; i<8; i++){

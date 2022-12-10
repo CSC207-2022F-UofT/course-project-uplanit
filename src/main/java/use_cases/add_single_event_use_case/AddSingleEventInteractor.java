@@ -6,6 +6,7 @@ import entities.SingleEventFactory;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class AddSingleEventInteractor implements AddSingleEventInputBoundary {
 /*
@@ -25,10 +26,25 @@ CALL EVENT FACTORY
 
     @Override
     public AddSingleEventResponseModel create(AddSingleEventRequestModel requestModel) {
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+        int commuteLength;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-        LocalDateTime startTime = LocalDateTime.parse(requestModel.getStartTime(), formatter);
-        LocalDateTime endTime = LocalDateTime.parse(requestModel.getStartTime(), formatter);
-        int commuteLength = Integer.parseInt(requestModel.getCommuteTime());
+        try{
+            startTime = LocalDateTime.parse(requestModel.getStartTime(), formatter);
+        } catch (DateTimeParseException ex){
+            return presenter.prepareFailView("Start Time did not follow date format");
+        }
+        try{
+            endTime = LocalDateTime.parse(requestModel.getEndTime(), formatter);
+        } catch (DateTimeParseException ex){
+            return presenter.prepareFailView("End Time did not follow date format");
+        }
+        try{
+            commuteLength = Integer.parseInt(requestModel.getCommuteTime());
+        } catch(NumberFormatException ex){
+            return presenter.prepareFailView("Commute Time was not an Integer");
+        }
         LocalDateTime commuteStart = startTime.minusMinutes(commuteLength);
 
         if (reader.checkConflict(startTime, endTime)){

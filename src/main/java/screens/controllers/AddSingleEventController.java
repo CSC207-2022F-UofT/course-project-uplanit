@@ -11,7 +11,7 @@ public class AddSingleEventController {
         this.eventInput = gateway;
     }
 
-    AddSingleEventResponseModel create(String name, String startTime, String endTime, String commute, String location) {
+    public AddSingleEventResponseModel create(String name, String startTime, String endTime, String commute, String location) {
         AddSingleEventRequestModel requestModel = new AddSingleEventRequestModel(name,startTime, endTime, commute, location);
 
         return eventInput.create(requestModel);
