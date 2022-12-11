@@ -8,11 +8,15 @@ public class InputDataStructure {
     private String goalTitle;
     private LocalDate startDate;
     private LocalDate endDate;
-    public InputDataStructure(int goalDuration, String goalName, LocalDate startDate, LocalDate endDate ){
-        this.goalInMinutes = goalDuration;
+    //The user will input text; this is passed to the use case interactor layer as strings, but these need to be
+    //turned into ints and DateTime objects.
+    // we are assuming that the dates are formatted as "dd/mm/yy"
+    public InputDataStructure(String goalDuration, String goalName, String startDate, String endDate ){
+        this.goalInMinutes = Integer.parseInt(goalDuration);
         this.goalTitle = goalName;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd//MM/yy");
+        this.startDate = LocalDate.parse(startDate, formatter); //saving the instance attribute as the actual DateTime obj
+        this.endDate = LocalDate.parse(endDate, formatter);
     }
 
     int getGoalInMinutes(){return goalInMinutes;}
